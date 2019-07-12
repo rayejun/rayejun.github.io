@@ -8,7 +8,7 @@ subtitle: Raye Jun
 description: 专注、只为与你更好的遇见...
 keywords: 晴天丶Smile的博客
 author: 晴天丶Smile
-language: zh-Hans
+language: zh-CN
 timezone:
 
 # URL
@@ -74,6 +74,13 @@ pagination_dir: page
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 theme: next
+
+# search
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
