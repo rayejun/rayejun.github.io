@@ -34,7 +34,7 @@ Apollo配置管理平台如下:
 可以在管理平台中管理自己的配置
 
 ## 新建spring boot项目添加apollo依赖
-以maven为列：
+以maven为例：
 ```
 <dependency>
 	<groupId>com.ctrip.framework.apollo</groupId>
