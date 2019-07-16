@@ -1,5 +1,5 @@
 ---
-title: IntelliJ IDEA用JRebel插件实现热部署，破解JRebel
+title: IntelliJ IDEA用JRebel插件实现热部署、破解JRebel
 date: 2019-07-16 16:37:31
 categories: 
  - [IntelliJ IDEA]
@@ -18,4 +18,4 @@ File->Settings->Plugins->Browse repositories
 {% asset_img jrebel-activation-success.png %}
 这里就激活成功了
 
-以后运行项目用JRebel插件按钮运行项目，改代码直接Build一下就行了，不用在重启项目，省了好多浪费的时间
+以后运行项目用JRebel插件按钮运行项目，改代码直接保存Build一下就行了，不用在重启项目，省去好多浪费时间。
