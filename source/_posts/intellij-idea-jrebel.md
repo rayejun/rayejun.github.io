@@ -1,10 +1,10 @@
 ---
 title: IntelliJ IDEA用JRebel插件实现热部署、破解JRebel
 date: 2019-07-16 16:37:31
-categories: 
- - [IntelliJ IDEA]
 tags: 
  - IntelliJ IDEA
+categories: 
+ - [IntelliJ IDEA]
 ---
 ## IDEA安装JRebel插件
 File->Settings->Plugins->Browse repositories
