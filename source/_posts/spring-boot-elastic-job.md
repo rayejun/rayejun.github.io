@@ -91,7 +91,7 @@ elastic-job-lite-console-${version}.tar.gz可通过mvn install编译获取。
 	<version>2.1.5</version>
 </dependency>
 
-<!-- Elastic-Job提供了事件追踪功能，可通过事件订阅的方式处理调度过程的重要事件，用于查询、统计和监控。Elastic-Job目前提供了基于关系型数据库两种事件订阅方式记录事件。添加如下依赖-->
+<!-- Elastic-Job提供了事件追踪功能，可通过事件订阅的方式处理调度过程的重要事件，用于查询、统计和监控。Elastic-Job目前提供了基于关系型数据库两种事件订阅方式记录事件。添加如下依赖 -->
 <dependency>
 	<groupId>mysql</groupId>
 	<artifactId>mysql-connector-java</artifactId>
