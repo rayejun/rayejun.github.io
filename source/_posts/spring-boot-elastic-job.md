@@ -1,7 +1,12 @@
 ---
 title: Spring Boot集成Elastic-Job实现分布式任务调度系统
 date: 2019-07-26 15:01:02
-tags:
+tags: 
+ - Spring Boot 
+ - Elastic-Job
+categories: 
+ - [Spring Boot] 
+ - [Elastic-Job]
 ---
 ## Elastic-Job
 Elastic-Job是由当当网基于quartz二次开发之后的分布式调度解决方案 ， 由两个相对独立的子项目Elastic-Job-Lite和Elastic-Job-Cloud组成 。
@@ -50,7 +55,7 @@ Elastic-Job-Lite也提供最灵活的方式，最大限度的提高执行作业�
 例如：3台服务器，分成10片，则分片项分配结果为服务器A=0,1,2;服务器B=3,4,5;服务器C=6,7,8,9。 如果服务器C崩溃，则分片项分配结果为服务器A=0,1,2,3,4;服务器B=5,6,7,8,9。在不丢失分片项的情况下，最大限度的利用现有资源提高吞吐量。
 
 ## 整体架构图
-{% asset_img elastic_job_lite.png %}
+![整体架构图](elastic_job_lite.png)
 
 ## 搭建运维平台
 解压缩elastic-job-lite-console-${version}.tar.gz并执行bin\start.sh。打开浏览器访问http://localhost:8899/即可访问控制台。8899为默认端口号，可通过启动脚本输入-p自定义端口号。
@@ -73,7 +78,7 @@ elastic-job-lite-console-${version}.tar.gz可通过mvn install编译获取。
 ### 不支持项
 加作业 作业在首次运行时将自动添加。Elastic-Job-Lite以jar方式启动，并无作业分发功能。如需完全通过运维平台发布作业，请使用Elastic-Job-Cloud。
 注意：依赖注册中心，要先启动zookeeper。
-{% asset_img elastic-job-lite-console.png %}
+![运维平台图](elastic-job-lite-console.png)
 
 ## 快速开始
 
@@ -486,6 +491,6 @@ public class TestSimpleJob implements SimpleJob {
 }
 ```
 到此为止，启动程序，在运维控制台就可以看到TestSimpleJob这个任务了，平台上可以对任务进行一些操作。
-{% asset_img test-simple-job.png %}
+![运维控制台图](test-simple-job.png)
 
 更多关于Elastic-Job的内容，请前往官网：http://elasticjob.io

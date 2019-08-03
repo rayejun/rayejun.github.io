@@ -30,7 +30,7 @@ namespace (命名空间)
 [参考文档](https://github.com/ctripcorp/apollo/wiki/%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97)
 
 Apollo配置管理平台如下:
-{% asset_img apollo-manage.png %}
+![配置管理平台图](apollo-manage.png)
 可以在管理平台中管理自己的配置
 
 ## 新建spring boot项目添加apollo依赖
