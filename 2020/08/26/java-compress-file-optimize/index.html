@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.meetjun.top","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="有一个需求需要将前端传过来的10张照片，然后后端进行处理以后压缩成一个压缩包通过网络流传输出去。之前没有接触过用Java压缩文件的，所以就直接上网找了一个例子改了一下用了，改完以后也能使用，但是随着前端所传图片的大小越来越大的时候，耗费的时间也在急剧增加，最后测了一下压缩20M的文件竟然需要30秒的时间。压缩文件的代码如下。 1234567891011121314151617181920publi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java压缩20M文件从30秒到1秒的优化过程">
+<meta property="og:url" content="http://www.meetjun.top/2020/08/26/java-compress-file-optimize/index.html">
+<meta property="og:site_name" content="顾我安心君">
+<meta property="og:description" content="有一个需求需要将前端传过来的10张照片，然后后端进行处理以后压缩成一个压缩包通过网络流传输出去。之前没有接触过用Java压缩文件的，所以就直接上网找了一个例子改了一下用了，改完以后也能使用，但是随着前端所传图片的大小越来越大的时候，耗费的时间也在急剧增加，最后测了一下压缩20M的文件竟然需要30秒的时间。压缩文件的代码如下。 1234567891011121314151617181920publi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.meetjun.top/2020/08/26/java-compress-file-optimize/java-compress-file-optimize-1.jpg">
+<meta property="og:image" content="http://www.meetjun.top/2020/08/26/java-compress-file-optimize/java-compress-file-optimize-2.jpg">
+<meta property="og:image" content="http://www.meetjun.top/2020/08/26/java-compress-file-optimize/java-compress-file-optimize-3.jpg">
+<meta property="og:image" content="http://www.meetjun.top/2020/08/26/java-compress-file-optimize/java-compress-file-optimize-4.jpg">
+<meta property="og:image" content="http://www.meetjun.top/2020/08/26/java-compress-file-optimize/java-compress-file-optimize-5.jpg">
+<meta property="article:published_time" content="2020-08-26T07:17:43.000Z">
+<meta property="article:modified_time" content="2020-08-26T07:49:42.506Z">
+<meta property="article:author" content="顾我安心君">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.meetjun.top/2020/08/26/java-compress-file-optimize/java-compress-file-optimize-1.jpg">
+
+<link rel="canonical" href="http://www.meetjun.top/2020/08/26/java-compress-file-optimize/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java压缩20M文件从30秒到1秒的优化过程 | 顾我安心君</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">顾我安心君</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.meetjun.top/2020/08/26/java-compress-file-optimize/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="顾我安心君">
+      <meta itemprop="description" content="本站是顾我安心君的博客, 内容涵盖Java、Spring、Spring Boot、微服务、C#、.NET、ASP.NET、.NET Core、JavaScript、Docker、云原生等相关研究与知识。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="顾我安心君">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java压缩20M文件从30秒到1秒的优化过程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-26 15:17:43 / 修改时间：15:49:42" itemprop="dateCreated datePublished" datetime="2020-08-26T15:17:43+08:00">2020-08-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>有一个需求需要将前端传过来的10张照片，然后后端进行处理以后压缩成一个压缩包通过网络流传输出去。之前没有接触过用Java压缩文件的，所以就直接上网找了一个例子改了一下用了，<br>改完以后也能使用，但是随着前端所传图片的大小越来越大的时候，耗费的时间也在急剧增加，最后测了一下压缩20M的文件竟然需要30秒的时间。压缩文件的代码如下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public static void zipFileNoBuffer() &#123;</span><br><span class="line">    File zipFile &#x3D; new File(ZIP_FILE);</span><br><span class="line">    try (ZipOutputStream zipOut &#x3D; new ZipOutputStream(new FileOutputStream(zipFile))) &#123;</span><br><span class="line">        &#x2F;&#x2F;开始时间</span><br><span class="line">        long beginTime &#x3D; System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">        for (int i &#x3D; 0; i &lt; 10; i++) &#123;</span><br><span class="line">            try (InputStream input &#x3D; new FileInputStream(JPG_FILE)) &#123;</span><br><span class="line">                zipOut.putNextEntry(new ZipEntry(FILE_NAME + i));</span><br><span class="line">                int temp &#x3D; 0;</span><br><span class="line">                while ((temp &#x3D; input.read()) !&#x3D; -1) &#123;</span><br><span class="line">                    zipOut.write(temp);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        printInfo(beginTime);</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里找了一张2M大小的图片，并且循环十次进行测试。打印的结果如下，时间大概是30秒。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fileSize:20M</span><br><span class="line">consum time:29599</span><br></pre></td></tr></table></figure>
+<h2 id="第一次优化过程-从30秒到2秒"><a href="#第一次优化过程-从30秒到2秒" class="headerlink" title="第一次优化过程-从30秒到2秒"></a>第一次优化过程-从30秒到2秒</h2><p>进行优化首先想到的是利用缓冲区BufferInputStream。在FileInputStream中read()方法每次只读取一个字节。源码中也有说明。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Reads a byte of data from this input stream. This method blocks</span><br><span class="line"> * if no input is yet available.</span><br><span class="line"> *</span><br><span class="line"> * @return     the next byte of data, or &lt;code&gt;-1&lt;&#x2F;code&gt; if the end of the</span><br><span class="line"> *             file is reached.</span><br><span class="line"> * @exception  IOException  if an I&#x2F;O error occurs.</span><br><span class="line"> *&#x2F;</span><br><span class="line">public native int read() throws IOException;</span><br></pre></td></tr></table></figure>
+<p>这是一个调用本地方法与原生操作系统进行交互，从磁盘中读取数据。每读取一个字节的数据就调用一次本地方法与操作系统交互，是非常耗时的。<br>例如我们现在有30000个字节的数据，如果使用FileInputStream那么就需要调用30000次的本地方法来获取这些数据，而如果使用缓冲区的话（这里假设初始的缓冲区大小足够放下30000字节的数据）那么只需要调用一次就行。<br>因为缓冲区在第一次调用read()方法的时候会直接从磁盘中将数据直接读取到内存中。随后再一个字节一个字节的慢慢返回。</p>
+<blockquote>
+<p>BufferedInputStream内部封装了一个byte数组用于存放数据，默认大小是8192<br>优化过后的代码如下</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public static void zipFileBuffer() &#123;</span><br><span class="line">    File zipFile &#x3D; new File(ZIP_FILE);</span><br><span class="line">    try (ZipOutputStream zipOut &#x3D; new ZipOutputStream(new FileOutputStream(zipFile));</span><br><span class="line">            BufferedOutputStream bufferedOutputStream &#x3D; new BufferedOutputStream(zipOut)) &#123;</span><br><span class="line">        &#x2F;&#x2F;开始时间</span><br><span class="line">        long beginTime &#x3D; System.currentTimeMillis();</span><br><span class="line">        for (int i &#x3D; 0; i &lt; 10; i++) &#123;</span><br><span class="line">            try (BufferedInputStream bufferedInputStream &#x3D; new BufferedInputStream(new FileInputStream(JPG_FILE))) &#123;</span><br><span class="line">                zipOut.putNextEntry(new ZipEntry(FILE_NAME + i));</span><br><span class="line">                int temp &#x3D; 0;</span><br><span class="line">                while ((temp &#x3D; bufferedInputStream.read()) !&#x3D; -1) &#123;</span><br><span class="line">                    bufferedOutputStream.write(temp);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        printInfo(beginTime);</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">------Buffer</span><br><span class="line">fileSize:20M</span><br><span class="line">consum time:1808</span><br></pre></td></tr></table></figure>
+<h2 id="第二次优化过程-从2秒到1秒"><a href="#第二次优化过程-从2秒到1秒" class="headerlink" title="第二次优化过程-从2秒到1秒"></a>第二次优化过程-从2秒到1秒</h2><p>使用缓冲区buffer的话已经是满足了我的需求了，但是秉着学以致用的想法，就想着用NIO中知识进行优化一下。</p>
+<h3 id="使用Channel"><a href="#使用Channel" class="headerlink" title="使用Channel"></a>使用Channel</h3><p>为什么要用Channel呢？因为在NIO中新出了Channel和ByteBuffer。正是因为它们的结构更加符合操作系统执行I/O的方式，所以其速度相比较于传统IO而言速度有了显著的提高。Channel就像一个包含着煤矿的矿藏，而ByteBuffer则是派送到矿藏的卡车。也就是说我们与数据的交互都是与ByteBuffer的交互。</p>
+<p>在NIO中能够产生FileChannel的有三个类。分别是FileInputStream、FileOutputStream、以及既能读又能写的RandomAccessFile。</p>
+<p>源码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public static void zipFileChannel() &#123;</span><br><span class="line">    &#x2F;&#x2F;开始时间</span><br><span class="line">    long beginTime &#x3D; System.currentTimeMillis();</span><br><span class="line">    File zipFile &#x3D; new File(ZIP_FILE);</span><br><span class="line">    try (ZipOutputStream zipOut &#x3D; new ZipOutputStream(new FileOutputStream(zipFile));</span><br><span class="line">            WritableByteChannel writableByteChannel &#x3D; Channels.newChannel(zipOut)) &#123;</span><br><span class="line">        for (int i &#x3D; 0; i &lt; 10; i++) &#123;</span><br><span class="line">            try (FileChannel fileChannel &#x3D; new FileInputStream(JPG_FILE).getChannel()) &#123;</span><br><span class="line">                zipOut.putNextEntry(new ZipEntry(i + SUFFIX_FILE));</span><br><span class="line">                fileChannel.transferTo(0, FILE_SIZE, writableByteChannel);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        printInfo(beginTime);</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以看到这里并没有使用ByteBuffer进行数据传输，而是使用了transferTo的方法。这个方法是将两个通道进行直连。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">This method is potentially much more efficient than a simple loop</span><br><span class="line">* that reads from this channel and writes to the target channel.  Many</span><br><span class="line">* operating systems can transfer bytes directly from the filesystem cache</span><br><span class="line">* to the target channel without actually copying them. </span><br></pre></td></tr></table></figure>
+<p>这是源码上的描述文字，大概意思就是使用transferTo的效率比循环一个Channel读取出来然后再循环写入另一个Channel好。操作系统能够直接传输字节从文件系统缓存到目标的Channel中，而不需要实际的copy阶段。</p>
+<blockquote>
+<p>copy阶段就是从内核空间转到用户空间的一个过程</p>
+</blockquote>
+<p>可以看到速度相比较使用缓冲区已经有了一些的提高。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">------Channel</span><br><span class="line">fileSize:20M</span><br><span class="line">consum time:1416</span><br></pre></td></tr></table></figure>
+<h3 id="内核空间和用户空间"><a href="#内核空间和用户空间" class="headerlink" title="内核空间和用户空间"></a>内核空间和用户空间</h3><p>那么为什么从内核空间转向用户空间这段过程会慢呢？首先我们需了解的是什么是内核空间和用户空间。在常用的操作系统中为了保护系统中的核心资源，于是将系统设计为四个区域，<br>越往里权限越大，所以Ring0被称之为内核空间，用来访问一些关键性的资源。Ring3被称之为用户空间。<br><img src="/2020/08/26/java-compress-file-optimize/java-compress-file-optimize-1.jpg" alt="图片"></p>
+<blockquote>
+<p>用户态、内核态：线程处于内核空间称之为内核态，线程处于用户空间属于用户态</p>
+</blockquote>
+<p>那么我们如果此时应用程序（应用程序是都属于用户态的）需要访问核心资源怎么办呢？那就需要调用内核中所暴露出的接口用以调用，称之为系统调用。例如此时我们应用程序需要访问磁盘上的文件。<br>此时应用程序就会调用系统调用的接口open方法，然后内核去访问磁盘中的文件，将文件内容返回给应用程序。大致的流程如下<br><img src="/2020/08/26/java-compress-file-optimize/java-compress-file-optimize-2.jpg" alt="图片"></p>
+<h3 id="直接缓冲区和非直接缓冲区"><a href="#直接缓冲区和非直接缓冲区" class="headerlink" title="直接缓冲区和非直接缓冲区"></a>直接缓冲区和非直接缓冲区</h3><p>既然我们要读取一个磁盘的文件，要废这么大的周折。有没有什么简单的方法能够使我们的应用直接操作磁盘文件，不需要内核进行中转呢？有，那就是建立直接缓冲区了。</p>
+<ul>
+<li>非直接缓冲区：非直接缓冲区就是我们上面所讲内核态作为中间人，每次都需要内核在中间作为中转。<br><img src="/2020/08/26/java-compress-file-optimize/java-compress-file-optimize-3.jpg" alt="图片"></li>
+<li>直接缓冲区：直接缓冲区不需要内核空间作为中转copy数据，而是直接在物理内存申请一块空间，这块空间映射到内核地址空间和用户地址空间，<br><img src="/2020/08/26/java-compress-file-optimize/java-compress-file-optimize-4.jpg" alt="图片"><br>应用程序与磁盘之间数据的存取通过这块直接申请的物理内存进行交互。</li>
+</ul>
+<p>既然直接缓冲区那么快，我们为什么不都用直接缓冲区呢？其实直接缓冲区有以下的缺点。直接缓冲区的缺点：</p>
+<ol>
+<li>不安全</li>
+<li>消耗更多，因为它不是在JVM中直接开辟空间。这部分内存的回收只能依赖于垃圾回收机制，垃圾什么时候回收不受我们控制。</li>
+<li>数据写入物理内存缓冲区中，程序就丧失了对这些数据的管理，即什么时候这些数据被最终写入从磁盘只能由操作系统来决定，应用程序无法再干涉。</li>
+</ol>
+<blockquote>
+<p>综上所述，所以我们使用transferTo方法就是直接开辟了一段直接缓冲区。所以性能相比而言提高了许多</p>
+</blockquote>
+<h2 id="使用内存映射文件"><a href="#使用内存映射文件" class="headerlink" title="使用内存映射文件"></a>使用内存映射文件</h2><p>NIO中新出的另一个特性就是内存映射文件，内存映射文件为什么速度快呢？其实原因和上面所讲的一样，也是在内存中开辟了一段直接缓冲区。与数据直接作交互。源码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;Version 4 使用Map映射文件</span><br><span class="line">public static void zipFileMap() &#123;</span><br><span class="line">    &#x2F;&#x2F;开始时间</span><br><span class="line">    long beginTime &#x3D; System.currentTimeMillis();</span><br><span class="line">    File zipFile &#x3D; new File(ZIP_FILE);</span><br><span class="line">    try (ZipOutputStream zipOut &#x3D; new ZipOutputStream(new FileOutputStream(zipFile));</span><br><span class="line">            WritableByteChannel writableByteChannel &#x3D; Channels.newChannel(zipOut)) &#123;</span><br><span class="line">        for (int i &#x3D; 0; i &lt; 10; i++) &#123;</span><br><span class="line"></span><br><span class="line">            zipOut.putNextEntry(new ZipEntry(i + SUFFIX_FILE));</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;内存中的映射文件</span><br><span class="line">            MappedByteBuffer mappedByteBuffer &#x3D; new RandomAccessFile(JPG_FILE_PATH, &quot;r&quot;).getChannel()</span><br><span class="line">                    .map(FileChannel.MapMode.READ_ONLY, 0, FILE_SIZE);</span><br><span class="line"></span><br><span class="line">            writableByteChannel.write(mappedByteBuffer);</span><br><span class="line">        &#125;</span><br><span class="line">        printInfo(beginTime);</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>打印如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">---------Map</span><br><span class="line">fileSize:20M</span><br><span class="line">consum time:1305</span><br></pre></td></tr></table></figure>
+<p>可以看到速度和使用Channel的速度差不多的。</p>
+<h2 id="使用Pipe"><a href="#使用Pipe" class="headerlink" title="使用Pipe"></a>使用Pipe</h2><p>Java NIO 管道是2个线程之间的单向数据连接。Pipe有一个source通道和一个sink通道。其中source通道用于读取数据，sink通道用于写入数据。可以看到源码中的介绍，大概意思就是写入线程会阻塞至有读线程从通道中读取数据。如果没有数据可读，读线程也会阻塞至写线程写入数据。直至通道关闭。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Whether or not a thread writing bytes to a pipe will block until another</span><br><span class="line">thread reads those bytes</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/08/26/java-compress-file-optimize/java-compress-file-optimize-5.jpg" alt="图片"><br>我想要的效果是这样的。源码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;Version 5 使用Pip</span><br><span class="line">public static void zipFilePip() &#123;</span><br><span class="line"></span><br><span class="line">    long beginTime &#x3D; System.currentTimeMillis();</span><br><span class="line">    try(WritableByteChannel out &#x3D; Channels.newChannel(new FileOutputStream(ZIP_FILE))) &#123;</span><br><span class="line">        Pipe pipe &#x3D; Pipe.open();</span><br><span class="line">        &#x2F;&#x2F;异步任务</span><br><span class="line">        CompletableFuture.runAsync(()-&gt;runTask(pipe));</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;获取读通道</span><br><span class="line">        ReadableByteChannel readableByteChannel &#x3D; pipe.source();</span><br><span class="line">        ByteBuffer buffer &#x3D; ByteBuffer.allocate(((int) FILE_SIZE)*10);</span><br><span class="line">        while (readableByteChannel.read(buffer)&gt;&#x3D; 0) &#123;</span><br><span class="line">            buffer.flip();</span><br><span class="line">            out.write(buffer);</span><br><span class="line">            buffer.clear();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;catch (Exception e)&#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    printInfo(beginTime);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;异步任务</span><br><span class="line">public static void runTask(Pipe pipe) &#123;</span><br><span class="line"></span><br><span class="line">    try(ZipOutputStream zos &#x3D; new ZipOutputStream(Channels.newOutputStream(pipe.sink()));</span><br><span class="line">            WritableByteChannel out &#x3D; Channels.newChannel(zos)) &#123;</span><br><span class="line">        System.out.println(&quot;Begin&quot;);</span><br><span class="line">        for (int i &#x3D; 0; i &lt; 10; i++) &#123;</span><br><span class="line">            zos.putNextEntry(new ZipEntry(i+SUFFIX_FILE));</span><br><span class="line"></span><br><span class="line">            FileChannel jpgChannel &#x3D; new FileInputStream(new File(JPG_FILE_PATH)).getChannel();</span><br><span class="line"></span><br><span class="line">            jpgChannel.transferTo(0, FILE_SIZE, out);</span><br><span class="line"></span><br><span class="line">            jpgChannel.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;catch (Exception e)&#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>生活处处都需要学习，有时候只是一个简单的优化，可以让你深入学习到各种不同的知识。所以在学习中要不求甚解，不仅要知道这个知识也要了解为什么要这么做。</li>
+<li>知行合一：学习完一个知识要尽量应用一遍。这样才能记得牢靠。</li>
+</ul>
+<p>源码地址：<a target="_blank" rel="noopener" href="https://github.com/modouxiansheng/Doraemon">https://github.com/modouxiansheng/Doraemon</a></p>
+<p>来源：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/25b328753017">https://www.jianshu.com/p/25b328753017</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/26/spring-lazy/" rel="prev" title="天天在用Spring，Spring的懒加载原理你知道吗？">
+      <i class="fa fa-chevron-left"></i> 天天在用Spring，Spring的懒加载原理你知道吗？
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BC%98%E5%8C%96%E8%BF%87%E7%A8%8B-%E4%BB%8E30%E7%A7%92%E5%88%B02%E7%A7%92"><span class="nav-number">1.</span> <span class="nav-text">第一次优化过程-从30秒到2秒</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AC%A1%E4%BC%98%E5%8C%96%E8%BF%87%E7%A8%8B-%E4%BB%8E2%E7%A7%92%E5%88%B01%E7%A7%92"><span class="nav-number">2.</span> <span class="nav-text">第二次优化过程-从2秒到1秒</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Channel"><span class="nav-number">2.1.</span> <span class="nav-text">使用Channel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E7%A9%BA%E9%97%B4%E5%92%8C%E7%94%A8%E6%88%B7%E7%A9%BA%E9%97%B4"><span class="nav-number">2.2.</span> <span class="nav-text">内核空间和用户空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E7%BC%93%E5%86%B2%E5%8C%BA%E5%92%8C%E9%9D%9E%E7%9B%B4%E6%8E%A5%E7%BC%93%E5%86%B2%E5%8C%BA"><span class="nav-number">2.3.</span> <span class="nav-text">直接缓冲区和非直接缓冲区</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%86%85%E5%AD%98%E6%98%A0%E5%B0%84%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">使用内存映射文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Pipe"><span class="nav-number">4.</span> <span class="nav-text">使用Pipe</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">顾我安心君</p>
+  <div class="site-description" itemprop="description">本站是顾我安心君的博客, 内容涵盖Java、Spring、Spring Boot、微服务、C#、.NET、ASP.NET、.NET Core、JavaScript、Docker、云原生等相关研究与知识。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">顾我安心君</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

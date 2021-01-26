@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.meetjun.top","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本站是顾我安心君的博客, 内容涵盖Java、Spring、Spring Boot、微服务、C#、.NET、ASP.NET、.NET Core、JavaScript、Docker、云原生等相关研究与知识。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="顾我安心君">
+<meta property="og:url" content="http://www.meetjun.top/page/2/index.html">
+<meta property="og:site_name" content="顾我安心君">
+<meta property="og:description" content="本站是顾我安心君的博客, 内容涵盖Java、Spring、Spring Boot、微服务、C#、.NET、ASP.NET、.NET Core、JavaScript、Docker、云原生等相关研究与知识。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="顾我安心君">
+<meta property="article:tag" content="meetjun, 顾我安心君, 程序员, Java, Spring, Spring Boot, Spring Cloud, 微服务, C#, .NET, ASP.NET, .NET Core, JavaScript, Docker, 云原生">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.meetjun.top/page/2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>顾我安心君</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">顾我安心君</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.meetjun.top/2019/08/30/a-byte-story/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="顾我安心君">
+      <meta itemprop="description" content="本站是顾我安心君的博客, 内容涵盖Java、Spring、Spring Boot、微服务、C#、.NET、ASP.NET、.NET Core、JavaScript、Docker、云原生等相关研究与知识。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="顾我安心君">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/08/30/a-byte-story/" class="post-title-link" itemprop="url">一个字节的网络漫游故事独白</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-08-30 14:44:46 / 修改时间：14:47:24" itemprop="dateCreated datePublished" datetime="2019-08-30T14:44:46+08:00">2019-08-30</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>大家好，给大家介绍一下，我是一个字节。相比于你们人类据说即将达到的百岁人生的寿命，我的一生简直不直一提（我只能存活零点几个毫秒）。</p>
+<p>也许只有那些码农才会了解我，而且也只有一部分码农。那些整天做业务的猿们想来也不会真正的了解我，更别提人类其他行业的人了。</p>
+<p>我不甘心，虽然我微不足道，但是我对人类的贡献实在是太大了。没有我的世界根本无法想像：不能听网易云音乐，不能刷抖音，不能上拼多多，所有和网络相关的活动都无法进行。</p>
+<p>所以，今天我要讲讲我的一生，让更多的人知道我的存在，知道我的故事，也为证明自己曾经存在过吧。</p>
+<h2 id="诞生"><a href="#诞生" class="headerlink" title="诞生"></a>诞生</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/08/30/a-byte-story/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.meetjun.top/2019/08/17/nginx-performance-tuning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="顾我安心君">
+      <meta itemprop="description" content="本站是顾我安心君的博客, 内容涵盖Java、Spring、Spring Boot、微服务、C#、.NET、ASP.NET、.NET Core、JavaScript、Docker、云原生等相关研究与知识。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="顾我安心君">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/08/17/nginx-performance-tuning/" class="post-title-link" itemprop="url">Nginx性能调优</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-08-17 17:19:00 / 修改时间：17:54:22" itemprop="dateCreated datePublished" datetime="2019-08-17T17:19:00+08:00">2019-08-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Nginx/" itemprop="url" rel="index"><span itemprop="name">Nginx</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Nginx运行工作进程数量"><a href="#Nginx运行工作进程数量" class="headerlink" title="Nginx运行工作进程数量"></a>Nginx运行工作进程数量</h2><p>Nginx运行工作进程个数一般设置CPU的核心或者核心数x2。如果不了解cpu的核数，可以top命令之后按1看出来，也可以查看/proc/cpuinfo文件 grep ^processor /proc/cpuinfo | wc -l</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# vi &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;conf&#x2F;nginx.conf</span><br><span class="line">worker_processes  1;</span><br><span class="line">[root@localhost ~]# ps -aux | grep nginx |grep -v grep</span><br><span class="line">root      10463  0.0  0.0  20392   608 ?        Ss   8月14   0:00 nginx: master process &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;sbin&#x2F;nginx -c &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;conf&#x2F;nginx.conf</span><br><span class="line">nobody    10464  0.0  0.0  21132  2004 ?        S    8月14   0:00 nginx: worker process</span><br></pre></td></tr></table></figure>
+<h2 id="Nginx运行CPU亲和力"><a href="#Nginx运行CPU亲和力" class="headerlink" title="Nginx运行CPU亲和力"></a>Nginx运行CPU亲和力</h2><p>比如4核配置：</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/08/17/nginx-performance-tuning/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.meetjun.top/2019/08/03/nginx-problem/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="顾我安心君">
+      <meta itemprop="description" content="本站是顾我安心君的博客, 内容涵盖Java、Spring、Spring Boot、微服务、C#、.NET、ASP.NET、.NET Core、JavaScript、Docker、云原生等相关研究与知识。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="顾我安心君">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/08/03/nginx-problem/" class="post-title-link" itemprop="url">常见的Nginx问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-08-03 17:23:37 / 修改时间：17:35:24" itemprop="dateCreated datePublished" datetime="2019-08-03T17:23:37+08:00">2019-08-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Nginx/" itemprop="url" rel="index"><span itemprop="name">Nginx</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="什么是Nginx？"><a href="#什么是Nginx？" class="headerlink" title="什么是Nginx？"></a>什么是Nginx？</h2><p>Nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器。<br>Nginx是一款轻量级的Web服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器 目前使用的最多的web服务器或者代理服务器，像阿里、百度、腾讯、新浪、网易、迅雷等都在使用。</p>
+<h2 id="为什么要用Nginx？"><a href="#为什么要用Nginx？" class="headerlink" title="为什么要用Nginx？"></a>为什么要用Nginx？</h2><ul>
+<li>跨平台、配置简单</li>
+<li>非阻塞、高并发连接：处理2-3万并发连接数，官方监测能支持5万并发</li>
+<li>内存消耗小：开启10个nginx才占150M内存 成本低廉：开源</li>
+<li>内置的健康检查功能：如果有一个服务器宕机，会做一个健康检查，再发送的请求就不会发送到宕机的服务器了。重新将请求提交到其他的节点上。</li>
+<li>节省宽带：支持GZIP压缩，可以添加浏览器本地缓存</li>
+<li>稳定性高：宕机的概率非常小</li>
+<li>master/worker结构：一个master进程，生成一个或者多个worker进程</li>
+<li>接收用户请求是异步的：浏览器将请求发送到nginx服务器，它先将用户请求全部接收下来，再一次性发送给后端web服务器，极大减轻了web服务器的压力</li>
+<li>一边接收web服务器的返回数据，一边发送给浏览器客户端</li>
+<li>网络依赖性比较低，只要ping通就可以负载均衡</li>
+<li>可以有多台nginx服务器</li>
+<li>事件驱动：通信机制采用epoll模型</li>
+</ul>
+<h2 id="为什么Nginx性能这么高？"><a href="#为什么Nginx性能这么高？" class="headerlink" title="为什么Nginx性能这么高？"></a>为什么Nginx性能这么高？</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/08/03/nginx-problem/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.meetjun.top/2019/07/26/spring-boot-elastic-job/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="顾我安心君">
+      <meta itemprop="description" content="本站是顾我安心君的博客, 内容涵盖Java、Spring、Spring Boot、微服务、C#、.NET、ASP.NET、.NET Core、JavaScript、Docker、云原生等相关研究与知识。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="顾我安心君">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/07/26/spring-boot-elastic-job/" class="post-title-link" itemprop="url">Spring Boot集成Elastic-Job实现分布式任务调度系统</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-07-26 15:01:02" itemprop="dateCreated datePublished" datetime="2019-07-26T15:01:02+08:00">2019-07-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-08-03 17:25:26" itemprop="dateModified" datetime="2019-08-03T17:25:26+08:00">2019-08-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index"><span itemprop="name">Spring Boot</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Elastic-Job/" itemprop="url" rel="index"><span itemprop="name">Elastic-Job</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Elastic-Job"><a href="#Elastic-Job" class="headerlink" title="Elastic-Job"></a>Elastic-Job</h2><p>Elastic-Job是由当当网基于quartz二次开发之后的分布式调度解决方案 ， 由两个相对独立的子项目Elastic-Job-Lite和Elastic-Job-Cloud组成 。<br>Elastic-Job主要的设计理念是无中心化的分布式定时调度框架，思路来源于Quartz的基于数据库的高可用方案。但数据库没有分布式协调功能，所以在高可用方案的基础上增加了弹性扩容和数据分片的思路，以便于更大限度的利用分布式服务器的资源。<br>Elastic-Job-Lite定位为轻量级无中心化解决方案，使用jar包的形式提供分布式任务的协调服务。<br>Elastic-Job-Cloud采用自研Mesos Framework的解决方案，额外提供资源治理、应用分发以及进程隔离等功能。<br>开源地址：<a target="_blank" rel="noopener" href="https://github.com/elasticjob">https://github.com/elasticjob</a></p>
+<h3 id="功能列表"><a href="#功能列表" class="headerlink" title="功能列表"></a>功能列表</h3><ul>
+<li>分布式调度协调</li>
+<li>弹性扩容缩容</li>
+<li>失效转移</li>
+<li>错过执行作业重触发</li>
+<li>作业分片一致性，保证同一分片在分布式环境中仅一个执行实例</li>
+<li>自诊断并修复分布式不稳定造成的问题</li>
+<li>支持并行调度</li>
+<li>支持作业生命周期操作</li>
+<li>丰富的作业类型</li>
+<li>Spring整合以及命名空间提供</li>
+<li>运维平台</li>
+</ul>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/07/26/spring-boot-elastic-job/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.meetjun.top/2019/07/17/spring-boot-dubbo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="顾我安心君">
+      <meta itemprop="description" content="本站是顾我安心君的博客, 内容涵盖Java、Spring、Spring Boot、微服务、C#、.NET、ASP.NET、.NET Core、JavaScript、Docker、云原生等相关研究与知识。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="顾我安心君">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/07/17/spring-boot-dubbo/" class="post-title-link" itemprop="url">Spring Boot集成Dubbo+Zookeeper实现分布式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-07-17 20:19:38 / 修改时间：20:54:56" itemprop="dateCreated datePublished" datetime="2019-07-17T20:19:38+08:00">2019-07-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index"><span itemprop="name">Spring Boot</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Dubbo/" itemprop="url" rel="index"><span itemprop="name">Dubbo</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>本文将介绍基于XML方式集成</p>
+<h2 id="引用dubbo和zkclient包，这里展示maven方式的引用"><a href="#引用dubbo和zkclient包，这里展示maven方式的引用" class="headerlink" title="引用dubbo和zkclient包，这里展示maven方式的引用"></a>引用dubbo和zkclient包，这里展示maven方式的引用</h2><p>dubbo:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.alibaba&lt;&#x2F;groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;dubbo&lt;&#x2F;artifactId&gt;</span><br><span class="line">	&lt;version&gt;2.6.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+<p>zkclient:</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/07/17/spring-boot-dubbo/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.meetjun.top/2019/07/16/intellij-idea-jrebel/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="顾我安心君">
+      <meta itemprop="description" content="本站是顾我安心君的博客, 内容涵盖Java、Spring、Spring Boot、微服务、C#、.NET、ASP.NET、.NET Core、JavaScript、Docker、云原生等相关研究与知识。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="顾我安心君">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/07/16/intellij-idea-jrebel/" class="post-title-link" itemprop="url">IntelliJ IDEA用JRebel插件实现热部署、破解JRebel</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-07-16 16:37:31" itemprop="dateCreated datePublished" datetime="2019-07-16T16:37:31+08:00">2019-07-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-26 15:51:13" itemprop="dateModified" datetime="2020-08-26T15:51:13+08:00">2020-08-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IntelliJ-IDEA/" itemprop="url" rel="index"><span itemprop="name">IntelliJ IDEA</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="IDEA安装JRebel插件"><a href="#IDEA安装JRebel插件" class="headerlink" title="IDEA安装JRebel插件"></a>IDEA安装JRebel插件</h2><p>File-&gt;Settings-&gt;Plugins-&gt;Browse repositories<br><img src="/2019/07/16/intellij-idea-jrebel/jrebel-install.png" alt="JRebel安装图"><br>点击Install安装JRebel</p>
+<h2 id="激活JRebel"><a href="#激活JRebel" class="headerlink" title="激活JRebel"></a>激活JRebel</h2><p>下载代理工具ReverseProxy 地址：<a target="_blank" rel="noopener" href="https://github.com/ilanyu/ReverseProxy/releases">https://github.com/ilanyu/ReverseProxy/releases</a> 运行<br><img src="/2019/07/16/intellij-idea-jrebel/jrebel-click.png" alt="JRebel按钮图"><br><img src="/2019/07/16/intellij-idea-jrebel/jrebel-activation.png" alt="JRebel激活图"><br><img src="/2019/07/16/intellij-idea-jrebel/jrebel-activation-success.png" alt="JRebel激活成功图"><br>这里就激活成功了</p>
+<p>以后运行项目用JRebel插件按钮运行项目，改代码直接保存Build一下就行了，不用在重启项目，省去好多浪费时间。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/07/16/intellij-idea-jrebel/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">顾我安心君</p>
+  <div class="site-description" itemprop="description">本站是顾我安心君的博客, 内容涵盖Java、Spring、Spring Boot、微服务、C#、.NET、ASP.NET、.NET Core、JavaScript、Docker、云原生等相关研究与知识。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">顾我安心君</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

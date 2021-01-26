@@ -1,0 +1,852 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>一个字节的网络漫游故事独白</title>
+    <url>/2019/08/30/a-byte-story/</url>
+    <content><![CDATA[<p>大家好，给大家介绍一下，我是一个字节。相比于你们人类据说即将达到的百岁人生的寿命，我的一生简直不直一提（我只能存活零点几个毫秒）。</p>
+<p>也许只有那些码农才会了解我，而且也只有一部分码农。那些整天做业务的猿们想来也不会真正的了解我，更别提人类其他行业的人了。</p>
+<p>我不甘心，虽然我微不足道，但是我对人类的贡献实在是太大了。没有我的世界根本无法想像：不能听网易云音乐，不能刷抖音，不能上拼多多，所有和网络相关的活动都无法进行。</p>
+<p>所以，今天我要讲讲我的一生，让更多的人知道我的存在，知道我的故事，也为证明自己曾经存在过吧。</p>
+<h2 id="诞生"><a href="#诞生" class="headerlink" title="诞生"></a>诞生</h2><p>我的主人是一个在西二旗知名互联网公司上班的程序猿，过着1095（注：早10点晚9点，一周5天工作）的生活，很少能在晚霞中回家，自然也说不出“落霞与孤鹜齐飞”那样的句子。</p>
+<p>这一天，他9点半到家，第一件事打开电脑，熟练地启动chrome浏览器，在地址栏敲下一个 z字符，我所有的故事就从这里开始。</p>
+<p>当主人按下键盘上的 z键时，系统了产生一个中断信号，通知CPU过来读取键盘输入，CPU读取到 z后，将 z发送给chrome浏览器, chrome收到后，将 z显示到浏览器的地址栏上，同时后台搜索主人平时访问过的地址，排名第一的 <a href="https://www.zhihu.com/%E8%A2%AB%E5%BF%AB%E9%80%9F%E8%A1%A5%E5%85%A8%E4%BA%86%E3%80%82">https://www.zhihu.com/被快速补全了。</a></p>
+<p>这时主人熟练地按下了回车键，chrome收到指令后，进行了一顿操作，在这电光火石之间，我诞生了，同时诞生的还有我的字节兄弟们。</p>
+<h2 id="上路"><a href="#上路" class="headerlink" title="上路"></a>上路</h2><p>话说 Chorme老大哥接收到了URL后，首先拆解成自己能看懂的东西。 <a href="https://www.zhihu.com会被拆解成三部分：">https://www.zhihu.com会被拆解成三部分：</a> https、 <a href="http://www.zhihu.com、/">www.zhihu.com、</a> /</p>
+<p>https表示协议类型，通过这个 Chorme老大哥知道他接下来该如何与远方的网站服务器通信； <a href="http://www.zhihu.com表示主机名，就是Chorme老大哥要通信的对象了；第三部分则是它要向服务器要的内容（注：这里表明是空，实际上隐含的表示主目录文件的概念）。">www.zhihu.com表示主机名，就是Chorme老大哥要通信的对象了；第三部分则是它要向服务器要的内容（注：这里表明是空，实际上隐含的表示主目录文件的概念）。</a></p>
+<p>有了这三项， Chorme老大哥就能从服务器那里获取它想要的内容了，从而展示给我的主人。</p>
+<p>Chorme老大哥跑到 HTTP数据包生产车间，哼哧哼哧地倒腾半天，生产出了一个HTTP数据包（注：忽略https, 简单起见我们当成http），这个数据包实际上就是我和我的一群字节兄弟们，我们挤在一个集装箱内，熙熙攘攘。</p>
+<p>我们马上就要搭乘 IP列车到远方的服务器，见识外面的世界了。集装箱被装上了 TCP专车，它将带我们来到列车站。 TCP专车很安全也很舒适，我从集装箱的缝隙中看到车前贴上了车牌： 80.</p>
+<p>到了车站， TCP专车直接开到了列车上。这样也好， IP列车上很脏，我们坐在专车上更好。 只是列车还不知道具体要去哪，所以我们就只能先在列车上等着了。</p>
+<p>不对啊，列车应该去 <a href="http://www.zhihu.com这个网站，不是已经知道了吗？对的，但是">www.zhihu.com这个网站，不是已经知道了吗？对的，但是</a> IP列车挺笨的，也挺古板的，不认识这些字母。它只认识数字，人类称之为ip.</p>
+<p>Chorme老大哥也有点抱怨，人类真是笨，连个ip都记不住，非得用域名来上网。害我还得拿着这个域名去问 DNS老大爷，它知道所有域名对应的ip.</p>
+<p>这不， Chorme老大哥又跑到另外一个车间—— DNS数据包生产车间里倒腾出了一个DNS数据包，当然还是一群字节兄弟们，不过这里的兄弟就少一些了。它们在集装箱里叽叽喳喳，被装上了 UDP敞篷车，车虽然很快，但不太安全，我这些兄弟们坐在上面，提心吊胆，生怕掉下去，因为掉下去，就永远消失了。</p>
+<p>UDP敞篷车也直接开到了 IP列车上，车前贴了车牌：53.</p>
+<p>这回Chrome老大哥直接从 操作系统大佬那要到了 DNS老大爷的ip, 贴到了 IP列车的车头， IP列车马上全速启动，载着我这些字节兄弟，赶到了 DNS老大爷的城堡， UDP敞篷车开下列车，按照车牌号53找到了 DNS老大爷的住处。从它那拿到了 <a href="http://www.zhihu.com对应的ip/">www.zhihu.com对应的ip</a>.</p>
+<p>DNS老大爷学问渊博，他也很仗义，从自己城堡里的 DNS数据包生产车间造出了DNS响应包，包里也是我这些字节兄弟们，它们拿着重要的资料数据—— <a href="http://www.zhihu.com对应的ip/">www.zhihu.com对应的ip</a>, 坐上了另一趟返程的 IP列车，而列车的终点就是我现在所在的地方。当然了，他们是由另一辆 UDP敞篷车载着他们回来的。</p>
+<p>Chorme老大哥在车间接见了这些兄弟，非常感动。因为他们带回了 <a href="http://www.zhihu.com对应的ip/">www.zhihu.com对应的ip</a>. 那些兄弟争先恐后的报告自己知道的东西，有些兄弟报告1, 有些兄弟报告0, Chorme老大哥非常有经验，它把这些消息合并起来了，最终得到了它想要的ip: 118.89.204.192.</p>
+<p>Chorme老大哥拿着这个ip来到了我所在的列车前面，我激动地要叫起来了：终于我要出发了！它熟练地把 118.89.204.192贴到了列车的前面，马上列车就开动了，我上路了。</p>
+<p>IP列车的列车长在掌管着车头的方向，决定着我们的命运走向。路网非常复杂，而车头上只有一个ip地址，根本没告诉列车长应该走哪条路。这不难，富有经验的列车长根据车头的ip地址查到了下一个大站（路由器）的地址，之后再根据这个大站地址查到（ARP协议）途经的下一个小站（交换机或集线器）应该走的轨道。在每个小站，对照这个大站地址，列车长就知道该走哪条路。搞定！</p>
+<p>经过了很多的小站，我们终于到了下一个大站了。站点的工作人员看着我们车头前的ip地址，查了下表（路由表）告诉我们下一个大站的地址，并且告诉我们途径的下一个小站应该走哪条轨道。列车长就这样，一路拿这张表，顺利地把们带到了终点： 118.89.204.192.</p>
+<p>不过，刚刚就在到终点的前一刻，列车被拦住了，一群荷枪实弹的警卫冲上来了，一些胆小的字节兄弟们都哭了，我也是屏气凝声。他们先是查看了车头的ip地址，再查看了列车长手里的表，还看了下我们的 TCP专车的车牌。很快就放行了，虚惊一场！</p>
+<h2 id="新生"><a href="#新生" class="headerlink" title="新生"></a>新生</h2><p>到了终点站后，列车首先停下接受工作人员的检查。列车长出示了他手里的表，对了一下表上标注的下一站地址确实是：知乎。接着又看了下列车头部标注的ip地址，就算检查通过了，第一关很轻松。</p>
+<p>接下来，我们坐的 TCP专车开下列车了。进了一个 TCP车牌检查站，工作人员看了下车牌号80, 也挥手示意我们通过。</p>
+<p>接着我们都下车走进了 主页车间，进去后，我们先按我们身上的标号排好了位置，工作人员将我们每个人所代表的信息进行了聚拢。得到了各种关于主人的信息，比如他所用的浏览器的版本，cookie等等信息，我知道，我们的使命完成了。果然，一道光闪过，我们都消失了，完成了我们光荣的一生。</p>
+<p>主页车间领导马上下达生产命令：1组去仓库拉取最新话题，2组去商业中心获取今天的广告主信息……</p>
+<p>很快，各组都完成了任务，车间在一阵轰鸣过后，新的一批字节兄弟诞生了，他们带着这些话题、广告信息，和我们当年出生的时候一样，熙熙攘攘。但是我知道，我获得了新生。</p>
+<h2 id="归家"><a href="#归家" class="headerlink" title="归家"></a>归家</h2><p>像我们当年一样，这些新出生的字节兄弟依次坐上了 TCP专车， IP列车一路跋涉，去往我出发的地方，那是我梦开始的地方。</p>
+<p>我所经历的，他们未曾少过一分。</p>
+<h2 id="定格"><a href="#定格" class="headerlink" title="定格"></a>定格</h2><p>Chrome老大哥终于等来了这些字节兄弟，在他们排好队后，老大哥看清了字节兄弟们代表的内容：话题 如何在西二旗地铁优雅地装逼，热度10w, 广告 上午植发，下午上班……</p>
+<p>这些是 Chrome老大哥最擅长的事情，分分钟将他们显示在了网页上。字节兄弟们终于完成了使命，定格在了retina屏幕上。</p>
+<p>我的主人点开第一话题后，看了一会儿。然后瞅到了到植发广告，他偷偷地开启了隐身模式，仔细地研究了起来……</p>
+<p>原创： 饶全成  码农桃花源</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Docker简介</title>
+    <url>/2020/08/15/docker-introduce/</url>
+    <content><![CDATA[<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的镜像中，然后发布到任何流行的 Linux或Windows 机器上，也可以实现虚拟化。容器是完全使用沙箱机制，相互之间不会有任何接口。</p>
+<h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><p>一个完整的Docker有以下几个部分组成：</p>
+<p>Docker Client客户端<br>Docker Daemon守护进程<br>Docker Image镜像<br>Docker Container容器</p>
+<p><img src="/2020/08/15/docker-introduce/docker-framework.png" alt="docker架构图"></p>
+<p>Docker 包括三个基本概念:</p>
+<h3 id="Client-客户端"><a href="#Client-客户端" class="headerlink" title="Client 客户端"></a>Client 客户端</h3><p>Docker 是一个客户端-服务器（C/S）架构程序。Docker 客户端只需要向 Docker 服务器或者守护进程发出请求，服务器或者守护进程将完成所有工作并返回结果。Docker 提供了一个命令行工具 Docker 以及一整套 RESTful API。<br>你可以在同一台宿主机上运行 Docker 守护进程和客户端，也可以从本地的 Docker 客户端连接到运行在另一台宿主机上的远程 Docker 守护进程。</p>
+<h3 id="Host-主机-Docker-引擎"><a href="#Host-主机-Docker-引擎" class="headerlink" title="Host 主机(Docker 引擎)"></a>Host 主机(Docker 引擎)</h3><p>一个物理或者虚拟的机器用于执行 Docker 守护进程和容器。</p>
+<h3 id="Image-镜像"><a href="#Image-镜像" class="headerlink" title="Image 镜像"></a>Image 镜像</h3><p>Docker 镜像就是一个 Linux 的文件系统（Root FileSystem），这个文件系统里面包含可以运行在 Linux 内核的程序以及相应的数据。<br>通过镜像启动一个容器，一个镜像就是一个可执行的包，其中包括运行应用程序所需要的所有内容：包含代码，运行时间，库，环境变量和配置文件等。<br>Docker 把 App 文件打包成为一个镜像，并且采用类似多次快照的存储技术。<br>可以实现：<br>多个 App 可以共用相同的底层镜像（初始的操作系统镜像）；<br>App 运行时的 IO 操作和镜像文件隔离；<br>通过挂载包含不同配置/数据文件的目录或者卷（Volume），单个 App 镜像可以用来运行无数个不同业务的容器；</p>
+<h3 id="Container-容器"><a href="#Container-容器" class="headerlink" title="Container 容器"></a>Container 容器</h3><p>镜像（Image）和容器（Container）的关系，就像是面向对象程序设计中的类和实例一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创建、启动、停止、删除、暂停等。</p>
+<h3 id="Registry-注册中心"><a href="#Registry-注册中心" class="headerlink" title="Registry 注册中心"></a>Registry 注册中心</h3><p>Registry 来保存用户构建的镜像。Registry 分为公共和私有两种。Docker 公司运营公共的 Registry 叫做 Docker Hub。用户可以在 Docker Hub 注册账号，分享并保存自己的镜像。<br>Docker 公司提供了公共的镜像仓库 hub.docker.com（Docker 称之为 Repository）提供了庞大的镜像集合供使用。<br>一个 Docker Registry 中可以包含多个仓库（Repository）；每个仓库可以包含多个标签（Tag）；每个标签对应一个镜像。<br>通常，一个仓库会包含同一个软件不同版本的镜像，而标签对应该软件的各个版本。我们可以通过 &lt;仓库名&gt;:&lt;标签&gt; 的格式来指定具体是这个软件哪个版本的镜像。如果不给出标签，将以 latest 作为默认标签。</p>
+<h2 id="Docker和传统虚拟机比较"><a href="#Docker和传统虚拟机比较" class="headerlink" title="Docker和传统虚拟机比较"></a>Docker和传统虚拟机比较</h2><table>
+<thead>
+<tr>
+<th align="left">特性</th>
+<th align="left">容器</th>
+<th align="left">虚拟机</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">启动速度</td>
+<td align="left">秒级</td>
+<td align="left">分钟级</td>
+</tr>
+<tr>
+<td align="left">性能</td>
+<td align="left">接近原生</td>
+<td align="left">较弱</td>
+</tr>
+<tr>
+<td align="left">内存代价</td>
+<td align="left">很小</td>
+<td align="left">较多</td>
+</tr>
+<tr>
+<td align="left">硬盘使用</td>
+<td align="left">MB级别</td>
+<td align="left">GB级別</td>
+</tr>
+<tr>
+<td align="left">运行密度</td>
+<td align="left">单机最大支持上千个容器</td>
+<td align="left">单机一般几十个</td>
+</tr>
+<tr>
+<td align="left">隔离性</td>
+<td align="left">安全</td>
+<td align="left">安全</td>
+</tr>
+<tr>
+<td align="left">迁移性</td>
+<td align="left">优秀</td>
+<td align="left">一般</td>
+</tr>
+</tbody></table>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Docker 官网写着这样一句话：Build and Ship any Application Anywhere，再结合刚才我们所理解的内容，总结下来就是：一次构建，到处运行。<br>此外，Docker 公司提供了公共的镜像仓库 hub.docker.com（Docker 称之为 Repository），GitHub connect，自动构建镜像，大大简化了应用分发、部署、升级流程。加上 Docker 可以非常方便的建立各种自定义的镜像文件，<br>这些都是 Docker 成为最流行的容器技术的重要因素。</p>
+<p>通过以上这些技术的组合，最后的结果就是：绝大部分应用，开发者都可以通过 docker build 创建镜像，通过 docker push 上传镜像，用户通过 docker pull 下载镜像，使用 docker run 运行容器应用。<br>用户不再需要去关心如何搭建环境，如何安装，如何解决不同发行版的库冲突——而且通常不会消耗更多的硬件资源，不会明显降低性能。</p>
+]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Docker方式部署Spring Boot项目发现时间不正确</title>
+    <url>/2020/08/19/docker-timezone/</url>
+    <content><![CDATA[<p>在用docker方式部署spring boot应用的时候发现程序时间不对，这是和时区有关<br>我们修改Dockerfile文件内容设置一下时区</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM openjdk:8-jdk-alpine</span><br><span class="line"></span><br><span class="line">#设置时区</span><br><span class="line">RUN ln -sf &#x2F;usr&#x2F;share&#x2F;zoneinfo&#x2F;Asia&#x2F;Shanghai &#x2F;etc&#x2F;localtime &amp;&amp; echo &#39;Asia&#x2F;Shanghai&#39; &gt;&#x2F;etc&#x2F;timezone</span><br><span class="line"></span><br><span class="line">COPY target&#x2F;docker-spring-boot-demo-0.0.1.jar app.jar</span><br><span class="line"></span><br><span class="line">ENTRYPOINT [&quot;sh&quot;,&quot;-c&quot;,&quot;java -jar app.jar&quot;]</span><br></pre></td></tr></table></figure>
+<p>再次启动发现时间正常了</p>
+]]></content>
+      <categories>
+        <category>Docker</category>
+        <category>Spring Boot</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+        <tag>Spring Boot</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>IntelliJ IDEA用JRebel插件实现热部署、破解JRebel</title>
+    <url>/2019/07/16/intellij-idea-jrebel/</url>
+    <content><![CDATA[<h2 id="IDEA安装JRebel插件"><a href="#IDEA安装JRebel插件" class="headerlink" title="IDEA安装JRebel插件"></a>IDEA安装JRebel插件</h2><p>File-&gt;Settings-&gt;Plugins-&gt;Browse repositories<br><img src="/2019/07/16/intellij-idea-jrebel/jrebel-install.png" alt="JRebel安装图"><br>点击Install安装JRebel</p>
+<h2 id="激活JRebel"><a href="#激活JRebel" class="headerlink" title="激活JRebel"></a>激活JRebel</h2><p>下载代理工具ReverseProxy 地址：<a href="https://github.com/ilanyu/ReverseProxy/releases">https://github.com/ilanyu/ReverseProxy/releases</a> 运行<br><img src="/2019/07/16/intellij-idea-jrebel/jrebel-click.png" alt="JRebel按钮图"><br><img src="/2019/07/16/intellij-idea-jrebel/jrebel-activation.png" alt="JRebel激活图"><br><img src="/2019/07/16/intellij-idea-jrebel/jrebel-activation-success.png" alt="JRebel激活成功图"><br>这里就激活成功了</p>
+<p>以后运行项目用JRebel插件按钮运行项目，改代码直接保存Build一下就行了，不用在重启项目，省去好多浪费时间。</p>
+]]></content>
+      <categories>
+        <category>IntelliJ IDEA</category>
+      </categories>
+      <tags>
+        <tag>IntelliJ IDEA</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java压缩20M文件从30秒到1秒的优化过程</title>
+    <url>/2020/08/26/java-compress-file-optimize/</url>
+    <content><![CDATA[<p>有一个需求需要将前端传过来的10张照片，然后后端进行处理以后压缩成一个压缩包通过网络流传输出去。之前没有接触过用Java压缩文件的，所以就直接上网找了一个例子改了一下用了，<br>改完以后也能使用，但是随着前端所传图片的大小越来越大的时候，耗费的时间也在急剧增加，最后测了一下压缩20M的文件竟然需要30秒的时间。压缩文件的代码如下。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static void zipFileNoBuffer() &#123;</span><br><span class="line">    File zipFile &#x3D; new File(ZIP_FILE);</span><br><span class="line">    try (ZipOutputStream zipOut &#x3D; new ZipOutputStream(new FileOutputStream(zipFile))) &#123;</span><br><span class="line">        &#x2F;&#x2F;开始时间</span><br><span class="line">        long beginTime &#x3D; System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">        for (int i &#x3D; 0; i &lt; 10; i++) &#123;</span><br><span class="line">            try (InputStream input &#x3D; new FileInputStream(JPG_FILE)) &#123;</span><br><span class="line">                zipOut.putNextEntry(new ZipEntry(FILE_NAME + i));</span><br><span class="line">                int temp &#x3D; 0;</span><br><span class="line">                while ((temp &#x3D; input.read()) !&#x3D; -1) &#123;</span><br><span class="line">                    zipOut.write(temp);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        printInfo(beginTime);</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里找了一张2M大小的图片，并且循环十次进行测试。打印的结果如下，时间大概是30秒。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">fileSize:20M</span><br><span class="line">consum time:29599</span><br></pre></td></tr></table></figure>
+<h2 id="第一次优化过程-从30秒到2秒"><a href="#第一次优化过程-从30秒到2秒" class="headerlink" title="第一次优化过程-从30秒到2秒"></a>第一次优化过程-从30秒到2秒</h2><p>进行优化首先想到的是利用缓冲区BufferInputStream。在FileInputStream中read()方法每次只读取一个字节。源码中也有说明。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Reads a byte of data from this input stream. This method blocks</span><br><span class="line"> * if no input is yet available.</span><br><span class="line"> *</span><br><span class="line"> * @return     the next byte of data, or &lt;code&gt;-1&lt;&#x2F;code&gt; if the end of the</span><br><span class="line"> *             file is reached.</span><br><span class="line"> * @exception  IOException  if an I&#x2F;O error occurs.</span><br><span class="line"> *&#x2F;</span><br><span class="line">public native int read() throws IOException;</span><br></pre></td></tr></table></figure>
+<p>这是一个调用本地方法与原生操作系统进行交互，从磁盘中读取数据。每读取一个字节的数据就调用一次本地方法与操作系统交互，是非常耗时的。<br>例如我们现在有30000个字节的数据，如果使用FileInputStream那么就需要调用30000次的本地方法来获取这些数据，而如果使用缓冲区的话（这里假设初始的缓冲区大小足够放下30000字节的数据）那么只需要调用一次就行。<br>因为缓冲区在第一次调用read()方法的时候会直接从磁盘中将数据直接读取到内存中。随后再一个字节一个字节的慢慢返回。</p>
+<blockquote>
+<p>BufferedInputStream内部封装了一个byte数组用于存放数据，默认大小是8192<br>优化过后的代码如下</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static void zipFileBuffer() &#123;</span><br><span class="line">    File zipFile &#x3D; new File(ZIP_FILE);</span><br><span class="line">    try (ZipOutputStream zipOut &#x3D; new ZipOutputStream(new FileOutputStream(zipFile));</span><br><span class="line">            BufferedOutputStream bufferedOutputStream &#x3D; new BufferedOutputStream(zipOut)) &#123;</span><br><span class="line">        &#x2F;&#x2F;开始时间</span><br><span class="line">        long beginTime &#x3D; System.currentTimeMillis();</span><br><span class="line">        for (int i &#x3D; 0; i &lt; 10; i++) &#123;</span><br><span class="line">            try (BufferedInputStream bufferedInputStream &#x3D; new BufferedInputStream(new FileInputStream(JPG_FILE))) &#123;</span><br><span class="line">                zipOut.putNextEntry(new ZipEntry(FILE_NAME + i));</span><br><span class="line">                int temp &#x3D; 0;</span><br><span class="line">                while ((temp &#x3D; bufferedInputStream.read()) !&#x3D; -1) &#123;</span><br><span class="line">                    bufferedOutputStream.write(temp);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        printInfo(beginTime);</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">------Buffer</span><br><span class="line">fileSize:20M</span><br><span class="line">consum time:1808</span><br></pre></td></tr></table></figure>
+<h2 id="第二次优化过程-从2秒到1秒"><a href="#第二次优化过程-从2秒到1秒" class="headerlink" title="第二次优化过程-从2秒到1秒"></a>第二次优化过程-从2秒到1秒</h2><p>使用缓冲区buffer的话已经是满足了我的需求了，但是秉着学以致用的想法，就想着用NIO中知识进行优化一下。</p>
+<h3 id="使用Channel"><a href="#使用Channel" class="headerlink" title="使用Channel"></a>使用Channel</h3><p>为什么要用Channel呢？因为在NIO中新出了Channel和ByteBuffer。正是因为它们的结构更加符合操作系统执行I/O的方式，所以其速度相比较于传统IO而言速度有了显著的提高。Channel就像一个包含着煤矿的矿藏，而ByteBuffer则是派送到矿藏的卡车。也就是说我们与数据的交互都是与ByteBuffer的交互。</p>
+<p>在NIO中能够产生FileChannel的有三个类。分别是FileInputStream、FileOutputStream、以及既能读又能写的RandomAccessFile。</p>
+<p>源码如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static void zipFileChannel() &#123;</span><br><span class="line">    &#x2F;&#x2F;开始时间</span><br><span class="line">    long beginTime &#x3D; System.currentTimeMillis();</span><br><span class="line">    File zipFile &#x3D; new File(ZIP_FILE);</span><br><span class="line">    try (ZipOutputStream zipOut &#x3D; new ZipOutputStream(new FileOutputStream(zipFile));</span><br><span class="line">            WritableByteChannel writableByteChannel &#x3D; Channels.newChannel(zipOut)) &#123;</span><br><span class="line">        for (int i &#x3D; 0; i &lt; 10; i++) &#123;</span><br><span class="line">            try (FileChannel fileChannel &#x3D; new FileInputStream(JPG_FILE).getChannel()) &#123;</span><br><span class="line">                zipOut.putNextEntry(new ZipEntry(i + SUFFIX_FILE));</span><br><span class="line">                fileChannel.transferTo(0, FILE_SIZE, writableByteChannel);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        printInfo(beginTime);</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以看到这里并没有使用ByteBuffer进行数据传输，而是使用了transferTo的方法。这个方法是将两个通道进行直连。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">This method is potentially much more efficient than a simple loop</span><br><span class="line">* that reads from this channel and writes to the target channel.  Many</span><br><span class="line">* operating systems can transfer bytes directly from the filesystem cache</span><br><span class="line">* to the target channel without actually copying them. </span><br></pre></td></tr></table></figure>
+<p>这是源码上的描述文字，大概意思就是使用transferTo的效率比循环一个Channel读取出来然后再循环写入另一个Channel好。操作系统能够直接传输字节从文件系统缓存到目标的Channel中，而不需要实际的copy阶段。</p>
+<blockquote>
+<p>copy阶段就是从内核空间转到用户空间的一个过程</p>
+</blockquote>
+<p>可以看到速度相比较使用缓冲区已经有了一些的提高。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">------Channel</span><br><span class="line">fileSize:20M</span><br><span class="line">consum time:1416</span><br></pre></td></tr></table></figure>
+<h3 id="内核空间和用户空间"><a href="#内核空间和用户空间" class="headerlink" title="内核空间和用户空间"></a>内核空间和用户空间</h3><p>那么为什么从内核空间转向用户空间这段过程会慢呢？首先我们需了解的是什么是内核空间和用户空间。在常用的操作系统中为了保护系统中的核心资源，于是将系统设计为四个区域，<br>越往里权限越大，所以Ring0被称之为内核空间，用来访问一些关键性的资源。Ring3被称之为用户空间。<br><img src="/2020/08/26/java-compress-file-optimize/java-compress-file-optimize-1.jpg" alt="图片"></p>
+<blockquote>
+<p>用户态、内核态：线程处于内核空间称之为内核态，线程处于用户空间属于用户态</p>
+</blockquote>
+<p>那么我们如果此时应用程序（应用程序是都属于用户态的）需要访问核心资源怎么办呢？那就需要调用内核中所暴露出的接口用以调用，称之为系统调用。例如此时我们应用程序需要访问磁盘上的文件。<br>此时应用程序就会调用系统调用的接口open方法，然后内核去访问磁盘中的文件，将文件内容返回给应用程序。大致的流程如下<br><img src="/2020/08/26/java-compress-file-optimize/java-compress-file-optimize-2.jpg" alt="图片"></p>
+<h3 id="直接缓冲区和非直接缓冲区"><a href="#直接缓冲区和非直接缓冲区" class="headerlink" title="直接缓冲区和非直接缓冲区"></a>直接缓冲区和非直接缓冲区</h3><p>既然我们要读取一个磁盘的文件，要废这么大的周折。有没有什么简单的方法能够使我们的应用直接操作磁盘文件，不需要内核进行中转呢？有，那就是建立直接缓冲区了。</p>
+<ul>
+<li>非直接缓冲区：非直接缓冲区就是我们上面所讲内核态作为中间人，每次都需要内核在中间作为中转。<br><img src="/2020/08/26/java-compress-file-optimize/java-compress-file-optimize-3.jpg" alt="图片"></li>
+<li>直接缓冲区：直接缓冲区不需要内核空间作为中转copy数据，而是直接在物理内存申请一块空间，这块空间映射到内核地址空间和用户地址空间，<br><img src="/2020/08/26/java-compress-file-optimize/java-compress-file-optimize-4.jpg" alt="图片"><br>应用程序与磁盘之间数据的存取通过这块直接申请的物理内存进行交互。</li>
+</ul>
+<p>既然直接缓冲区那么快，我们为什么不都用直接缓冲区呢？其实直接缓冲区有以下的缺点。直接缓冲区的缺点：</p>
+<ol>
+<li>不安全</li>
+<li>消耗更多，因为它不是在JVM中直接开辟空间。这部分内存的回收只能依赖于垃圾回收机制，垃圾什么时候回收不受我们控制。</li>
+<li>数据写入物理内存缓冲区中，程序就丧失了对这些数据的管理，即什么时候这些数据被最终写入从磁盘只能由操作系统来决定，应用程序无法再干涉。</li>
+</ol>
+<blockquote>
+<p>综上所述，所以我们使用transferTo方法就是直接开辟了一段直接缓冲区。所以性能相比而言提高了许多</p>
+</blockquote>
+<h2 id="使用内存映射文件"><a href="#使用内存映射文件" class="headerlink" title="使用内存映射文件"></a>使用内存映射文件</h2><p>NIO中新出的另一个特性就是内存映射文件，内存映射文件为什么速度快呢？其实原因和上面所讲的一样，也是在内存中开辟了一段直接缓冲区。与数据直接作交互。源码如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;Version 4 使用Map映射文件</span><br><span class="line">public static void zipFileMap() &#123;</span><br><span class="line">    &#x2F;&#x2F;开始时间</span><br><span class="line">    long beginTime &#x3D; System.currentTimeMillis();</span><br><span class="line">    File zipFile &#x3D; new File(ZIP_FILE);</span><br><span class="line">    try (ZipOutputStream zipOut &#x3D; new ZipOutputStream(new FileOutputStream(zipFile));</span><br><span class="line">            WritableByteChannel writableByteChannel &#x3D; Channels.newChannel(zipOut)) &#123;</span><br><span class="line">        for (int i &#x3D; 0; i &lt; 10; i++) &#123;</span><br><span class="line"></span><br><span class="line">            zipOut.putNextEntry(new ZipEntry(i + SUFFIX_FILE));</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;内存中的映射文件</span><br><span class="line">            MappedByteBuffer mappedByteBuffer &#x3D; new RandomAccessFile(JPG_FILE_PATH, &quot;r&quot;).getChannel()</span><br><span class="line">                    .map(FileChannel.MapMode.READ_ONLY, 0, FILE_SIZE);</span><br><span class="line"></span><br><span class="line">            writableByteChannel.write(mappedByteBuffer);</span><br><span class="line">        &#125;</span><br><span class="line">        printInfo(beginTime);</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>打印如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---------Map</span><br><span class="line">fileSize:20M</span><br><span class="line">consum time:1305</span><br></pre></td></tr></table></figure>
+<p>可以看到速度和使用Channel的速度差不多的。</p>
+<h2 id="使用Pipe"><a href="#使用Pipe" class="headerlink" title="使用Pipe"></a>使用Pipe</h2><p>Java NIO 管道是2个线程之间的单向数据连接。Pipe有一个source通道和一个sink通道。其中source通道用于读取数据，sink通道用于写入数据。可以看到源码中的介绍，大概意思就是写入线程会阻塞至有读线程从通道中读取数据。如果没有数据可读，读线程也会阻塞至写线程写入数据。直至通道关闭。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Whether or not a thread writing bytes to a pipe will block until another</span><br><span class="line">thread reads those bytes</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/08/26/java-compress-file-optimize/java-compress-file-optimize-5.jpg" alt="图片"><br>我想要的效果是这样的。源码如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;Version 5 使用Pip</span><br><span class="line">public static void zipFilePip() &#123;</span><br><span class="line"></span><br><span class="line">    long beginTime &#x3D; System.currentTimeMillis();</span><br><span class="line">    try(WritableByteChannel out &#x3D; Channels.newChannel(new FileOutputStream(ZIP_FILE))) &#123;</span><br><span class="line">        Pipe pipe &#x3D; Pipe.open();</span><br><span class="line">        &#x2F;&#x2F;异步任务</span><br><span class="line">        CompletableFuture.runAsync(()-&gt;runTask(pipe));</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;获取读通道</span><br><span class="line">        ReadableByteChannel readableByteChannel &#x3D; pipe.source();</span><br><span class="line">        ByteBuffer buffer &#x3D; ByteBuffer.allocate(((int) FILE_SIZE)*10);</span><br><span class="line">        while (readableByteChannel.read(buffer)&gt;&#x3D; 0) &#123;</span><br><span class="line">            buffer.flip();</span><br><span class="line">            out.write(buffer);</span><br><span class="line">            buffer.clear();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;catch (Exception e)&#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    printInfo(beginTime);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;异步任务</span><br><span class="line">public static void runTask(Pipe pipe) &#123;</span><br><span class="line"></span><br><span class="line">    try(ZipOutputStream zos &#x3D; new ZipOutputStream(Channels.newOutputStream(pipe.sink()));</span><br><span class="line">            WritableByteChannel out &#x3D; Channels.newChannel(zos)) &#123;</span><br><span class="line">        System.out.println(&quot;Begin&quot;);</span><br><span class="line">        for (int i &#x3D; 0; i &lt; 10; i++) &#123;</span><br><span class="line">            zos.putNextEntry(new ZipEntry(i+SUFFIX_FILE));</span><br><span class="line"></span><br><span class="line">            FileChannel jpgChannel &#x3D; new FileInputStream(new File(JPG_FILE_PATH)).getChannel();</span><br><span class="line"></span><br><span class="line">            jpgChannel.transferTo(0, FILE_SIZE, out);</span><br><span class="line"></span><br><span class="line">            jpgChannel.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;catch (Exception e)&#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>生活处处都需要学习，有时候只是一个简单的优化，可以让你深入学习到各种不同的知识。所以在学习中要不求甚解，不仅要知道这个知识也要了解为什么要这么做。</li>
+<li>知行合一：学习完一个知识要尽量应用一遍。这样才能记得牢靠。</li>
+</ul>
+<p>源码地址：<a href="https://github.com/modouxiansheng/Doraemon">https://github.com/modouxiansheng/Doraemon</a></p>
+<p>来源：<a href="https://www.jianshu.com/p/25b328753017">https://www.jianshu.com/p/25b328753017</a></p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>常见的Nginx问题</title>
+    <url>/2019/08/03/nginx-problem/</url>
+    <content><![CDATA[<h2 id="什么是Nginx？"><a href="#什么是Nginx？" class="headerlink" title="什么是Nginx？"></a>什么是Nginx？</h2><p>Nginx是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器。<br>Nginx是一款轻量级的Web服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器 目前使用的最多的web服务器或者代理服务器，像阿里、百度、腾讯、新浪、网易、迅雷等都在使用。</p>
+<h2 id="为什么要用Nginx？"><a href="#为什么要用Nginx？" class="headerlink" title="为什么要用Nginx？"></a>为什么要用Nginx？</h2><ul>
+<li>跨平台、配置简单</li>
+<li>非阻塞、高并发连接：处理2-3万并发连接数，官方监测能支持5万并发</li>
+<li>内存消耗小：开启10个nginx才占150M内存 成本低廉：开源</li>
+<li>内置的健康检查功能：如果有一个服务器宕机，会做一个健康检查，再发送的请求就不会发送到宕机的服务器了。重新将请求提交到其他的节点上。</li>
+<li>节省宽带：支持GZIP压缩，可以添加浏览器本地缓存</li>
+<li>稳定性高：宕机的概率非常小</li>
+<li>master/worker结构：一个master进程，生成一个或者多个worker进程</li>
+<li>接收用户请求是异步的：浏览器将请求发送到nginx服务器，它先将用户请求全部接收下来，再一次性发送给后端web服务器，极大减轻了web服务器的压力</li>
+<li>一边接收web服务器的返回数据，一边发送给浏览器客户端</li>
+<li>网络依赖性比较低，只要ping通就可以负载均衡</li>
+<li>可以有多台nginx服务器</li>
+<li>事件驱动：通信机制采用epoll模型</li>
+</ul>
+<h2 id="为什么Nginx性能这么高？"><a href="#为什么Nginx性能这么高？" class="headerlink" title="为什么Nginx性能这么高？"></a>为什么Nginx性能这么高？</h2><p>得益于它的事件处理机制： 异步非阻塞事件处理机制：运用了epoll模型，提供了一个队列，排队解决。</p>
+<h2 id="Nginx是如何实现高并发的？"><a href="#Nginx是如何实现高并发的？" class="headerlink" title="Nginx是如何实现高并发的？"></a>Nginx是如何实现高并发的？</h2><p>service nginx start之后，然后输入#ps -ef|grep nginx，会发现Nginx有一个master进程和若干个worker进程，这些worker进程是平等的，都是被master fork过来的。在master里面，先建立需要listen的socket（listenfd），然后再fork出多个worker进程。当用户进入nginx服务的时候，每个worker的listenfd变的可读，并且这些worker会抢一个叫accept_mutex的东西，accept_mutex是互斥的，一个worker得到了，其他的worker就歇菜了。而抢到这个accept_mutex的worker就开始“读取请求–解析请求–处理请求”，数据彻底返回客户端之后（目标网页出现在电脑屏幕上），这个事件就算彻底结束。</p>
+<p>nginx用这个方法是底下的worker进程抢注用户的要求，同时搭配“异步非阻塞”的方式，实现高并发量。</p>
+<h2 id="为什么不使用多线程？"><a href="#为什么不使用多线程？" class="headerlink" title="为什么不使用多线程？"></a>为什么不使用多线程？</h2><p>因为线程创建和上下文的切换非常消耗资源，线程占用内存大，上下文切换占用cpu也很高，采用epoll模型避免了这个缺点。</p>
+<h2 id="Nginx是如何处理一个请求的呢？"><a href="#Nginx是如何处理一个请求的呢？" class="headerlink" title="Nginx是如何处理一个请求的呢？"></a>Nginx是如何处理一个请求的呢？</h2><p>首先，nginx在启动时，会解析配置文件，得到需要监听的端口与ip地址，然后在nginx的master进程里面。</p>
+<p>先初始化好这个监控的socket(创建socket，设置addrreuse等选项，绑定到指定的ip地址端口，再listen)。</p>
+<p>然后再fork(一个现有进程可以调用fork函数创建一个新进程。由fork创建的新进程被称为子进程 )出多个子进程出来。</p>
+<p>然后子进程会竞争accept新的连接。此时，客户端就可以向nginx发起连接了。当客户端与nginx进行三次握手，与nginx建立好一个连接后。</p>
+<p>此时，某一个子进程会accept成功，得到这个建立好的连接的socket，然后创建nginx对连接的封装，即ngx_connection_t结构体。</p>
+<p>接着，设置读写事件处理函数并添加读写事件来与客户端进行数据的交换。最后，nginx或客户端来主动关掉连接，到此，一个连接就寿终正寝了。</p>
+<h2 id="正向代理"><a href="#正向代理" class="headerlink" title="正向代理"></a>正向代理</h2><p>一个位于客户端和原始服务器(origin server)之间的服务器，为了从原始服务器取得内容，客户端向代理发送一个请求并指定目标(原始服务器)</p>
+<p>然后代理向原始服务器转交请求并将获得的内容返回给客户端。客户端才能使用正向代理</p>
+<p>正向代理总结就一句话：代理端代理的是客户端。</p>
+<h2 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h2><p>反向代理（Reverse Proxy）方式是指以代理服务器来接受internet上的连接请求，然后将请求，发给内部网络上的服务器</p>
+<p>并将从服务器上得到的结果返回给internet上请求连接的客户端，此时代理服务器对外就表现为一个反向代理服务器。</p>
+<p>反向代理总结就一句话：代理端代理的是服务端</p>
+<h2 id="动态资源、静态资源分离"><a href="#动态资源、静态资源分离" class="headerlink" title="动态资源、静态资源分离"></a>动态资源、静态资源分离</h2><p>动态资源、静态资源分离是让动态网站里的动态网页根据一定规则把不变的资源和经常变的资源区分开来，动静资源做好了拆分以后</p>
+<p>我们就可以根据静态资源的特点将其做缓存操作，这就是网站静态化处理的核心思路。</p>
+<p>动态资源、静态资源分离简单的概括是：动态文件与静态文件的分离</p>
+<h2 id="为什么要做动、静分离？"><a href="#为什么要做动、静分离？" class="headerlink" title="为什么要做动、静分离？"></a>为什么要做动、静分离？</h2><p>在我们的软件开发中，有些请求是需要后台处理的（如：.jsp,.do等等），有些请求是不需要经过后台处理的（如：css、html、jpg、js等等文件）<br>这些不需要经过后台处理的文件称为静态文件，否则动态文件。因此我们后台处理忽略静态文件。这会有人又说那我后台忽略静态文件不就完了吗<br>当然这是可以的，但是这样后台的请求次数就明显增多了。在我们对资源的响应速度有要求的时候，我们应该使用这种动静分离的策略去解决动、静<br>分离将网站静态资源（HTML，JavaScript，CSS，img等文件）与后台应用分开部署，提高用户访问静态代码的速度，降低对后台应用访问。</p>
+<p>这里我们将静态资源放到nginx中，动态资源转发到tomcat服务器中</p>
+<h2 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h2><p>负载均衡即是代理服务器将接收的请求均衡的分发到各服务器中。</p>
+<p>负载均衡主要解决网络拥塞问题，提高服务器响应速度，服务就近提供，达到更好的访问质量，减少后台服务器大并发压力。</p>
+]]></content>
+      <categories>
+        <category>Nginx</category>
+      </categories>
+      <tags>
+        <tag>Nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Prometheus介绍</title>
+    <url>/2020/01/14/prometheus-introduce/</url>
+    <content><![CDATA[<h2 id="Prometheus-简介"><a href="#Prometheus-简介" class="headerlink" title="Prometheus 简介"></a>Prometheus 简介</h2><p>Prometheus是一个开源监控系统，它前身是SoundCloud的警告工具包。从2012年开始，许多公司和组织开始使用Prometheus。该项目的开发人员和用户社区非常活跃，越来越多的开发人员和用户参与到该项目中。目前它是一个独立的开源项目，且不依赖与任何公司。为了强调这点和明确该项目治理结构，Prometheus在2016年继Kurberntes之后，加入了Cloud Native Computing Foundation。<br>开源地址：<a href="https://github.com/prometheus">https://github.com/prometheus</a></p>
+<h3 id="主要特性："><a href="#主要特性：" class="headerlink" title="主要特性："></a>主要特性：</h3><ul>
+<li>多维度数据模型</li>
+<li>时间序列数据通过 metric 名和键值对来区分。</li>
+<li>所有的 metrics 都可以设置任意的多维标签。</li>
+<li>数据模型更随意，不需要刻意设置为以点分隔的字符串。</li>
+<li>可以对数据模型进行聚合，切割和切片操作。</li>
+<li>支持双精度浮点类型，标签可以设为全 unicode。</li>
+<li>灵活的查询语言(PromQL)：在同一个查询语句，可以对多个 metrics 进行乘法、加法、连接、取分数位等操作。</li>
+<li>不依赖任何分布式存储</li>
+<li>通过拉取方式采集数据，或者通过中间网关推送方式采集数据</li>
+<li>通过服务发现或者静态配置来发现监控目标</li>
+<li>支持多种图形界面展示方式</li>
+</ul>
+<h2 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h2><p>下图描述了 Prometheus 的整体架构和其生态内。一些常用组件：</p>
+<ul>
+<li>Prometheus Server：用于收集和存储时间序列数据。</li>
+<li>Client Library： 客户端库，为需要监控的服务生成相应的 metrics 并暴露给 Prometheus server。当 Prometheus server 来 pull 时，直接返回实时状态的 metrics。</li>
+<li>Push Gateway：主要用于短期的 jobs。由于这类 jobs 存在时间较短，可能在 Prometheus 来 pull 之前就消失了。为此，这次 jobs 可以直接向 Prometheus server 端推送它们的 metrics。这种方式主要用于服务层面的 metrics，对于机器层面的 metrices，需要使用 node exporter。</li>
+<li>Exporters：用于暴露已有的第三方服务的 metrics 给 Prometheus。</li>
+<li>Alertmanager：从 Prometheus server 端接收到 alerts 后，会进行去除重复数据，分组，并路由到对收的接受方式，发出报警。常见的接收方式有：电子邮件，pagerduty，OpsGenie, webhook 等。</li>
+</ul>
+<p><img src="/2020/01/14/prometheus-introduce/prometheus.png" alt="整体架构图"></p>
+<p>Prometheus以其Server为核心，用于收集和存储时间序列数据。Prometheus Server 从监控目标中拉取数据，或通过中间网关间接的把监控目标的监控数据存储到本地HDD/SSD中。<br>用户接口界面通过各种UI使用PromQL查询语言从Server获取数据。<br>一旦Server检测到异常，会推送告警到AlertManager，由告警管理负责去通知相关方。</p>
+<h2 id="Prometheus-核心概念"><a href="#Prometheus-核心概念" class="headerlink" title="Prometheus 核心概念"></a>Prometheus 核心概念</h2><h3 id="数据模型"><a href="#数据模型" class="headerlink" title="数据模型"></a>数据模型</h3><p>Prometheus 从根本上存储的所有数据都是时间序列数据（Time Serie Data，简称时序数据）。时序数据是具有时间戳的数据流，该数据流属于某个度量指标（Metric）和该度量指标下的多个标签（Label）。除了提供存储功能，Prometheus 还可以利用查询表达式来执行非常灵活和复杂的查询。</p>
+<h3 id="度量指标和标签"><a href="#度量指标和标签" class="headerlink" title="度量指标和标签"></a>度量指标和标签</h3><h4 id="每个时间序列（Time-Serie，简称时序）由度量指标和一组标签键值对唯一确定。"><a href="#每个时间序列（Time-Serie，简称时序）由度量指标和一组标签键值对唯一确定。" class="headerlink" title="每个时间序列（Time Serie，简称时序）由度量指标和一组标签键值对唯一确定。"></a>每个时间序列（Time Serie，简称时序）由度量指标和一组标签键值对唯一确定。</h4><p>度量指标名称描述了被监控系统的某个测量特征（比如 http_server_requests_seconds_count 表示 http 请求总数）。度量指标名称由 ASCII 字母、数字、下划线和冒号组成，须匹配正则表达式 [a-zA-Z_:][a-zA-Z0-9_:]*。</p>
+<p>标签开启了 Prometheus 的多维数据模型。对于同一个度量指标，不同标签值组合会形成特定维度的时序。Prometheus 的查询语言可以通过度量指标和标签对时序数据进行过滤和聚合。改变任何度量指标上的任何标签值，都会形成新的时序。标签名称可以包含 ASCII 字母、数字和下划线，须匹配正则表达式[a-zA-Z_][a-zA-Z0-9_]*，带有 _下划线的标签名称保留为内部使用。标签值可以包含任意 Unicode 字符，包括中文。</p>
+<h3 id="采样值（Sample）"><a href="#采样值（Sample）" class="headerlink" title="采样值（Sample）"></a>采样值（Sample）</h3><p>时序数据其实就是一系列采样值。每个采样值包括2部分：</p>
+<ul>
+<li>一个 64 位的浮点数值</li>
+<li>一个精确到毫秒的时间戳</li>
+</ul>
+<h3 id="注解（Notation）"><a href="#注解（Notation）" class="headerlink" title="注解（Notation）"></a>注解（Notation）</h3><p>一个注解由一个度量指标和一组标签键值对构成。形式如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[metric name]&#123;[label name]&#x3D;[label value], ...&#125;</span><br></pre></td></tr></table></figure>
+<p>例如，度量指标为 http_server_requests_seconds_count，标签为 method=”POST”、handler=”/test” 的注解表示如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http_server_requests_seconds_count&#123;method&#x3D;&quot;POST&quot;, handler&#x3D;&quot;&#x2F;test&quot;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="度量指标类型"><a href="#度量指标类型" class="headerlink" title="度量指标类型"></a>度量指标类型</h3><p>Prometheus 里的度量指标有以下几种类型：</p>
+<ul>
+<li><p>计数器（Counter）<br>计数器是一种累计型的度量指标，它是一个只能递增的数值。计数器主要用于统计类似于服务请求数、任务完成数和错误出现次数这样的数据。</p>
+</li>
+<li><p>计量器（Gauge）<br>计量器表示一个既可增又可减的度量指标值。计量器主要用于测量类似于温度、内存使用量这样的瞬时数据。</p>
+</li>
+<li><p>直方图（Histogram）<br>直方图对观察结果（通常是请求持续时间或者响应大小这样的数据）进行采样，并在可配置的桶中对其进行统计。有以下几种方式来产生直方图（假设度量指标为&lt;basename&gt;）：</p>
+</li>
+<li><p>按桶计数，相当于&lt;basename&gt;_bucket{le=”&lt;upper inclusive bound&gt;“}</p>
+</li>
+<li><p>采样值总和，相当于&lt;basename&gt;_sum</p>
+</li>
+<li><p>采样值总数，相当于&lt;basename&gt;_count ，也等同于把所有采样值放到一个桶里来计数&lt;basename&gt;_bucket{le=”+Inf”}<br>Histogram可以理解为柱状图，典型的应用如：请求持续时间，响应大小。可以对观察结果采样，分组及统计。<br>例如，查询 prometheus_http_request_duration_seconds_sum{handler=”/api/v1/query”,job=”prometheus”} 时，返回结果如下：</p>
+</li>
+</ul>
+<p><img src="/2020/01/14/prometheus-introduce/histogram-demo.png" alt="prometheus_http_request_duration_seconds_sum{handler=&quot;/api/v1/query&quot;,job=&quot;prometheus&quot;}结果图"></p>
+<ul>
+<li>汇总（Summary）<br>类似于直方图，汇总也对观察结果进行采样。除了可以统计采样值总和和总数，它还能够按分位数统计。有以下几种方式来产生汇总（假设度量指标为&lt;basename&gt;）：</li>
+</ul>
+<p>按分位数，也就是采样值小于该分位数的个数占总数的比例小于 φ，相当于 &lt;basename&gt;{quantile=”&lt;φ&gt;“}<br>采样值总和，相当于&lt;basename&gt;_sum<br>采样值总数，相当于&lt;basename&gt;_count</p>
+<h3 id="任务（Job）和实例（Instance）"><a href="#任务（Job）和实例（Instance）" class="headerlink" title="任务（Job）和实例（Instance）"></a>任务（Job）和实例（Instance）</h3><p>在 Prometheus 里，可以从中抓取采样值的端点称为实例，为了性能扩展而复制出来的多个这样的实例形成了一个任务。</p>
+<p>例如下面的 api-server 任务有四个相同的实例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">job: api-server</span><br><span class="line">instance 1: 1.2.3.4:5670</span><br><span class="line">instance 2: 1.2.3.4:5671</span><br><span class="line">instance 3: 5.6.7.8:5670</span><br><span class="line">instance 4: 5.6.7.8:5671</span><br></pre></td></tr></table></figure>
+<p>Prometheus 抓取完采样值后，会自动给采样值添加下面的标签和值：</p>
+<ul>
+<li>job: 抓取所属任务</li>
+<li>instance: 抓取来源实例</li>
+</ul>
+<p>另外每次抓取时，Prometheus 还会自动在以下时序里插入采样值：</p>
+<ul>
+<li>up{job=”[job-name]“, instance=”instance-id”}：采样值为 1 表示实例健康，否则为不健康</li>
+<li>scrape_duration_seconds{job=”[job-name]“, instance=”[instance-id]“}：采样值为本次抓取消耗时间</li>
+<li>scrape_samples_post_metric_relabeling{job=”&lt;job-name&gt;“, instance=”&lt;instance-id&gt;“}：采样值为重新打标签后的采样值个数</li>
+<li>scrape_samples_scraped{job=”&lt;job-name&gt;“, instance=”&lt;instance-id&gt;“}：采样值为本次抓取到的采样值个数</li>
+</ul>
+<p>关于更多Prometheus内容：<a href="https://prometheus.io/">https://prometheus.io</a></p>
+]]></content>
+      <categories>
+        <category>Prometheus</category>
+      </categories>
+      <tags>
+        <tag>Prometheus</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring Boot集成Apollo配置中心</title>
+    <url>/2019/09/05/spring-boot-apollo/</url>
+    <content><![CDATA[<h2 id="Apollo简介"><a href="#Apollo简介" class="headerlink" title="Apollo简介"></a>Apollo简介</h2><p>Apollo（阿波罗）是携程框架部门研发的开源配置管理中心，能够集中化管理应用不同环境、不同集群的配置，配置修改后能够实时推送到应用端，并且具备规范的权限、流程治理等特性。</p>
+<p>Apollo支持4个维度管理Key-Value格式的配置：</p>
+<p>application (应用)<br>environment (环境)<br>cluster (集群)<br>namespace (命名空间)<br>同时，Apollo基于开源模式开发，开源地址：<a href="https://github.com/ctripcorp/apollo">https://github.com/ctripcorp/apollo</a></p>
+<h3 id="特性"><a href="#特性" class="headerlink" title="特性:"></a>特性:</h3><ul>
+<li>统一管理不同环境、不同集群的配置</li>
+<li>配置修改实时生效（热发布）</li>
+<li>版本发布管理</li>
+<li>灰度发布</li>
+<li>权限管理、发布审核、操作审计</li>
+<li>客户端配置信息监控</li>
+</ul>
+<h2 id="部署Apollo配置中心"><a href="#部署Apollo配置中心" class="headerlink" title="部署Apollo配置中心"></a>部署Apollo配置中心</h2><p><a href="https://github.com/ctripcorp/apollo/wiki/%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97">参考文档</a></p>
+<p>Apollo配置管理平台如下:<br><img src="/2019/09/05/spring-boot-apollo/apollo-manage.png" alt="配置管理平台图"><br>可以在管理平台中管理自己的配置</p>
+<h2 id="新建spring-boot项目添加apollo依赖"><a href="#新建spring-boot项目添加apollo依赖" class="headerlink" title="新建spring boot项目添加apollo依赖"></a>新建spring boot项目添加apollo依赖</h2><p>以maven为例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.ctrip.framework.apollo&lt;&#x2F;groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;apollo-client&lt;&#x2F;artifactId&gt;</span><br><span class="line">	&lt;version&gt;1.4.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="添加-EnableApolloConfig注解，就可以通过-Value获取配置信息"><a href="#添加-EnableApolloConfig注解，就可以通过-Value获取配置信息" class="headerlink" title="添加@EnableApolloConfig注解，就可以通过@Value获取配置信息"></a>添加@EnableApolloConfig注解，就可以通过@Value获取配置信息</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@EnableApolloConfig</span><br><span class="line">public class ApolloDemoApplication &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(ApolloDemoApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">public class SomeBean &#123;</span><br><span class="line">    &#x2F;&#x2F;timeout的值会自动更新</span><br><span class="line">    @Value(&quot;$&#123;request.timeout:200&#125;&quot;)</span><br><span class="line">    private int timeout;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>apollo支持配置修改后实时生效，灰度发布，多环境、分集群管理配置</p>
+<p>关于更多Apollo信息请参考<a href="https://github.com/ctripcorp/apollo/wiki/Apollo%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E4%BB%8B%E7%BB%8D">Apollo配置中心介绍</a></p>
+]]></content>
+      <categories>
+        <category>Spring Boot</category>
+        <category>Apollo</category>
+      </categories>
+      <tags>
+        <tag>Spring Boot</tag>
+        <tag>Apollo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Nginx性能调优</title>
+    <url>/2019/08/17/nginx-performance-tuning/</url>
+    <content><![CDATA[<h2 id="Nginx运行工作进程数量"><a href="#Nginx运行工作进程数量" class="headerlink" title="Nginx运行工作进程数量"></a>Nginx运行工作进程数量</h2><p>Nginx运行工作进程个数一般设置CPU的核心或者核心数x2。如果不了解cpu的核数，可以top命令之后按1看出来，也可以查看/proc/cpuinfo文件 grep ^processor /proc/cpuinfo | wc -l</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# vi &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;conf&#x2F;nginx.conf</span><br><span class="line">worker_processes  1;</span><br><span class="line">[root@localhost ~]# ps -aux | grep nginx |grep -v grep</span><br><span class="line">root      10463  0.0  0.0  20392   608 ?        Ss   8月14   0:00 nginx: master process &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;sbin&#x2F;nginx -c &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;conf&#x2F;nginx.conf</span><br><span class="line">nobody    10464  0.0  0.0  21132  2004 ?        S    8月14   0:00 nginx: worker process</span><br></pre></td></tr></table></figure>
+<h2 id="Nginx运行CPU亲和力"><a href="#Nginx运行CPU亲和力" class="headerlink" title="Nginx运行CPU亲和力"></a>Nginx运行CPU亲和力</h2><p>比如4核配置：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">worker_processes 4;</span><br><span class="line">worker_cpu_affinity 0001 0010 0100 1000</span><br></pre></td></tr></table></figure>
+<p>比如8核配置：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">worker_processes 8;</span><br><span class="line">worker_cpu_affinity 00000001 00000010 00000100 0000100000010000 00100000 01000000 10000000;</span><br></pre></td></tr></table></figure>
+<p>worker_processes最多开启8个，8个以上性能提升不会再提升了，而且稳定性变得更低，所以8个进程够用了。</p>
+<h2 id="Nginx最大打开文件数"><a href="#Nginx最大打开文件数" class="headerlink" title="Nginx最大打开文件数"></a>Nginx最大打开文件数</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">worker_rlimit_nofile 65535;</span><br></pre></td></tr></table></figure>
+<p>这个指令是指当一个nginx进程打开的最多文件描述符数目，理论值应该是最多打开文件数（ulimit -n）与nginx进程数相除，但是nginx分配请求并不是那么均匀，所以最好与ulimit -n的值保持一致。</p>
+<p>注：文件资源限制的配置可以在/etc/security/limits.conf设置，针对root/user等各个用户或者*代表所有用户来设置。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">*   soft nofile   65535</span><br><span class="line">*   hard nofile   65535</span><br></pre></td></tr></table></figure>
+<p>用户重新登录生效（ulimit -n）</p>
+<h2 id="Nginx事件处理模型"><a href="#Nginx事件处理模型" class="headerlink" title="Nginx事件处理模型"></a>Nginx事件处理模型</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">events &#123;</span><br><span class="line">  use epoll;</span><br><span class="line">  worker_connections 65535;</span><br><span class="line">  multi_accept on;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>nginx采用epoll事件模型，处理效率高。<br>work_connections是单个worker进程允许客户端最大连接数，这个数值一般根据服务器性能和内存来制定，实际最大值就是worker进程数乘以work_connections。</p>
+<p>实际我们填入一个65535，足够了，这些都算并发值，一个网站的并发达到这么大的数量，也算一个大站了！</p>
+<p>multi_accept 告诉nginx收到一个新连接通知后接受尽可能多的连接，默认是on，设置为on后，多个worker按串行方式来处理连接，也就是一个连接只有一个worker被唤醒，其他的处于休眠状态，设置为off后，多个worker按并行方式来处理连接，也就是一个连接会唤醒所有的worker，直到连接分配完毕，没有取得连接的继续休眠。当你的服务器连接数不多时，开启这个参数会让负载有一定的降低，但是当服务器的吞吐量很大时，为了效率，可以关闭这个参数。</p>
+<h2 id="开启高效传输模式"><a href="#开启高效传输模式" class="headerlink" title="开启高效传输模式"></a>开启高效传输模式</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">  include mime.types;</span><br><span class="line">  default_type application&#x2F;octet-stream;</span><br><span class="line">  ……</span><br><span class="line"></span><br><span class="line">  sendfile on;</span><br><span class="line">  tcp_nopush on;</span><br><span class="line">  ……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>include mime.types ：媒体类型,include 只是一个在当前文件中包含另一个文件内容的指令。</p>
+</li>
+<li><p>default_type application/octet-stream ：默认媒体类型足够。</p>
+</li>
+<li><p>sendfile on：开启高效文件传输模式，sendfile指令指定nginx是否调用sendfile函数来输出文件，对于普通应用设为 on，如果用来进行下载等应用磁盘IO重负载应用，可设置为off，以平衡磁盘与网络I/O处理速度，降低系统的负载。注意：如果图片显示不正常把这个改成off。</p>
+</li>
+<li><p>tcp_nopush on：必须在sendfile开启模式才有效，防止网路阻塞，积极的减少网络报文段的数量（将响应头和正文的开始部分一起发送，而不一个接一个的发送。）</p>
+</li>
+</ul>
+<h2 id="连接超时时间"><a href="#连接超时时间" class="headerlink" title="连接超时时间"></a>连接超时时间</h2><p>主要目的是保护服务器资源，CPU，内存，控制连接数，因为建立连接也是需要消耗资源的。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">keepalive_timeout 60;</span><br><span class="line">tcp_nodelay on;</span><br><span class="line">client_header_buffer_size 4k;</span><br><span class="line">open_file_cache max&#x3D;102400 inactive&#x3D;20s;</span><br><span class="line">open_file_cache_valid 30s;</span><br><span class="line">open_file_cache_min_uses 1;</span><br><span class="line">client_header_timeout 15;</span><br><span class="line">client_body_timeout 15;</span><br><span class="line">reset_timedout_connection on;</span><br><span class="line">send_timeout 15;</span><br><span class="line">server_tokens off;</span><br><span class="line">client_max_body_size 10m;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>keepalived_timeout ：客户端连接保持会话超时时间，超过这个时间，服务器断开这个链接。</p>
+</li>
+<li><p>tcp_nodelay：也是防止网络阻塞，不过要包涵在keepalived参数才有效。</p>
+</li>
+<li><p>client_header_buffer_size 4k：客户端请求头部的缓冲区大小，这个可以根据你的系统分页大小来设置，一般一个请求头的大小不会超过 1k，不过由于一般系统分页都要大于1k，所以这里设置为分页大小。分页大小可以用命令getconf PAGESIZE取得。</p>
+</li>
+<li><p>open_file_cache max=102400 inactive=20s ：这个将为打开文件指定缓存，默认是没有启用的，max指定缓存数量，建议和打开文件数一致，inactive 是指经过多长时间文件没被请求后删除缓存。</p>
+</li>
+<li><p>open_file_cache_valid 30s：这个是指多长时间检查一次缓存的有效信息。</p>
+</li>
+<li><p>open_file_cache_min_uses 1 ：open_file_cache指令中的inactive 参数时间内文件的最少使用次数，如果超过这个数字，文件描述符一直是在缓存中打开的，如上例，如果有一个文件在inactive 时间内一次没被使用，它将被移除。</p>
+</li>
+<li><p>client_header_timeout ：设置请求头的超时时间。我们也可以把这个设置低些，如果超过这个时间没有发送任何数据，nginx将返回request time out的错误。</p>
+</li>
+<li><p>client_body_timeout设置请求体的超时时间。我们也可以把这个设置低些，超过这个时间没有发送任何数据，和上面一样的错误提示。</p>
+</li>
+<li><p>reset_timeout_connection ：告诉nginx关闭不响应的客户端连接。这将会释放那个客户端所占有的内存空间。</p>
+</li>
+<li><p>send_timeout ：响应客户端超时时间，这个超时时间仅限于两个活动之间的时间，如果超过这个时间，客户端没有任何活动，nginx关闭连接。</p>
+</li>
+<li><p>server_tokens ：并不会让nginx执行的速度更快，但它可以关闭在错误页面中的nginx版本数字，这样对于安全性是有好处的。</p>
+</li>
+<li><p>client_max_body_size：上传文件大小限制。</p>
+</li>
+</ul>
+<h2 id="fastcgi-调优"><a href="#fastcgi-调优" class="headerlink" title="fastcgi 调优"></a>fastcgi 调优</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">fastcgi_connect_timeout 600;</span><br><span class="line">fastcgi_send_timeout 600;</span><br><span class="line">fastcgi_read_timeout 600;</span><br><span class="line">fastcgi_buffer_size 64k;</span><br><span class="line">fastcgi_buffers 4 64k;</span><br><span class="line">fastcgi_busy_buffers_size 128k;</span><br><span class="line">fastcgi_temp_file_write_size 128k;</span><br><span class="line">fastcgi_temp_path&#x2F;usr&#x2F;local&#x2F;nginx1.10&#x2F;nginx_tmp;</span><br><span class="line">fastcgi_intercept_errors on;</span><br><span class="line">fastcgi_cache_path&#x2F;usr&#x2F;local&#x2F;nginx1.10&#x2F;fastcgi_cache levels&#x3D;1:2 keys_zone&#x3D;cache_fastcgi:128minactive&#x3D;1d max_size&#x3D;10g;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>fastcgi_connect_timeout 600 ：指定连接到后端FastCGI的超时时间。</p>
+</li>
+<li><p>fastcgi_send_timeout 600 ：向FastCGI传送请求的超时时间。</p>
+</li>
+<li><p>fastcgi_read_timeout 600 ：指定接收FastCGI应答的超时时间。</p>
+</li>
+<li><p>fastcgi_buffer_size 64k ：指定读取FastCGI应答第一部分需要用多大的缓冲区，默认的缓冲区大小为。fastcgi_buffers指令中的每块大小，可以将这个值设置更小。</p>
+</li>
+<li><p>fastcgi_buffers 4 64k ：指定本地需要用多少和多大的缓冲区来缓冲FastCGI的应答请求，如果一个php脚本所产生的页面大小为256KB，那么会分配4个64KB的缓冲区来缓存，如果页面大小大于256KB，那么大于256KB的部分会缓存到fastcgi_temp_path指定的路径中，但是这并不是好方法，因为内存中的数据处理速度要快于磁盘。一般这个值应该为站点中php脚本所产生的页面大小的中间值，如果站点大部分脚本所产生的页面大小为256KB，那么可以把这个值设置为“8 32K”、“4 64k”等。</p>
+</li>
+<li><p>fastcgi_busy_buffers_size 128k ：建议设置为fastcgi_buffers的两倍，繁忙时候的buffer。</p>
+</li>
+<li><p>fastcgi_temp_file_write_size 128k ：在写入fastcgi_temp_path时将用多大的数据块，默认值是fastcgi_buffers的两倍，该数值设置小时若负载上来时可能报502BadGateway。</p>
+</li>
+<li><p>fastcgi_temp_path  ：缓存临时目录。</p>
+</li>
+<li><p>fastcgi_intercept_errors on ：这个指令指定是否传递4xx和5xx错误信息到客户端，或者允许nginx使用error_page处理错误信息。注：静态文件不存在会返回404页面，但是php页面则返回空白页！</p>
+</li>
+<li><p>fastcgi_cache_path /usr/local/nginx1.10/fastcgi_cachelevels=1:2 keys_zone=cache_fastcgi:128minactive=1d max_size=10g ：fastcgi_cache缓存目录，可以设置目录层级，比如1:2会生成16*256个子目录，cache_fastcgi是这个缓存空间的名字，cache是用多少内存（这样热门的内容nginx直接放内存，提高访问速度），inactive表示默认失效时间，如果缓存数据在失效时间内没有被访问,将被删除，max_size表示最多用多少硬盘空间。</p>
+</li>
+<li><p>fastcgi_cache cache_fastcgi ：#表示开启FastCGI缓存并为其指定一个名称。开启缓存非常有用，可以有效降低CPU的负载，并且防止502的错误放生。cache_fastcgi为proxy_cache_path指令创建的缓存区名称。</p>
+</li>
+<li><p>fastcgi_cache_valid 200 302 1h ：#用来指定应答代码的缓存时间，实例中的值表示将200和302应答缓存一小时，要和fastcgi_cache配合使用。</p>
+</li>
+<li><p>fastcgi_cache_valid 301 1d ：将301应答缓存一天。</p>
+</li>
+<li><p>fastcgi_cache_valid any 1m ：将其他应答缓存为1分钟。</p>
+</li>
+<li><p>fastcgi_cache_min_uses 1 ：该指令用于设置经过多少次请求的相同URL将被缓存。</p>
+</li>
+<li><p>fastcgi_cache_key http://$host$request_uri ：该指令用来设置web缓存的Key值,nginx根据Key值md5哈希存储.一般根据$host(域名)、$request_uri(请求的路径)等变量组合成proxy_cache_key 。</p>
+</li>
+<li><p>fastcgi_pass  ：指定FastCGI服务器监听端口与地址，可以是本机或者其它。</p>
+</li>
+</ul>
+<p>总结：<br>nginx的缓存功能有：proxy_cache / fastcgi_cache</p>
+<ul>
+<li><p>proxy_cache的作用是缓存后端服务器的内容，可能是任何内容，包括静态的和动态。</p>
+</li>
+<li><p>fastcgi_cache的作用是缓存fastcgi生成的内容，很多情况是php生成的动态的内容。</p>
+</li>
+<li><p>proxy_cache缓存减少了nginx与后端通信的次数，节省了传输时间和后端宽带。</p>
+</li>
+<li><p>fastcgi_cache缓存减少了nginx与php的通信的次数，更减轻了php和数据库(mysql)的压力。</p>
+</li>
+</ul>
+<h2 id="gzip-调优"><a href="#gzip-调优" class="headerlink" title="gzip 调优"></a>gzip 调优</h2><p>使用gzip压缩功能，可能为我们节约带宽，加快传输速度，有更好的体验，也为我们节约成本，所以说这是一个重点。</p>
+<p>Nginx启用压缩功能需要你来ngx_http_gzip_module模块，apache使用的是mod_deflate。</p>
+<p>一般我们需要压缩的内容有：文本，js，html，css，对于图片，视频，flash什么的不压缩，同时也要注意，我们使用gzip的功能是需要消耗CPU的！</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gzip on; #开启压缩功能</span><br><span class="line">gzip_min_length 2k;</span><br><span class="line">gzip_buffers   4 32k;</span><br><span class="line">gzip_http_version 1.1;</span><br><span class="line">gzip_comp_level 6;</span><br><span class="line">gzip_typestext&#x2F;plain text&#x2F;css text&#x2F;javascript application&#x2F;json application&#x2F;javascript application&#x2F;x-javascript application&#x2F;xml;</span><br><span class="line">gzip_vary on;</span><br><span class="line">gzip_proxied any; </span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>gzip_min_length 1k ：设置允许压缩的页面最小字节数，页面字节数从header头的Content-Length中获取，默认值是0，不管页面多大都进行压缩，建议设置成大于1K，如果小与1K可能会越压越大。</p>
+</li>
+<li><p>gzip_buffers 4 32k ：压缩缓冲区大小，表示申请4个单位为32K的内存作为压缩结果流缓存，默认值是申请与原始数据大小相同的内存空间来存储gzip压缩结果。</p>
+</li>
+<li><p>gzip_http_version 1.1 ：压缩版本，用于设置识别HTTP协议版本，默认是1.1，目前大部分浏览器已经支持GZIP解压，使用默认即可。</p>
+</li>
+<li><p>gzip_comp_level 6 ：压缩比例，用来指定GZIP压缩比，1压缩比最小，处理速度最快，9压缩比最大，传输速度快，但是处理慢，也比较消耗CPU资源。</p>
+</li>
+<li><p>gzip_types text/css text/xml application/javascript ：用来指定压缩的类型，‘text/html’类型总是会被压缩。默认值: gzip_types text/html (默认不对js/css文件进行压缩)</p>
+<ul>
+<li><p>压缩类型，匹配MIME型进行压缩；</p>
+</li>
+<li><p>不能用通配符 text/*；</p>
+</li>
+<li><p>text/html默认已经压缩 (无论是否指定)；</p>
+</li>
+<li><p>设置哪压缩种文本文件可参考 conf/mime.types。</p>
+</li>
+</ul>
+</li>
+<li><p>gzip_vary on ：varyheader支持，改选项可以让前端的缓存服务器缓存经过GZIP压缩的页面，例如用Squid缓存经过nginx压缩的数据。</p>
+</li>
+</ul>
+<h2 id="expires-缓存调优"><a href="#expires-缓存调优" class="headerlink" title="expires 缓存调优"></a>expires 缓存调优</h2><p>缓存，主要针对于图片，css，js等元素更改机会比较少的情况下使用，特别是图片，占用带宽大，我们完全可以设置图片在浏览器本地缓存365d，css，js，html可以缓存个10来天，这样用户第一次打开加载慢一点，第二次，就非常快了！缓存的时候，我们需要将需要缓存的拓展名列出来， Expires缓存配置在server字段里面。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">location ~* .(ico|jpe?g|gif|png|bmp|swf|flv)$ &#123;</span><br><span class="line">expires 30d;</span><br><span class="line">#log_not_found off;</span><br><span class="line">access_log off;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">location ~* .(js|css)$ &#123;</span><br><span class="line">expires 7d;</span><br><span class="line">log_not_found off;</span><br><span class="line">access_log off;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注：log_not_found off;是否在error_log中记录不存在的错误。默认是。<br>总结：</p>
+<p>expire功能优点：</p>
+<ul>
+<li><p>expires可以降低网站购买的带宽，节约成本；</p>
+</li>
+<li><p>同时提升用户访问体验；</p>
+</li>
+<li><p>减轻服务的压力，节约服务器成本，是web服务非常重要的功能。</p>
+</li>
+</ul>
+<p>expire功能缺点：</p>
+<ul>
+<li><p>被缓存的页面或数据更新了，用户看到的可能还是旧的内容，反而影响用户体验。</p>
+</li>
+<li><p>解决办法：第一个缩短缓存时间，例如：1天，但不彻底，除非更新频率大于1天；第二个对缓存的对象改名。</p>
+</li>
+</ul>
+<p>网站不希望被缓存的内容：</p>
+<ul>
+<li><p>网站流量统计工具；</p>
+</li>
+<li><p>更新频繁的文件（google的logo）。</p>
+</li>
+</ul>
+<h2 id="防盗链"><a href="#防盗链" class="headerlink" title="防盗链"></a>防盗链</h2><p>防止别人直接从你网站引用图片等链接，消耗了你的资源和网络流量，那么我们的解决办法由几种：</p>
+<p>1.水印，品牌宣传，你的带宽，服务器足够；</p>
+<p>2.防火墙，直接控制，前提是你知道IP来源；</p>
+<p>3.防盗链策略下面的方法是直接给予404的错误提示。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">location ~*^.+.(jpg|gif|png|swf|flv|wma|wmv|asf|mp3|mmf|zip|rar)$ &#123;</span><br><span class="line">valid_referers noneblocked www.benet.com benet.com;</span><br><span class="line">if($invalid_referer) &#123;</span><br><span class="line">  #return 302 http:&#x2F;&#x2F;www.benet.com&#x2F;img&#x2F;nolink.jpg;</span><br><span class="line">  return 404;</span><br><span class="line">  break;</span><br><span class="line">&#125;</span><br><span class="line">access_log off;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参数可以使如下形式：</p>
+<ul>
+<li><p>none：意思是不存在的Referer头(表示空的，也就是直接访问，比如直接在浏览器打开一个图片)。</p>
+</li>
+<li><p>blocked：意为根据防火墙伪装Referer头，如：“Referer:XXXXXXX”。</p>
+</li>
+<li><p>server_names：为一个或多个服务器的列表，0.5.33版本以后可以在名称中使用“*”通配符。</p>
+</li>
+</ul>
+<h2 id="内核参数优化"><a href="#内核参数优化" class="headerlink" title="内核参数优化"></a>内核参数优化</h2><ul>
+<li><p>fs.file-max = 999999：这个参数表示进程（比如一个worker进程）可以同时打开的最大句柄数，这个参数直线限制最大并发连接数，需根据实际情况配置。</p>
+</li>
+<li><p>net.ipv4.tcp_max_tw_buckets = 6000 ：这个参数表示操作系统允许TIME_WAIT套接字数量的最大值，如果超过这个数字，TIME_WAIT套接字将立刻被清除并打印警告信息。该参数默认为180000，过多的TIME_WAIT套接字会使Web服务器变慢。注：主动关闭连接的服务端会产生TIME_WAIT状态的连接</p>
+</li>
+<li><p>net.ipv4.ip_local_port_range = 1024 65000  ：允许系统打开的端口范围。</p>
+</li>
+<li><p>net.ipv4.tcp_tw_recycle = 1 ：启用timewait快速回收。</p>
+</li>
+<li><p>net.ipv4.tcp_tw_reuse = 1 ：开启重用。允许将TIME-WAIT sockets重新用于新的TCP连接。这对于服务器来说很有意义，因为服务器上总会有大量TIME-WAIT状态的连接。</p>
+</li>
+<li><p>net.ipv4.tcp_keepalive_time = 30：这个参数表示当keepalive启用时，TCP发送keepalive消息的频度。默认是2小时，若将其设置的小一些，可以更快地清理无效的连接。</p>
+</li>
+<li><p>net.ipv4.tcp_syncookies = 1 ：开启SYN Cookies，当出现SYN等待队列溢出时，启用cookies来处理。</p>
+</li>
+<li><p>net.core.somaxconn = 40960  ：web 应用中 listen 函数的 backlog 默认会给我们内核参数的。</p>
+</li>
+<li><p>net.core.somaxconn  ：限制到128，而nginx定义的NGX_LISTEN_BACKLOG 默认为511，所以有必要调整这个值。注：对于一个TCP连接，Server与Client需要通过三次握手来建立网络连接.当三次握手成功后,我们可以看到端口的状态由LISTEN转变为ESTABLISHED,接着这条链路上就可以开始传送数据了.每一个处于监听(Listen)状态的端口,都有自己的监听队列.监听队列的长度与如somaxconn参数和使用该端口的程序中listen()函数有关。somaxconn定义了系统中每一个端口最大的监听队列的长度,这是个全局的参数,默认值为128，对于一个经常处理新连接的高负载 web服务环境来说，默认的 128 太小了。大多数环境这个值建议增加到 1024 或者更多。大的侦听队列对防止拒绝服务 DoS 攻击也会有所帮助。</p>
+</li>
+<li><p>net.core.netdev_max_backlog = 262144  ：每个网络接口接收数据包的速率比内核处理这些包的速率快时，允许送到队列的数据包的最大数目。</p>
+</li>
+<li><p>net.ipv4.tcp_max_syn_backlog = 262144 ：这个参数标示TCP三次握手建立阶段接受SYN请求队列的最大长度，默认为1024，将其设置得大一些可以使出现Nginx繁忙来不及accept新连接的情况时，Linux不至于丢失客户端发起的连接请求。</p>
+</li>
+<li><p>net.ipv4.tcp_rmem = 10240 87380 12582912 ：这个参数定义了TCP接受缓存（用于TCP接受滑动窗口）的最小值、默认值、最大值。</p>
+</li>
+<li><p>net.ipv4.tcp_wmem = 10240 87380 12582912：这个参数定义了TCP发送缓存（用于TCP发送滑动窗口）的最小值、默认值、最大值。</p>
+</li>
+<li><p>net.core.rmem_default = 6291456：这个参数表示内核套接字接受缓存区默认的大小。</p>
+</li>
+<li><p>net.core.wmem_default = 6291456：这个参数表示内核套接字发送缓存区默认的大小。</p>
+</li>
+<li><p>net.core.rmem_max = 12582912：这个参数表示内核套接字接受缓存区的最大大小。</p>
+</li>
+<li><p>net.core.wmem_max = 12582912：这个参数表示内核套接字发送缓存区的最大大小。</p>
+</li>
+<li><p>net.ipv4.tcp_syncookies = 1：该参数与性能无关，用于解决TCP的SYN攻击。</p>
+</li>
+</ul>
+<p>下面贴一个完整的内核优化设置：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">fs.file-max &#x3D; 999999</span><br><span class="line">net.ipv4.ip_forward &#x3D; 0</span><br><span class="line">net.ipv4.conf.default.rp_filter &#x3D; 1</span><br><span class="line">net.ipv4.conf.default.accept_source_route &#x3D; 0</span><br><span class="line">kernel.sysrq &#x3D; 0</span><br><span class="line">kernel.core_uses_pid &#x3D; 1</span><br><span class="line">net.ipv4.tcp_syncookies &#x3D; 1</span><br><span class="line">kernel.msgmnb &#x3D; 65536</span><br><span class="line">kernel.msgmax &#x3D; 65536</span><br><span class="line">kernel.shmmax &#x3D; 68719476736</span><br><span class="line">kernel.shmall &#x3D; 4294967296</span><br><span class="line">net.ipv4.tcp_max_tw_buckets &#x3D; 6000</span><br><span class="line">net.ipv4.tcp_sack &#x3D; 1</span><br><span class="line">net.ipv4.tcp_window_scaling &#x3D; 1</span><br><span class="line">net.ipv4.tcp_rmem &#x3D; 10240 87380 12582912</span><br><span class="line">net.ipv4.tcp_wmem &#x3D; 10240 87380 12582912</span><br><span class="line">net.core.wmem_default &#x3D; 8388608</span><br><span class="line">net.core.rmem_default &#x3D; 8388608</span><br><span class="line">net.core.rmem_max &#x3D; 16777216</span><br><span class="line">net.core.wmem_max &#x3D; 16777216</span><br><span class="line">net.core.netdev_max_backlog &#x3D; 262144</span><br><span class="line">net.core.somaxconn &#x3D; 40960</span><br><span class="line">net.ipv4.tcp_max_orphans &#x3D; 3276800</span><br><span class="line">net.ipv4.tcp_max_syn_backlog &#x3D; 262144</span><br><span class="line">net.ipv4.tcp_timestamps &#x3D; 0</span><br><span class="line">net.ipv4.tcp_synack_retries &#x3D; 1</span><br><span class="line">net.ipv4.tcp_syn_retries &#x3D; 1</span><br><span class="line">net.ipv4.tcp_tw_recycle &#x3D; 1</span><br><span class="line">net.ipv4.tcp_tw_reuse &#x3D; 1</span><br><span class="line">net.ipv4.tcp_mem &#x3D; 94500000 915000000 927000000</span><br><span class="line">net.ipv4.tcp_fin_timeout &#x3D; 1</span><br><span class="line">net.ipv4.tcp_keepalive_time &#x3D; 30</span><br><span class="line">net.ipv4.ip_local_port_range &#x3D; 1024 65000</span><br></pre></td></tr></table></figure>
+<p>执行sysctl  -p使内核修改生效。</p>
+<h2 id="关于系统连接数的优化"><a href="#关于系统连接数的优化" class="headerlink" title="关于系统连接数的优化"></a>关于系统连接数的优化</h2><p>linux 默认值 open files为1024。查看当前系统值：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# ulimit -n</span><br><span class="line">1024</span><br></pre></td></tr></table></figure>
+<p>说明server只允许同时打开1024个文件。</p>
+<p>使用ulimit -a 可以查看当前系统的所有限制值，使用ulimit -n 可以查看当前的最大打开文件数。</p>
+<p>新装的linux 默认只有1024 ，当作负载较大的服务器时，很容易遇到error: too many open files。因此，需要将其改大，在/etc/security/limits.conf最后增加：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">*               soft    nofile         65535</span><br><span class="line">*               hard    nofile         65535</span><br><span class="line">*               soft    noproc         65535</span><br><span class="line">*               hard    noproc         65535</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Nginx</category>
+      </categories>
+      <tags>
+        <tag>Nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring Boot集成Dubbo+Zookeeper实现分布式</title>
+    <url>/2019/07/17/spring-boot-dubbo/</url>
+    <content><![CDATA[<p>本文将介绍基于XML方式集成</p>
+<h2 id="引用dubbo和zkclient包，这里展示maven方式的引用"><a href="#引用dubbo和zkclient包，这里展示maven方式的引用" class="headerlink" title="引用dubbo和zkclient包，这里展示maven方式的引用"></a>引用dubbo和zkclient包，这里展示maven方式的引用</h2><p>dubbo:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.alibaba&lt;&#x2F;groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;dubbo&lt;&#x2F;artifactId&gt;</span><br><span class="line">	&lt;version&gt;2.6.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+<p>zkclient:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.101tec&lt;&#x2F;groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;zkclient&lt;&#x2F;artifactId&gt;</span><br><span class="line">	&lt;version&gt;0.10&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="提供者dubbo-provider-xml文件配置"><a href="#提供者dubbo-provider-xml文件配置" class="headerlink" title="提供者dubbo-provider.xml文件配置"></a>提供者dubbo-provider.xml文件配置</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot;</span><br><span class="line">       xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;</span><br><span class="line">       xmlns:dubbo&#x3D;&quot;http:&#x2F;&#x2F;code.alibabatech.com&#x2F;schema&#x2F;dubbo&quot;</span><br><span class="line">       xsi:schemaLocation&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans</span><br><span class="line">       http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans.xsd</span><br><span class="line">       http:&#x2F;&#x2F;code.alibabatech.com&#x2F;schema&#x2F;dubbo</span><br><span class="line">       http:&#x2F;&#x2F;code.alibabatech.com&#x2F;schema&#x2F;dubbo&#x2F;dubbo.xsd&quot;&gt;</span><br><span class="line">    &lt;!-- 提供方应用信息，用于计算依赖关系 --&gt;</span><br><span class="line">    &lt;dubbo:application name&#x3D;&quot;$&#123;dubbo.application.name&#125;&quot;&#x2F;&gt;</span><br><span class="line">    &lt;!-- 使用 zookeeper 注册中心暴露服务 --&gt;</span><br><span class="line">    &lt;dubbo:registry address&#x3D;&quot;$&#123;dubbo.registry.address&#125;&quot;&#x2F;&gt;</span><br><span class="line">    &lt;!-- 用dubbo协议在20880端口暴露服务 --&gt;</span><br><span class="line">    &lt;dubbo:protocol name&#x3D;&quot;dubbo&quot; port&#x3D;&quot;$&#123;dubbo.protocol.port&#125;&quot;&#x2F;&gt;</span><br><span class="line">    &lt;!-- 调用超时 --&gt;</span><br><span class="line">    &lt;dubbo:provider timeout&#x3D;&quot;5000&quot;&#x2F;&gt;</span><br><span class="line">    &lt;!-- 监控中心 --&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--&lt;dubbo:monitor protocol&#x3D;&quot;registry&quot;&#x2F;&gt;--&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 要暴露的服务接口 --&gt;</span><br><span class="line">    &lt;dubbo:service interface&#x3D;&quot;com.test.api.service.DemoService&quot; ref&#x3D;&quot;demoServiceImpl&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;beans&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="消费者dubbo-consumer-xml文件配置"><a href="#消费者dubbo-consumer-xml文件配置" class="headerlink" title="消费者dubbo-consumer.xml文件配置"></a>消费者dubbo-consumer.xml文件配置</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot;</span><br><span class="line">       xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;</span><br><span class="line">       xmlns:dubbo&#x3D;&quot;http:&#x2F;&#x2F;code.alibabatech.com&#x2F;schema&#x2F;dubbo&quot;</span><br><span class="line">       xsi:schemaLocation&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans</span><br><span class="line">       http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans.xsd</span><br><span class="line">       http:&#x2F;&#x2F;code.alibabatech.com&#x2F;schema&#x2F;dubbo</span><br><span class="line">       http:&#x2F;&#x2F;code.alibabatech.com&#x2F;schema&#x2F;dubbo&#x2F;dubbo.xsd&quot;&gt;</span><br><span class="line">    &lt;!-- 消费方应用信息，用于计算依赖关系 --&gt;</span><br><span class="line">    &lt;dubbo:application name&#x3D;&quot;$&#123;dubbo.application.name&#125;&quot;&#x2F;&gt;</span><br><span class="line">    &lt;!-- 使用 zookeeper 注册中心发现服务 --&gt;</span><br><span class="line">    &lt;dubbo:registry address&#x3D;&quot;$&#123;dubbo.registry.address&#125;&quot;&#x2F;&gt;</span><br><span class="line">    &lt;!-- 调用超时 --&gt;</span><br><span class="line">    &lt;dubbo:provider timeout&#x3D;&quot;5000&quot;&#x2F;&gt;</span><br><span class="line">    &lt;!-- 监控中心 --&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--&lt;dubbo:monitor protocol&#x3D;&quot;registry&quot;&#x2F;&gt;--&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 生成远程服务代理，可以和本地bean一样使用demoService --&gt;</span><br><span class="line">    &lt;dubbo:reference id&#x3D;&quot;demoService&quot; interface&#x3D;&quot;com.test.api.service.demoService&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;beans&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="配置application-properties"><a href="#配置application-properties" class="headerlink" title="配置application.properties"></a>配置application.properties</h2><p>提供者:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dubbo.application.name&#x3D;$&#123;spring.application.name&#125;</span><br><span class="line">dubbo.config.location&#x3D;classpath:dubbo&#x2F;dubbo-provider.xml</span><br><span class="line">dubbo.registry.address&#x3D;zookeeper:&#x2F;&#x2F;127.0.0.1:2181</span><br><span class="line">dubbo.protocol.port&#x3D;20880</span><br></pre></td></tr></table></figure>
+<p>消费者:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dubbo.application.name&#x3D;$&#123;spring.application.name&#125;</span><br><span class="line">dubbo.config.location&#x3D;classpath:dubbo&#x2F;dubbo-consumer.xml</span><br><span class="line">dubbo.registry.address&#x3D;zookeeper:&#x2F;&#x2F;127.0.0.1:2181</span><br></pre></td></tr></table></figure>
+<p>用注解方式分别加载dubbo-provider.xml和dubbo-consumer.xml配置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@ImportResource(&quot;$&#123;dubbo.config.location&#125;&quot;)</span><br><span class="line">public class TestApplication &#123;</span><br><span class="line">   public static void main(String[] args) &#123;</span><br><span class="line">      SpringApplication.run(TestApplication.class, args);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="启动zookeeper注册中心"><a href="#启动zookeeper注册中心" class="headerlink" title="启动zookeeper注册中心"></a>启动zookeeper注册中心</h2><p>在zookeeper conf目录下新建zoo.cfg配置文件，内容如下:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tickTime&#x3D;2000</span><br><span class="line">initLimit&#x3D;10</span><br><span class="line">syncLimit&#x3D;5</span><br><span class="line">dataDir&#x3D;&#x2F;tmp&#x2F;zookeeper</span><br><span class="line">clientPort&#x3D;2181</span><br></pre></td></tr></table></figure>
+<p>启动zookeeper</p>
+<p>到此结束，先启动服务提供者，再启动服务消费者，消费者就可以调用提供者的服务了。</p>
+]]></content>
+      <categories>
+        <category>Spring Boot</category>
+        <category>Dubbo</category>
+      </categories>
+      <tags>
+        <tag>Spring Boot</tag>
+        <tag>Dubbo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring的Controller是单例还是多例，怎么保证并发的安全？</title>
+    <url>/2020/08/25/spring-controller-singleton/</url>
+    <content><![CDATA[<p>答案: controller默认是单例的，不要使用非静态的成员变量，否则会发生数据逻辑混乱，正因为单例所以不是线程安全的。</p>
+<p>我们下面来简单的验证下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package com.riemann.springbootdemo.controller;</span><br><span class="line"></span><br><span class="line">import org.springframework.context.annotation.Scope;</span><br><span class="line">import org.springframework.stereotype.Controller;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * @author riemann</span><br><span class="line"> * @date 2019&#x2F;07&#x2F;29 22:56</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Controller</span><br><span class="line">public class ScopeTestController &#123;</span><br><span class="line"></span><br><span class="line">    private int num &#x3D; 0;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(&quot;&#x2F;testScope&quot;)</span><br><span class="line">    public void testScope() &#123;</span><br><span class="line">        System.out.println(++num);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(&quot;&#x2F;testScope2&quot;)</span><br><span class="line">    public void testScope2() &#123;</span><br><span class="line">        System.out.println(++num);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们首先访问 <a href="http://localhost:8080/testScope">http://localhost:8080/testScope</a>, 得到的答案是1；<br>然后我们再访问 <a href="http://localhost:8080/testScope2">http://localhost:8080/testScope2</a>, 得到的答案是2。<br>得到的不同的值，这是线程不安全的。</p>
+<p>接下来我们再来给controller增加作用多例 @Scope(“prototype”)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package com.riemann.springbootdemo.controller;</span><br><span class="line"></span><br><span class="line">import org.springframework.context.annotation.Scope;</span><br><span class="line">import org.springframework.stereotype.Controller;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * @author riemann</span><br><span class="line"> * @date 2019&#x2F;07&#x2F;29 22:56</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Controller</span><br><span class="line">@Scope(&quot;prototype&quot;)</span><br><span class="line">public class ScopeTestController &#123;</span><br><span class="line"></span><br><span class="line">    private int num &#x3D; 0;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(&quot;&#x2F;testScope&quot;)</span><br><span class="line">    public void testScope() &#123;</span><br><span class="line">        System.out.println(++num);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(&quot;&#x2F;testScope2&quot;)</span><br><span class="line">    public void testScope2() &#123;</span><br><span class="line">        System.out.println(++num);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>相信大家不难发现: 单例是不安全的，会导致属性重复使用。</p>
+<p>解决方案:<br>1、不要在controller中定义成员变量。<br>2、万一必须要定义一个非静态成员变量时候，则通过注解@Scope(“prototype”)，将其设置为多例模式。<br>3、在Controller中使用ThreadLocal变量</p>
+<p>补充说明:<br>spring bean作用域有以下5个</p>
+<p>singleton: 单例模式，当spring创建applicationContext容器的时候，spring会预初始化所有的该作用域实例，加上lazy-init就可以避免预处理；</p>
+<p>prototype: 原型模式，每次通过getBean获取该bean就会新产生一个实例，创建后spring将不再对其管理；</p>
+<p>(下面是在web项目下才用到的)<br>request: 搞web的大家都应该明白request的域了吧，就是每次请求都新产生一个实例，和prototype不同就是创建后，接下来的管理，spring依然在监听；</p>
+<p>session: 每次会话，同上；</p>
+<p>global session: 全局的web域，类似于servlet中的application。</p>
+<p>来源：blog.csdn.net/riemann_/article/details/97698560</p>
+]]></content>
+      <categories>
+        <category>Spring Boot</category>
+        <category>Spring</category>
+      </categories>
+      <tags>
+        <tag>Spring Boot</tag>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>天天在用Spring，Spring的懒加载原理你知道吗？</title>
+    <url>/2020/08/26/spring-lazy/</url>
+    <content><![CDATA[<p>普通的bean的初始化是在容器启动初始化阶段执行的，而被lazy-init修饰的bean 则是在从容器里第一次进行context.getBean(“”)时进行触发。Spring 启动的时候会把所有bean信息(包括XML和注解)解析转化成Spring能够识别的BeanDefinition并存到Hashmap里供下面的初始化时用。接下来对每个BeanDefinition进行处理，如果是懒加载的则在容器初始化阶段不处理，其他的则在容器初始化阶段进行初始化并依赖注入。<br>本文我说了很多次 Spring 容器初始化和bean初始化，容器的初始化有可能包括bean的初始化主要取决于该bean是否是懒加载的，特此说明怕误会 。</p>
+<h2 id="先睹为快"><a href="#先睹为快" class="headerlink" title="先睹为快"></a>先睹为快</h2><p>话不多说先写个例子看下这属性到底有什么作用，我们定义了一个叫做coffee的普通bean,代码如下：</p>
+<h3 id="普通非懒加载bean的演示"><a href="#普通非懒加载bean的演示" class="headerlink" title="普通非懒加载bean的演示"></a>普通非懒加载bean的演示</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package com.test.spring;</span><br><span class="line"></span><br><span class="line">public class Coffee &#123;</span><br><span class="line"></span><br><span class="line">    public Coffee() &#123;</span><br><span class="line">        System.out.println(&quot;正在初始化bean !!!调用无参构造函数&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;bean name&#x3D;&quot;coffee&quot; class&#x3D;&quot;com.test.spring.Coffee&quot;&#x2F;&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void testLazyInit() &#123;</span><br><span class="line"></span><br><span class="line">    System.out.println(&quot;开始初始化Spring容器 &quot;);</span><br><span class="line">    &#x2F;&#x2F; 非懒加载的bean会在容器初始化时进行bean的初始化，后面会拿Spring启动时的源码进行分析</span><br><span class="line">    ApplicationContext context &#x3D; new ClassPathXmlApplicationContext(&quot;spring-beans.xml&quot;);</span><br><span class="line">   &#x2F;&#x2F; 非懒加载的bean 的构造函数会在这个位置打印</span><br><span class="line">    System.out.println(&quot;Spring容器初始化完毕&quot;);</span><br><span class="line"></span><br><span class="line">   System.out.println(&quot;开始从容器中获取Bean&quot;);</span><br><span class="line"></span><br><span class="line">   Coffee coffee &#x3D; context.getBean(&quot;coffee&quot;, Coffee.class);</span><br><span class="line"></span><br><span class="line">   System.out.println(&quot;获取完毕  bean :&quot; + coffee);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果如下：<br><img src="/2020/08/26/spring-lazy/spring-lazy-1.png" alt="运行结果"></p>
+<h2 id="懒加载bean的演示"><a href="#懒加载bean的演示" class="headerlink" title="懒加载bean的演示"></a>懒加载bean的演示</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;bean name&#x3D;&quot;coffee&quot; class&#x3D;&quot;com.test.spring.Coffee&quot; lazy-init&#x3D;&quot;true&quot; &#x2F;&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void testLazyInit() &#123;</span><br><span class="line"></span><br><span class="line">	System.out.println(&quot;开始初始化Spring容器 &quot;);</span><br><span class="line">　　　　　&#x2F;&#x2F; 在初始化容器阶段不会对懒加载的bean进行初始化</span><br><span class="line">	ApplicationContext context &#x3D; new ClassPathXmlApplicationContext(&quot;spring-beans.xml&quot;);</span><br><span class="line">　　</span><br><span class="line">	System.out.println(&quot;Spring容器初始化完毕&quot;);</span><br><span class="line"></span><br><span class="line">	System.out.println(&quot;开始从容器中获取Bean&quot;);</span><br><span class="line">　　　　 &#x2F;&#x2F; 在这一阶段会对懒加载的bean进行初始化</span><br><span class="line">	Coffee coffee &#x3D; context.getBean(&quot;coffee&quot;, Coffee.class);</span><br><span class="line"></span><br><span class="line">	System.out.println(&quot;获取完毕  bean :&quot; + coffee);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果如下：<br><img src="/2020/08/26/spring-lazy/spring-lazy-2.png" alt="运行结果"></p>
+<h2 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h2><p>Spring 启动时主要干俩件事  1.初始化容器 2.对bean进行初始化并依赖注入。（懒加载的bean不做第二件）</p>
+<p>但是对于大多数bean来说，bean的初始化以及依赖注入就是在容器初始化阶段进行的，只有懒加载的bean是当应用程序第一次进行getBean时进行初始化并依赖注入。下面贴出代码看下</p>
+<p>Spring 容器初始化代码如下就一行：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ApplicationContext context &#x3D; new ClassPathXmlApplicationContext(&quot;spring-beans.xml&quot;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public ClassPathXmlApplicationContext(String[] configLocations, boolean refresh, ApplicationContext parent)</span><br><span class="line">		throws BeansException &#123;</span><br><span class="line"></span><br><span class="line">	super(parent);</span><br><span class="line">	setConfigLocations(configLocations);</span><br><span class="line">	if (refresh) &#123;</span><br><span class="line">		&#x2F;&#x2F; Spring ioc 启动入口 了解了refresh 就了解了ioc</span><br><span class="line">		refresh();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Spring 初始化入口 refresh（省略了部分根本次无关的代码，望理解，太长了影响阅读体验）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void refresh() throws BeansException, IllegalStateException &#123;</span><br><span class="line">	synchronized (this.startupShutdownMonitor) &#123;</span><br><span class="line">		&#x2F;&#x2F; Prepare this context for refreshing.</span><br><span class="line">		prepareRefresh();</span><br><span class="line"></span><br><span class="line">		&#x2F;&#x2F; Prepare the bean factory for use in this context.</span><br><span class="line">		prepareBeanFactory(beanFactory);</span><br><span class="line"></span><br><span class="line">		try &#123;</span><br><span class="line">			&#x2F;&#x2F; Allows post-processing of the bean factory in context subclasses.</span><br><span class="line">			postProcessBeanFactory(beanFactory);</span><br><span class="line"></span><br><span class="line">			&#x2F;&#x2F; Invoke factory processors registered as beans in the context.</span><br><span class="line">			invokeBeanFactoryPostProcessors(beanFactory);</span><br><span class="line"></span><br><span class="line">			&#x2F;&#x2F; Register bean processors that intercept bean creation.</span><br><span class="line">			registerBeanPostProcessors(beanFactory);</span><br><span class="line">			&#x2F;&#x2F; Instantiate all remaining (non-lazy-init) singletons.</span><br><span class="line">			&#x2F;&#x2F; 初始化所有非 懒加载的bean！！！！</span><br><span class="line">			finishBeanFactoryInitialization(beanFactory);</span><br><span class="line"></span><br><span class="line">			&#x2F;&#x2F; Last step: publish corresponding event.</span><br><span class="line">			finishRefresh();</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>finishBeanFactoryInitialization(beanFactory);是跟本次主题有关的，就是说在容器启动的时候 只处理 non-lazy-init bean，懒加载的bean在Spring启动阶段根本不做任何处理下面看下源码就明白了</p>
+<p>点进去finishBeanFactoryInitialization(beanFactory)里头有个初始化non-lazy-init bean的函数 preInstantiateSingletons()</p>
+<p>具体逻辑如下<br>1.对beanNames 集合遍历获取每个BeanDefinition</p>
+<p>2.判断是否是懒加载的，如果不是则继续处理(non-lazy-init bean 不做处理)</p>
+<p>3.判断是否是factorybean 如果不是则进行实例化并依赖注入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void preInstantiateSingletons() throws BeansException &#123;</span><br><span class="line">   &#x2F;&#x2F; 所有beanDefinition集合</span><br><span class="line">   List&lt;String&gt; beanNames &#x3D; new ArrayList&lt;String&gt;(this.beanDefinitionNames);</span><br><span class="line">   &#x2F;&#x2F; 触发所有非懒加载单例bean的初始化</span><br><span class="line">   for (String beanName : beanNames) &#123;</span><br><span class="line">       &#x2F;&#x2F; 获取bean 定义</span><br><span class="line">      RootBeanDefinition bd &#x3D; getMergedLocalBeanDefinition(beanName);</span><br><span class="line">      &#x2F;&#x2F; 判断是否是懒加载单例bean，如果是单例的并且不是懒加载的则在Spring 容器</span><br><span class="line">      if (!bd.isAbstract() &amp;&amp; bd.isSingleton() &amp;&amp; !bd.isLazyInit()) &#123;</span><br><span class="line">          &#x2F;&#x2F; 判断是否是FactoryBean</span><br><span class="line">         if (isFactoryBean(beanName)) &#123;</span><br><span class="line">                final FactoryBean&lt;?&gt; factory &#x3D; (FactoryBean&lt;?&gt;) getBean(FACTORY_BEAN_PREFIX + beanName);</span><br><span class="line">                boolean isEagerInit;</span><br><span class="line">                if (System.getSecurityManager() !&#x3D; null &amp;&amp; factory instanceof SmartFactoryBean) &#123;</span><br><span class="line">                   isEagerInit &#x3D; AccessController.doPrivileged(new PrivilegedAction&lt;Boolean&gt;() &#123;</span><br><span class="line">                      @Override</span><br><span class="line">                      public Boolean run() &#123;</span><br><span class="line">                         return ((SmartFactoryBean&lt;?&gt;) factory).isEagerInit();</span><br><span class="line">                      &#125;</span><br><span class="line">                   &#125;, getAccessControlContext());</span><br><span class="line">                &#125;</span><br><span class="line">         &#125;else &#123;</span><br><span class="line">             &#x2F;&#x2F; 如果是普通bean则进行初始化依赖注入，此 getBean(beanName)接下来触发的逻辑跟</span><br><span class="line">             &#x2F;&#x2F; context.getBean(&quot;beanName&quot;) 所触发的逻辑是一样的</span><br><span class="line">            getBean(beanName);</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>getBean() 方法是实现bean 初始化以及依赖注入的函数</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Override</span><br><span class="line">public Object getBean(String name) throws BeansException &#123;   </span><br><span class="line">    return doGetBean(name, null, null, false);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>对于被修饰为lazy-init的bean Spring初始化阶段不会进行init并且依赖注入，当第一次进行getBean时候进行初始化并依赖注入</p>
+<p>对于非懒加载的bean getBean的时候会从缓存里头取 因为容器初始化阶段已经初始化了</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 容器启动初始化 会初始化并依赖注入非懒加载的bean</span><br><span class="line">ApplicationContext context &#x3D; new ClassPathXmlApplicationContext(&quot;spring-beans.xml&quot;);</span><br><span class="line">&#x2F;&#x2F; lazy-init bean会进行第一次初始化并依赖注入  其他的会从缓存里取</span><br><span class="line">Coffee coffee &#x3D; context.getBean(&quot;coffee&quot;, Coffee.class);</span><br></pre></td></tr></table></figure>
+<p>来源：<a href="https://www.cnblogs.com/wyc1994666/p/10569091.html">https://www.cnblogs.com/wyc1994666/p/10569091.html</a></p>
+]]></content>
+      <categories>
+        <category>Spring</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu安装Docker</title>
+    <url>/2020/08/17/ubuntu-docker/</url>
+    <content><![CDATA[<h2 id="直接安装"><a href="#直接安装" class="headerlink" title="直接安装"></a>直接安装</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get install docker.io</span><br></pre></td></tr></table></figure>
+<h2 id="更新ubuntu的apt源索引"><a href="#更新ubuntu的apt源索引" class="headerlink" title="更新ubuntu的apt源索引"></a>更新ubuntu的apt源索引</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+<h2 id="安装包允许apt通过https使用仓库"><a href="#安装包允许apt通过https使用仓库" class="headerlink" title="安装包允许apt通过https使用仓库"></a>安装包允许apt通过https使用仓库</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get install apt-transport-https ca-certificates curl software-properties-common</span><br></pre></td></tr></table></figure>
+<h2 id="添加docker官方GPG-key"><a href="#添加docker官方GPG-key" class="headerlink" title="添加docker官方GPG key"></a>添加docker官方GPG key</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -fsSL https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;ubuntu&#x2F;gpg | sudo apt-key add -</span><br></pre></td></tr></table></figure>
+<h2 id="设置docker稳定版仓库"><a href="#设置docker稳定版仓库" class="headerlink" title="设置docker稳定版仓库"></a>设置docker稳定版仓库</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo add-apt-repository &quot;deb [arch&#x3D;amd64] https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;ubuntu $(lsb_release -cs) stable&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="添加仓库后，更新apt源索引"><a href="#添加仓库后，更新apt源索引" class="headerlink" title="添加仓库后，更新apt源索引"></a>添加仓库后，更新apt源索引</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+<h2 id="安装最新版docker-ce（社区版）"><a href="#安装最新版docker-ce（社区版）" class="headerlink" title="安装最新版docker ce（社区版）"></a>安装最新版docker ce（社区版）</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get install docker-ce</span><br></pre></td></tr></table></figure>
+<h2 id="检查安装docker的版本"><a href="#检查安装docker的版本" class="headerlink" title="检查安装docker的版本"></a>检查安装docker的版本</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker -v</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/08/17/ubuntu-docker/docker-version.png" alt="docker的版本"></p>
+<h2 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 启动docker</span><br><span class="line">sudo service docker start</span><br><span class="line"></span><br><span class="line"># 停止docker</span><br><span class="line">sudo service docker stop</span><br><span class="line"></span><br><span class="line"># 重启docker</span><br><span class="line">sudo service docker restart</span><br><span class="line"></span><br><span class="line"># 列出镜像</span><br><span class="line">docker image ls</span><br><span class="line"></span><br><span class="line"># 拉取镜像</span><br><span class="line">docker pull hello-world</span><br><span class="line"></span><br><span class="line"># 打包镜像</span><br><span class="line">docker build -t 镜像名:版本号 .</span><br><span class="line"></span><br><span class="line"># 删除镜像</span><br><span class="line">docker image rm 镜像id&#x2F;镜像ID</span><br><span class="line"></span><br><span class="line"># 创建容器</span><br><span class="line">docker run [选项参数] 镜像名 [命令]</span><br><span class="line"></span><br><span class="line"># 停止一个已经在运行的容器</span><br><span class="line">docker container stop 容器名或容器id</span><br><span class="line"></span><br><span class="line"># 启动一个已经停止的容器</span><br><span class="line">docker container start 容器名或容器id</span><br><span class="line"></span><br><span class="line"># kill掉一个已经在运行的容器</span><br><span class="line">docker container kill 容器名或容器id</span><br><span class="line"></span><br><span class="line"># 删除容器</span><br><span class="line">docker container rm 容器名或容器id</span><br></pre></td></tr></table></figure>
+<h2 id="配置docker远程连接"><a href="#配置docker远程连接" class="headerlink" title="配置docker远程连接"></a>配置docker远程连接</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vim &#x2F;lib&#x2F;systemd&#x2F;system&#x2F;docker.service</span><br><span class="line"># 修改ExecStart</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;bin&#x2F;dockerd -H tcp:&#x2F;&#x2F;0.0.0.0:2375 -H fd:&#x2F;&#x2F; --containerd&#x3D;&#x2F;run&#x2F;containerd&#x2F;containerd.sock</span><br><span class="line"># 加载docker守护线程</span><br><span class="line">systemctl daemon-reload</span><br><span class="line"># 重启docker</span><br><span class="line">systemctl restart docker</span><br><span class="line"># 测试是否成功</span><br><span class="line">docker -H 127.0.0.1 info</span><br></pre></td></tr></table></figure>
+<h2 id="配置阿里云镜像加速"><a href="#配置阿里云镜像加速" class="headerlink" title="配置阿里云镜像加速"></a>配置阿里云镜像加速</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat &lt;&lt; EOF &gt;&gt; &#x2F;etc&#x2F;docker&#x2F;daemon.json  </span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [</span><br><span class="line">    &quot;https:&#x2F;&#x2F;3laho3y3.mirror.aliyuncs.com&quot;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+<h2 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h2><p>拉取hello-world镜像并且运行<br><img src="/2020/08/17/ubuntu-docker/docker-pull-run-demo.png" alt="拉取hello-world并且运行"></p>
+]]></content>
+      <categories>
+        <category>Docker</category>
+        <category>Linux</category>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Docker</tag>
+        <tag>Linux</tag>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu安装RabbitMQ</title>
+    <url>/2020/08/11/ubuntu-rabbitmq/</url>
+    <content><![CDATA[<h2 id="安装erlang"><a href="#安装erlang" class="headerlink" title="安装erlang"></a>安装erlang</h2><p>rabbitMq需要erlang语言的支持</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get install erlang-nox</span><br></pre></td></tr></table></figure>
+<h2 id="安装rabbitmq"><a href="#安装rabbitmq" class="headerlink" title="安装rabbitmq"></a>安装rabbitmq</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install rabbitmq-server</span><br></pre></td></tr></table></figure>
+<p>启动、停止、重启、状态rabbitmq命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo rabbitmq-server start</span><br><span class="line">sudo rabbitmq-server stop</span><br><span class="line">sudo rabbitmq-server restart</span><br><span class="line">sudo rabbitmqctl status</span><br></pre></td></tr></table></figure>
+<h2 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h2><p>添加admin用户，密码设置为admin</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo rabbitmqctl add_user admin admin</span><br></pre></td></tr></table></figure>
+<h2 id="设置权限"><a href="#设置权限" class="headerlink" title="设置权限"></a>设置权限</h2><p>赋予administrator权限</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo rabbitmqctl set_user_tags admin administrator</span><br></pre></td></tr></table></figure>
+<p>赋予virtual host中所有资源的配置、写、读权限以便管理其中的资源</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo rabbitmqctl  set_permissions -p &#x2F; admin &#39;.*&#39; &#39;.*&#39; &#39;.*&#39;</span><br></pre></td></tr></table></figure>
+<h2 id="web管理工具"><a href="#web管理工具" class="headerlink" title="web管理工具"></a>web管理工具</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo rabbitmq-plugins enable rabbitmq_management</span><br></pre></td></tr></table></figure>
+<p>浏览器访问<a href="http://localhost:15672/">http://localhost:15672</a><br>输入刚刚创建的账号密码 admin admin<br><img src="/2020/08/11/ubuntu-rabbitmq/rabbitmq-management.png" alt="web管理平台图"></p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+        <category>Ubuntu</category>
+        <category>RabbitMQ</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Ubuntu</tag>
+        <tag>RabbitMQ</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu安装Nexus，搭建Maven私服</title>
+    <url>/2020/08/18/ubuntu-nexus/</url>
+    <content><![CDATA[<h2 id="创建文件夹并进入该目录"><a href="#创建文件夹并进入该目录" class="headerlink" title="创建文件夹并进入该目录"></a>创建文件夹并进入该目录</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;local &amp;&amp; mkdir nexus &amp;&amp; cd nexus</span><br></pre></td></tr></table></figure>
+<h2 id="下载nexus安装包"><a href="#下载nexus安装包" class="headerlink" title="下载nexus安装包"></a>下载nexus安装包</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget http:&#x2F;&#x2F;sonatype-download.global.ssl.fastly.net&#x2F;nexus&#x2F;3&#x2F;nexus-3.23.0-03-unix.tar.gz</span><br></pre></td></tr></table></figure>
+<h2 id="解压、重命名"><a href="#解压、重命名" class="headerlink" title="解压、重命名"></a>解压、重命名</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tar -zxvf nexus-3.23.0-03-unix.tar.gz</span><br><span class="line">mv nexus-3.23.0-03 nexus</span><br></pre></td></tr></table></figure>
+<h2 id="启动nexus"><a href="#启动nexus" class="headerlink" title="启动nexus"></a>启动nexus</h2><p>Nexus 常用的一些命令<br>/usr/local/nexus/nexus/bin/nexus {start|stop|run|run-redirect|status|restart|force-reload}</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;local&#x2F;nexus&#x2F;bin</span><br><span class="line">.&#x2F;nexus start</span><br></pre></td></tr></table></figure>
+<p>如果运行命令之后出现 Detected execution as “root” user.  This is NOT recommended!<br>修改 /usr/local/nexus/bin/nexus 文件<br>把 run_as_root=true 改成 run_as_root=false 就可以了<br>在浏览器中输入<a href="http://localhost:8081/">http://localhost:8081</a><br><img src="/2020/08/18/ubuntu-nexus/nexus.png" alt="登录之前"></p>
+<h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><p>默认账号admin 密码在/usr/local/sonatype-work/nexus3/admin.password文件里面 输入账号密码登录<br><img src="/2020/08/18/ubuntu-nexus/nexus-main.png" alt="登录之后"></p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+        <category>Ubuntu</category>
+        <category>Nexus</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Ubuntu</tag>
+        <tag>Nexus</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring Boot集成Elastic-Job实现分布式任务调度系统</title>
+    <url>/2019/07/26/spring-boot-elastic-job/</url>
+    <content><![CDATA[<h2 id="Elastic-Job"><a href="#Elastic-Job" class="headerlink" title="Elastic-Job"></a>Elastic-Job</h2><p>Elastic-Job是由当当网基于quartz二次开发之后的分布式调度解决方案 ， 由两个相对独立的子项目Elastic-Job-Lite和Elastic-Job-Cloud组成 。<br>Elastic-Job主要的设计理念是无中心化的分布式定时调度框架，思路来源于Quartz的基于数据库的高可用方案。但数据库没有分布式协调功能，所以在高可用方案的基础上增加了弹性扩容和数据分片的思路，以便于更大限度的利用分布式服务器的资源。<br>Elastic-Job-Lite定位为轻量级无中心化解决方案，使用jar包的形式提供分布式任务的协调服务。<br>Elastic-Job-Cloud采用自研Mesos Framework的解决方案，额外提供资源治理、应用分发以及进程隔离等功能。<br>开源地址：<a href="https://github.com/elasticjob">https://github.com/elasticjob</a></p>
+<h3 id="功能列表"><a href="#功能列表" class="headerlink" title="功能列表"></a>功能列表</h3><ul>
+<li>分布式调度协调</li>
+<li>弹性扩容缩容</li>
+<li>失效转移</li>
+<li>错过执行作业重触发</li>
+<li>作业分片一致性，保证同一分片在分布式环境中仅一个执行实例</li>
+<li>自诊断并修复分布式不稳定造成的问题</li>
+<li>支持并行调度</li>
+<li>支持作业生命周期操作</li>
+<li>丰富的作业类型</li>
+<li>Spring整合以及命名空间提供</li>
+<li>运维平台</li>
+</ul>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>lastic-Job-Lite定位为轻量级无中心化解决方案，使用jar包的形式提供最轻量级的分布式任务的协调服务，外部依赖仅Zookeeper。</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="分片概念"><a href="#分片概念" class="headerlink" title="分片概念"></a>分片概念</h3><p>任务的分布式执行，需要将一个任务拆分为多个独立的任务项，然后由分布式的服务器分别执行某一个或几个分片项。</p>
+<p>例如：有一个遍历数据库某张表的作业，现有2台服务器。为了快速的执行作业，那么每台服务器应执行作业的50%。 为满足此需求，可将作业分成2片，每台服务器执行1片。作业遍历数据的逻辑应为：服务器A遍历ID以奇数结尾的数据；服务器B遍历ID以偶数结尾的数据。 如果分成10片，则作业遍历数据的逻辑应为：每片分到的分片项应为ID%10，而服务器A被分配到分片项0,1,2,3,4；服务器B被分配到分片项5,6,7,8,9，直接的结果就是服务器A遍历ID以0-4结尾的数据；服务器B遍历ID以5-9结尾的数据。</p>
+<h3 id="分片项与业务处理解耦"><a href="#分片项与业务处理解耦" class="headerlink" title="分片项与业务处理解耦"></a>分片项与业务处理解耦</h3><p>Elastic-Job并不直接提供数据处理的功能，框架只会将分片项分配至各个运行中的作业服务器，开发者需要自行处理分片项与真实数据的对应关系。</p>
+<h3 id="个性化参数的适用场景"><a href="#个性化参数的适用场景" class="headerlink" title="个性化参数的适用场景"></a>个性化参数的适用场景</h3><p>个性化参数即shardingItemParameter，可以和分片项匹配对应关系，用于将分片项的数字转换为更加可读的业务代码。</p>
+<p>例如：按照地区水平拆分数据库，数据库A是北京的数据；数据库B是上海的数据；数据库C是广州的数据。 如果仅按照分片项配置，开发者需要了解0表示北京；1表示上海；2表示广州。 合理使用个性化参数可以让代码更可读，如果配置为0=北京,1=上海,2=广州，那么代码中直接使用北京，上海，广州的枚举值即可完成分片项和业务逻辑的对应关系。</p>
+<h2 id="核心理念"><a href="#核心理念" class="headerlink" title="核心理念"></a>核心理念</h2><h3 id="分布式调度"><a href="#分布式调度" class="headerlink" title="分布式调度"></a>分布式调度</h3><p>Elastic-Job-Lite并无作业调度中心节点，而是基于部署作业框架的程序在到达相应时间点时各自触发调度。</p>
+<p>注册中心仅用于作业注册和监控信息存储。而主作业节点仅用于处理分片和清理等功能。</p>
+<h3 id="作业高可用"><a href="#作业高可用" class="headerlink" title="作业高可用"></a>作业高可用</h3><p>Elastic-Job-Lite提供最安全的方式执行作业。将分片总数设置为1，并使用多于1台的服务器执行作业，作业将会以1主n从的方式执行。</p>
+<p>一旦执行作业的服务器崩溃，等待执行的服务器将会在下次作业启动时替补执行。开启失效转移功能效果更好，可以保证在本次作业执行时崩溃，备机立即启动替补执行。</p>
+<h3 id="最大限度利用资源"><a href="#最大限度利用资源" class="headerlink" title="最大限度利用资源"></a>最大限度利用资源</h3><p>Elastic-Job-Lite也提供最灵活的方式，最大限度的提高执行作业的吞吐量。将分片项设置为大于服务器的数量，最好是大于服务器倍数的数量，作业将会合理的利用分布式资源，动态的分配分片项。</p>
+<p>例如：3台服务器，分成10片，则分片项分配结果为服务器A=0,1,2;服务器B=3,4,5;服务器C=6,7,8,9。 如果服务器C崩溃，则分片项分配结果为服务器A=0,1,2,3,4;服务器B=5,6,7,8,9。在不丢失分片项的情况下，最大限度的利用现有资源提高吞吐量。</p>
+<h2 id="整体架构图"><a href="#整体架构图" class="headerlink" title="整体架构图"></a>整体架构图</h2><p><img src="/2019/07/26/spring-boot-elastic-job/elastic_job_lite.png" alt="整体架构图"></p>
+<h2 id="搭建运维平台"><a href="#搭建运维平台" class="headerlink" title="搭建运维平台"></a>搭建运维平台</h2><p>解压缩elastic-job-lite-console-${version}.tar.gz并执行bin\start.sh。打开浏览器访问<a href="http://localhost:8899/%E5%8D%B3%E5%8F%AF%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%8F%B0%E3%80%828899%E4%B8%BA%E9%BB%98%E8%AE%A4%E7%AB%AF%E5%8F%A3%E5%8F%B7%EF%BC%8C%E5%8F%AF%E9%80%9A%E8%BF%87%E5%90%AF%E5%8A%A8%E8%84%9A%E6%9C%AC%E8%BE%93%E5%85%A5-p%E8%87%AA%E5%AE%9A%E4%B9%89%E7%AB%AF%E5%8F%A3%E5%8F%B7%E3%80%82">http://localhost:8899/即可访问控制台。8899为默认端口号，可通过启动脚本输入-p自定义端口号。</a></p>
+<p>elastic-job-lite-console-${version}.tar.gz可通过mvn install编译获取。</p>
+<h3 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h3><p>提供两种账户，管理员及访客，管理员拥有全部操作权限，访客仅拥有察看权限。默认管理员用户名和密码是root/root，访客用户名和密码是guest/guest，可通过conf\auth.properties修改管理员及访客用户名及密码。</p>
+<h3 id="功能列表-1"><a href="#功能列表-1" class="headerlink" title="功能列表"></a>功能列表</h3><ul>
+<li>登录安全控制</li>
+<li>注册中心、事件追踪数据源管理</li>
+<li>快捷修改作业设置</li>
+<li>作业和服务器维度状态查看</li>
+<li>操作作业禁用\启用、停止和删除等生命周期</li>
+<li>事件追踪查询</li>
+</ul>
+<h3 id="设计理念"><a href="#设计理念" class="headerlink" title="设计理念"></a>设计理念</h3><p>运维平台和elastic-job-lite并无直接关系，是通过读取作业注册中心数据展现作业状态，或更新注册中心数据修改全局配置。</p>
+<p>控制台只能控制作业本身是否运行，但不能控制作业进程的启动，因为控制台和作业本身服务器是完全分离的，控制台并不能控制作业服务器。</p>
+<h3 id="不支持项"><a href="#不支持项" class="headerlink" title="不支持项"></a>不支持项</h3><p>加作业 作业在首次运行时将自动添加。Elastic-Job-Lite以jar方式启动，并无作业分发功能。如需完全通过运维平台发布作业，请使用Elastic-Job-Cloud。<br>注意：依赖注册中心，要先启动zookeeper。<br><img src="/2019/07/26/spring-boot-elastic-job/elastic-job-lite-console.png" alt="运维平台图"></p>
+<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="引入Maven依赖"><a href="#引入Maven依赖" class="headerlink" title="引入Maven依赖"></a>引入Maven依赖</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.dangdang&lt;&#x2F;groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;elastic-job-lite-core&lt;&#x2F;artifactId&gt;</span><br><span class="line">	&lt;version&gt;2.1.5&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.dangdang&lt;&#x2F;groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;elastic-job-lite-spring&lt;&#x2F;artifactId&gt;</span><br><span class="line">	&lt;version&gt;2.1.5&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- Elastic-Job提供了事件追踪功能，可通过事件订阅的方式处理调度过程的重要事件，用于查询、统计和监控。Elastic-Job目前提供了基于关系型数据库两种事件订阅方式记录事件。添加如下依赖 --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;mysql&lt;&#x2F;groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;mysql-connector-java&lt;&#x2F;artifactId&gt;</span><br><span class="line">	&lt;version&gt;5.1.38&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.alibaba&lt;&#x2F;groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;druid-spring-boot-starter&lt;&#x2F;artifactId&gt;</span><br><span class="line">	&lt;version&gt;1.1.10&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-boot-starter-jdbc&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="配置文件application-properties添加如下配置："><a href="#配置文件application-properties添加如下配置：" class="headerlink" title="配置文件application.properties添加如下配置："></a>配置文件application.properties添加如下配置：</h3><p>#作业注册中心地址<br>regCenter.serverList=127.0.0.1:2181<br>regCenter.namespace=elasticjob-demo</p>
+<p>simpleJob.cron=0/5 * * * * ?<br>simpleJob.shardingTotalCount=1<br>simpleJob.shardingItemParameters=0=Shanghai</p>
+<p>#数据源配置<br>spring.datasource.type=com.alibaba.druid.pool.DruidDataSource<br>spring.datasource.driver-class-name=com.mysql.jdbc.Driver<br>spring.datasource.url=jdbc:mysql://127.0.0.1:3306/elastic_job_log?autoReconnect=true&amp;useSSL=false&amp;allowMultiQueries=true&amp;zeroDateTimeBehavior=convertToNull&amp;failOverReadOnly=false<br>spring.datasource.username=root<br>spring.datasource.password=111111</p>
+<h3 id="配置注册中心"><a href="#配置注册中心" class="headerlink" title="配置注册中心"></a>配置注册中心</h3><p>新建RegistryCenterConfig类</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import com.dangdang.ddframe.job.reg.zookeeper.ZookeeperConfiguration;</span><br><span class="line">import com.dangdang.ddframe.job.reg.zookeeper.ZookeeperRegistryCenter;</span><br><span class="line">import org.springframework.beans.factory.annotation.Value;</span><br><span class="line">import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;</span><br><span class="line">import org.springframework.context.annotation.Bean;</span><br><span class="line">import org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line">@Configuration</span><br><span class="line">@ConditionalOnExpression(&quot;&#39;$&#123;regCenter.serverList&#125;&#39;.length() &gt; 0&quot;)</span><br><span class="line">public class RegistryCenterConfig &#123;</span><br><span class="line"></span><br><span class="line">    @Bean(initMethod &#x3D; &quot;init&quot;)</span><br><span class="line">    public ZookeeperRegistryCenter regCenter(@Value(&quot;$&#123;regCenter.serverList&#125;&quot;) final String serverList, @Value(&quot;$&#123;regCenter.namespace&#125;&quot;) final String namespace) &#123;</span><br><span class="line">        return new ZookeeperRegistryCenter(new ZookeeperConfiguration(serverList, namespace));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Spring-xml方式配置作业"><a href="#Spring-xml方式配置作业" class="headerlink" title="Spring xml方式配置作业"></a>Spring xml方式配置作业</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot;</span><br><span class="line">    xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;</span><br><span class="line">    xmlns:reg&#x3D;&quot;http:&#x2F;&#x2F;www.dangdang.com&#x2F;schema&#x2F;ddframe&#x2F;reg&quot;</span><br><span class="line">    xmlns:job&#x3D;&quot;http:&#x2F;&#x2F;www.dangdang.com&#x2F;schema&#x2F;ddframe&#x2F;job&quot;</span><br><span class="line">    xsi:schemaLocation&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans</span><br><span class="line">                        http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans.xsd</span><br><span class="line">                        http:&#x2F;&#x2F;www.dangdang.com&#x2F;schema&#x2F;ddframe&#x2F;reg</span><br><span class="line">                        http:&#x2F;&#x2F;www.dangdang.com&#x2F;schema&#x2F;ddframe&#x2F;reg&#x2F;reg.xsd</span><br><span class="line">                        http:&#x2F;&#x2F;www.dangdang.com&#x2F;schema&#x2F;ddframe&#x2F;job</span><br><span class="line">                        http:&#x2F;&#x2F;www.dangdang.com&#x2F;schema&#x2F;ddframe&#x2F;job&#x2F;job.xsd</span><br><span class="line">                        &quot;&gt;</span><br><span class="line">    &lt;!--配置作业注册中心 --&gt;</span><br><span class="line">    &lt;reg:zookeeper id&#x3D;&quot;regCenter&quot; server-lists&#x3D;&quot;yourhost:2181&quot; namespace&#x3D;&quot;dd-job&quot; base-sleep-time-milliseconds&#x3D;&quot;1000&quot; max-sleep-time-milliseconds&#x3D;&quot;3000&quot; max-retries&#x3D;&quot;3&quot; &#x2F;&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;!-- 配置作业--&gt;</span><br><span class="line">    &lt;job:simple id&#x3D;&quot;demoSimpleSpringJob&quot; class&#x3D;&quot;xxx.MyElasticJob&quot; registry-center-ref&#x3D;&quot;regCenter&quot; cron&#x3D;&quot;0&#x2F;10 * * * * ?&quot; sharding-total-count&#x3D;&quot;3&quot; sharding-item-parameters&#x3D;&quot;0&#x3D;A,1&#x3D;B,2&#x3D;C&quot; &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;beans&gt;</span><br></pre></td></tr></table></figure>
+<p>将配置Spring命名空间的xml通过Spring启动，作业将自动加载。</p>
+<h3 id="基于注解的方式配置作业"><a href="#基于注解的方式配置作业" class="headerlink" title="基于注解的方式配置作业"></a>基于注解的方式配置作业</h3><p>新建名为ElasticSimpleJob注解类</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.springframework.core.annotation.AliasFor;</span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line">import java.lang.annotation.ElementType;</span><br><span class="line">import java.lang.annotation.Retention;</span><br><span class="line">import java.lang.annotation.RetentionPolicy;</span><br><span class="line">import java.lang.annotation.Target;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">@Target(&#123;ElementType.TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">public @interface ElasticSimpleJob &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 作业名称</span><br><span class="line">     *&#x2F;</span><br><span class="line">    String jobName() default &quot;&quot;;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * cron表达式，用于控制作业触发时间</span><br><span class="line">     *&#x2F;</span><br><span class="line">    @AliasFor(&quot;cron&quot;)</span><br><span class="line">    String value() default &quot;&quot;;</span><br><span class="line"></span><br><span class="line">    @AliasFor(&quot;value&quot;)</span><br><span class="line">    String cron() default &quot;&quot;;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 作业分片总数</span><br><span class="line">     *&#x2F;</span><br><span class="line">    int shardingTotalCount() default 1;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 分片序列号和参数用等号分隔，多个键值对用逗号分隔</span><br><span class="line">     * 分片序列号从0开始，不可大于或等于作业分片总数</span><br><span class="line">     * 如：</span><br><span class="line">     * 0&#x3D;a,1&#x3D;b,2&#x3D;c</span><br><span class="line">     *&#x2F;</span><br><span class="line">    String shardingItemParameters() default &quot;&quot;;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 作业自定义参数</span><br><span class="line">     * 作业自定义参数，可通过传递该参数为作业调度的业务方法传参，用于实现带参数的作业</span><br><span class="line">     * 例：每次获取的数据量、作业实例从数据库读取的主键等</span><br><span class="line">     *&#x2F;</span><br><span class="line">    String jobParameter() default &quot;&quot;;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 是否开启任务执行失效转移，开启表示如果作业在一次任务执行中途宕机，允许将该次未完成的任务在另一作业节点上补偿执行</span><br><span class="line">     *&#x2F;</span><br><span class="line">    boolean failover() default true;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 是否开启错过任务重新执行</span><br><span class="line">     *&#x2F;</span><br><span class="line">    boolean misfire() default true;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 作业描述信息</span><br><span class="line">     *&#x2F;</span><br><span class="line">    String description() default &quot;&quot;;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 监控作业运行时状态</span><br><span class="line">     * 每次作业执行时间和间隔时间均非常短的情况，建议不监控作业运行时状态以提升效率。因为是瞬时状态，所以无必要监控。请用户自行增加数据堆积监控。并且不能保证数据重复选取，应在作业中实现幂等性。</span><br><span class="line">     * 每次作业执行时间和间隔时间均较长的情况，建议监控作业运行时状态，可保证数据不会重复选取。</span><br><span class="line">     *&#x2F;</span><br><span class="line">    boolean monitorExecution() default true;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 最大允许的本机与注册中心的时间误差秒数</span><br><span class="line">     * 如果时间误差超过配置秒数则作业启动时将抛异常</span><br><span class="line">     * 配置为-1表示不校验时间误差</span><br><span class="line">     *&#x2F;</span><br><span class="line">    int maxTimeDiffSeconds() default -1;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 作业监控端口</span><br><span class="line">     * 建议配置作业监控端口, 方便开发者dump作业信息。</span><br><span class="line">     * 使用方法: echo “dump” | nc 127.0.0.1 9888</span><br><span class="line">     *&#x2F;</span><br><span class="line">    int monitorPort() default -1;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 作业分片策略实现类全路径</span><br><span class="line">     * 默认使用平均分配策略</span><br><span class="line">     * 如果分片不能整除，则不能整除的多余分片将依次追加到序号小的服务器。如：</span><br><span class="line">     * 如果有3台服务器，分成9片，则每台服务器分到的分片是：1&#x3D;[0,1,2], 2&#x3D;[3,4,5], 3&#x3D;[6,7,8]</span><br><span class="line">     * 如果有3台服务器，分成8片，则每台服务器分到的分片是：1&#x3D;[0,1,6], 2&#x3D;[2,3,7], 3&#x3D;[4,5]</span><br><span class="line">     * 如果有3台服务器，分成10片，则每台服务器分到的分片是：1&#x3D;[0,1,2,9], 2&#x3D;[3,4,5], 3&#x3D;[6,7,8]</span><br><span class="line">     *&#x2F;</span><br><span class="line">    String jobShardingStrategyClass() default &quot;&quot;;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 修复作业服务器不一致状态服务调度间隔时间，配置为小于1的任意值表示不执行修复</span><br><span class="line">     * 单位：分钟</span><br><span class="line">     *&#x2F;</span><br><span class="line">    int reconcileIntervalMinutes() default 10;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 作业是否禁止启动</span><br><span class="line">     * 可用于部署作业时，先禁止启动，部署结束后统一启动</span><br><span class="line">     *&#x2F;</span><br><span class="line">    boolean disabled() default false;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 本地配置是否可覆盖注册中心配置</span><br><span class="line">     * 如果可覆盖，每次启动作业都以本地配置为准</span><br><span class="line">     *&#x2F;</span><br><span class="line">    boolean overwrite() default false;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 作业事件追踪的数据源Bean引用</span><br><span class="line">     *&#x2F;</span><br><span class="line">    String dataSource() default &quot;&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>新建JobEventConfig类</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import com.dangdang.ddframe.job.event.JobEventConfiguration;</span><br><span class="line">import com.dangdang.ddframe.job.event.rdb.JobEventRdbConfiguration;</span><br><span class="line">import org.springframework.context.annotation.Bean;</span><br><span class="line">import org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line">import javax.annotation.Resource;</span><br><span class="line">import javax.sql.DataSource;</span><br><span class="line"></span><br><span class="line">@Configuration</span><br><span class="line">public class JobEventConfig &#123;</span><br><span class="line"></span><br><span class="line">    @Resource</span><br><span class="line">    private DataSource dataSource;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public JobEventConfiguration jobEventConfiguration() &#123;</span><br><span class="line">        return new JobEventRdbConfiguration(dataSource);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>新建SimpleJobConfig类</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import com.dangdang.ddframe.job.api.simple.SimpleJob;</span><br><span class="line">import com.dangdang.ddframe.job.config.JobCoreConfiguration;</span><br><span class="line">import com.dangdang.ddframe.job.config.simple.SimpleJobConfiguration;</span><br><span class="line">import com.dangdang.ddframe.job.event.JobEventConfiguration;</span><br><span class="line">import com.dangdang.ddframe.job.event.rdb.JobEventRdbConfiguration;</span><br><span class="line">import com.dangdang.ddframe.job.lite.api.JobScheduler;</span><br><span class="line">import com.dangdang.ddframe.job.lite.config.LiteJobConfiguration;</span><br><span class="line">import com.dangdang.ddframe.job.lite.spring.api.SpringJobScheduler;</span><br><span class="line">import com.dangdang.ddframe.job.reg.zookeeper.ZookeeperRegistryCenter;</span><br><span class="line">import com.example.elasticjobdemo.job.MySimpleJob;</span><br><span class="line">import org.apache.commons.lang3.StringUtils;</span><br><span class="line">import org.springframework.aop.framework.Advised;</span><br><span class="line">import org.springframework.aop.support.AopUtils;</span><br><span class="line">import org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line">import org.springframework.beans.factory.annotation.Value;</span><br><span class="line">import org.springframework.context.ApplicationContext;</span><br><span class="line">import org.springframework.context.annotation.Bean;</span><br><span class="line">import org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line">import javax.annotation.PostConstruct;</span><br><span class="line">import javax.annotation.Resource;</span><br><span class="line">import javax.sql.DataSource;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">@Configuration</span><br><span class="line">public class SimpleJobConfig &#123;</span><br><span class="line"></span><br><span class="line">    @Resource</span><br><span class="line">    private ZookeeperRegistryCenter regCenter;</span><br><span class="line"></span><br><span class="line">    @Resource</span><br><span class="line">    private JobEventConfiguration jobEventConfiguration;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;    @Bean</span><br><span class="line">&#x2F;&#x2F;    public SimpleJob simpleJob() &#123;</span><br><span class="line">&#x2F;&#x2F;        return new MySimpleJob();</span><br><span class="line">&#x2F;&#x2F;    &#125;</span><br><span class="line">&#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;    @Bean(initMethod &#x3D; &quot;init&quot;)</span><br><span class="line">&#x2F;&#x2F;    public JobScheduler simpleJobScheduler(final SimpleJob simpleJob, @Value(&quot;$&#123;simpleJob.cron&#125;&quot;) final String cron, @Value(&quot;$&#123;simpleJob.shardingTotalCount&#125;&quot;) final int shardingTotalCount, @Value(&quot;$&#123;simpleJob.shardingItemParameters&#125;&quot;) final String shardingItemParameters) &#123;</span><br><span class="line">&#x2F;&#x2F;        return new SpringJobScheduler(simpleJob, regCenter, getLiteJobConfiguration(simpleJob.getClass(), cron, shardingTotalCount, shardingItemParameters), jobEventConfiguration);</span><br><span class="line">&#x2F;&#x2F;    &#125;</span><br><span class="line">&#x2F;&#x2F;</span><br><span class="line">&#x2F;&#x2F;    private LiteJobConfiguration getLiteJobConfiguration(final Class&lt;? extends SimpleJob&gt; jobClass, final String cron, final int shardingTotalCount, final String shardingItemParameters) &#123;</span><br><span class="line">&#x2F;&#x2F;        return LiteJobConfiguration.newBuilder(new SimpleJobConfiguration(JobCoreConfiguration.newBuilder(jobClass.getName(), cron, shardingTotalCount).shardingItemParameters(shardingItemParameters).build(), jobClass.getCanonicalName())).overwrite(true).disabled(true).build();</span><br><span class="line">&#x2F;&#x2F;    &#125;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line">    @PostConstruct</span><br><span class="line">    public void initElasticJob() &#123;</span><br><span class="line">        Map&lt;String, SimpleJob&gt; map &#x3D; applicationContext.getBeansOfType(SimpleJob.class);</span><br><span class="line">        for (Map.Entry&lt;String, SimpleJob&gt; entry : map.entrySet()) &#123;</span><br><span class="line">            SimpleJob simpleJob &#x3D; entry.getValue();</span><br><span class="line">            if (AopUtils.isAopProxy(simpleJob)) &#123;</span><br><span class="line">                try &#123;</span><br><span class="line">                    simpleJob &#x3D; (SimpleJob) ((Advised) simpleJob).getTargetSource().getTarget();</span><br><span class="line">                &#125; catch (Exception var1) &#123;</span><br><span class="line">                    throw new RuntimeException(var1);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            ElasticSimpleJob elasticSimpleJobAnnotation &#x3D; simpleJob.getClass().getAnnotation(ElasticSimpleJob.class);</span><br><span class="line">            if (null !&#x3D; elasticSimpleJobAnnotation) &#123;</span><br><span class="line">                String cron &#x3D; StringUtils.defaultIfBlank(elasticSimpleJobAnnotation.cron(), elasticSimpleJobAnnotation.value());</span><br><span class="line">                String jobName &#x3D; StringUtils.isBlank(elasticSimpleJobAnnotation.jobName()) ? simpleJob.getClass().getName() : elasticSimpleJobAnnotation.jobName();</span><br><span class="line">                boolean overwrite &#x3D; elasticSimpleJobAnnotation.overwrite();</span><br><span class="line">                boolean monitorExecution &#x3D; elasticSimpleJobAnnotation.monitorExecution();</span><br><span class="line"></span><br><span class="line">                &#x2F;&#x2F;SimpleJob任务配置</span><br><span class="line">                SimpleJobConfiguration simpleJobConfiguration &#x3D; new SimpleJobConfiguration(</span><br><span class="line">                        JobCoreConfiguration.newBuilder(jobName, cron, elasticSimpleJobAnnotation.shardingTotalCount())</span><br><span class="line">                                .shardingItemParameters(elasticSimpleJobAnnotation.shardingItemParameters())</span><br><span class="line">                                .description(elasticSimpleJobAnnotation.description())</span><br><span class="line">                                .failover(elasticSimpleJobAnnotation.failover())</span><br><span class="line">                                .jobParameter(elasticSimpleJobAnnotation.jobParameter()).build(), simpleJob.getClass().getCanonicalName());</span><br><span class="line">                LiteJobConfiguration liteJobConfiguration &#x3D; LiteJobConfiguration.newBuilder(simpleJobConfiguration).overwrite(overwrite).monitorExecution(monitorExecution).build();</span><br><span class="line"></span><br><span class="line">                JobListener jobListener &#x3D; new JobListener();</span><br><span class="line"></span><br><span class="line">                &#x2F;&#x2F;配置数据源</span><br><span class="line">                String dataSourceRef &#x3D; elasticSimpleJobAnnotation.dataSource();</span><br><span class="line">                if (StringUtils.isNotBlank(dataSourceRef)) &#123;</span><br><span class="line"></span><br><span class="line">                    if (!applicationContext.containsBean(dataSourceRef)) &#123;</span><br><span class="line">                        throw new RuntimeException(&quot;not exist datasource [&quot; + dataSourceRef + &quot;]&quot;);</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    DataSource dataSource &#x3D; (DataSource) applicationContext.getBean(dataSourceRef);</span><br><span class="line">                    JobEventRdbConfiguration jobEventRdbConfiguration &#x3D; new JobEventRdbConfiguration(dataSource);</span><br><span class="line">                    SpringJobScheduler jobScheduler &#x3D; new SpringJobScheduler(simpleJob, regCenter, liteJobConfiguration, jobEventRdbConfiguration, jobListener);</span><br><span class="line">                    jobScheduler.init();</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    SpringJobScheduler jobScheduler &#x3D; new SpringJobScheduler(simpleJob, regCenter, liteJobConfiguration, jobEventConfiguration, jobListener);</span><br><span class="line">                    jobScheduler.init();</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                SpringJobScheduler jobScheduler &#x3D; new SpringJobScheduler(simpleJob, regCenter, liteJobConfiguration, jobListener);</span><br><span class="line">                jobScheduler.init();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>新建作业监听器JobListener类</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import com.dangdang.ddframe.job.executor.ShardingContexts;</span><br><span class="line">import com.dangdang.ddframe.job.lite.api.listener.ElasticJobListener;</span><br><span class="line">import org.slf4j.Logger;</span><br><span class="line">import org.slf4j.LoggerFactory;</span><br><span class="line"></span><br><span class="line">import java.time.LocalDateTime;</span><br><span class="line">import java.time.format.DateTimeFormatter;</span><br><span class="line"></span><br><span class="line">public class JobListener implements ElasticJobListener &#123;</span><br><span class="line"></span><br><span class="line">    private static final Logger logger &#x3D; LoggerFactory.getLogger(JobListener.class);</span><br><span class="line"></span><br><span class="line">    private static final DateTimeFormatter DATE_TIME_FORMATTER &#x3D; DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd HH:mm:ss&quot;);</span><br><span class="line"></span><br><span class="line">    private long beginTime &#x3D; 0;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void beforeJobExecuted(ShardingContexts shardingContexts) &#123;</span><br><span class="line">        beginTime &#x3D; System.currentTimeMillis();</span><br><span class="line">        logger.info(&quot;开始执行 &#x3D;&#x3D;&gt; 线程ID：&#123;&#125;，作业任务ID：&#123;&#125;，作业名称：&#123;&#125;，分片总数：&#123;&#125;，作业自定义参数：&#123;&#125;，分片项和参数：&#123;&#125;，作业事件采样统计数：&#123;&#125;，当前作业事件采样统计数：&#123;&#125;，时间：&#123;&#125;&quot;,</span><br><span class="line">                Thread.currentThread().getId(),</span><br><span class="line">                shardingContexts.getTaskId(),</span><br><span class="line">                shardingContexts.getJobName(),</span><br><span class="line">                shardingContexts.getShardingTotalCount(),</span><br><span class="line">                shardingContexts.getJobParameter(),</span><br><span class="line">                shardingContexts.getShardingItemParameters(),</span><br><span class="line">                shardingContexts.getJobEventSamplingCount(),</span><br><span class="line">                shardingContexts.getCurrentJobEventSamplingCount(),</span><br><span class="line">                LocalDateTime.now().format(DATE_TIME_FORMATTER));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void afterJobExecuted(ShardingContexts shardingContexts) &#123;</span><br><span class="line">        long endTime &#x3D; System.currentTimeMillis();</span><br><span class="line">        logger.info(&quot;执行结束 &#x3D;&#x3D;&gt; 线程ID：&#123;&#125;，作业任务ID：&#123;&#125;，作业名称：&#123;&#125;，分片总数：&#123;&#125;，作业自定义参数：&#123;&#125;，分片项和参数：&#123;&#125;，作业事件采样统计数：&#123;&#125;，当前作业事件采样统计数：&#123;&#125;，时间：&#123;&#125;，总耗时：&#123;&#125; 毫秒&quot;,</span><br><span class="line">                Thread.currentThread().getId(),</span><br><span class="line">                shardingContexts.getTaskId(),</span><br><span class="line">                shardingContexts.getJobName(),</span><br><span class="line">                shardingContexts.getShardingTotalCount(),</span><br><span class="line">                shardingContexts.getJobParameter(),</span><br><span class="line">                shardingContexts.getShardingItemParameters(),</span><br><span class="line">                shardingContexts.getJobEventSamplingCount(),</span><br><span class="line">                shardingContexts.getCurrentJobEventSamplingCount(),</span><br><span class="line">                LocalDateTime.now().format(DATE_TIME_FORMATTER),</span><br><span class="line">                endTime - beginTime);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>新建名为TestSimpleJob任务类</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import com.dangdang.ddframe.job.api.ShardingContext;</span><br><span class="line">import com.dangdang.ddframe.job.api.simple.SimpleJob;</span><br><span class="line">import com.example.elasticjobdemo.config.ElasticSimpleJob;</span><br><span class="line"></span><br><span class="line">@ElasticSimpleJob(jobName &#x3D; &quot;TestSimpleJob&quot;, cron &#x3D; &quot;0&#x2F;20 * * * * ?&quot;)</span><br><span class="line">public class TestSimpleJob implements SimpleJob &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void execute(ShardingContext shardingContext) &#123;</span><br><span class="line">        System.out.println(&quot;TestSimpleJob 进来了...&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>到此为止，启动程序，在运维控制台就可以看到TestSimpleJob这个任务了，平台上可以对任务进行一些操作。<br><img src="/2019/07/26/spring-boot-elastic-job/test-simple-job.png" alt="运维控制台图"></p>
+<p>更多关于Elastic-Job的内容，请前往官网：<a href="http://elasticjob.io/">http://elasticjob.io</a></p>
+]]></content>
+      <categories>
+        <category>Spring Boot</category>
+        <category>Elastic-Job</category>
+      </categories>
+      <tags>
+        <tag>Spring Boot</tag>
+        <tag>Elastic-Job</tag>
+      </tags>
+  </entry>
+</search>
