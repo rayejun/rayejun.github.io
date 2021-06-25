@@ -481,7 +481,7 @@
 <h2 id="gzip-调优"><a href="#gzip-调优" class="headerlink" title="gzip 调优"></a>gzip 调优</h2><p>使用gzip压缩功能，可能为我们节约带宽，加快传输速度，有更好的体验，也为我们节约成本，所以说这是一个重点。</p>
 <p>Nginx启用压缩功能需要你来ngx_http_gzip_module模块，apache使用的是mod_deflate。</p>
 <p>一般我们需要压缩的内容有：文本，js，html，css，对于图片，视频，flash什么的不压缩，同时也要注意，我们使用gzip的功能是需要消耗CPU的！</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gzip on; #开启压缩功能</span><br><span class="line">gzip_min_length 2k;</span><br><span class="line">gzip_buffers   4 32k;</span><br><span class="line">gzip_http_version 1.1;</span><br><span class="line">gzip_comp_level 6;</span><br><span class="line">gzip_typestext&#x2F;plain text&#x2F;css text&#x2F;javascript application&#x2F;json application&#x2F;javascript application&#x2F;x-javascript application&#x2F;xml;</span><br><span class="line">gzip_vary on;</span><br><span class="line">gzip_proxied any; </span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gzip on; #开启压缩功能</span><br><span class="line">gzip_min_length 2k;</span><br><span class="line">gzip_buffers   4 32k;</span><br><span class="line">gzip_http_version 1.1;</span><br><span class="line">gzip_comp_level 6;</span><br><span class="line">gzip_types text&#x2F;plain text&#x2F;css text&#x2F;javascript application&#x2F;json application&#x2F;javascript application&#x2F;x-javascript application&#x2F;xml;</span><br><span class="line">gzip_vary on;</span><br><span class="line">gzip_proxied any; </span><br></pre></td></tr></table></figure>
 <ul>
 <li><p>gzip_min_length 1k ：设置允许压缩的页面最小字节数，页面字节数从header头的Content-Length中获取，默认值是0，不管页面多大都进行压缩，建议设置成大于1K，如果小与1K可能会越压越大。</p>
 </li>
@@ -847,6 +847,564 @@
       <tags>
         <tag>Spring Boot</tag>
         <tag>Elastic-Job</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java代码精简之道</title>
+    <url>/2021/06/25/Java%E4%BB%A3%E7%A0%81%E7%B2%BE%E7%AE%80%E4%B9%8B%E9%81%93/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a><strong>前言</strong></h2><hr>
+<p>古语有云：</p>
+<blockquote>
+<p>道为术之灵，术为道之体；以道统术，以术得道。</p>
+</blockquote>
+<p>其中：“道”指“规律、道理、理论”，“术”指“方法、技巧、技术”。意思是：“道”是“术”的灵魂，“术”是“道”的肉体；可以用“道”来统管“术”，也可以从“术”中获得“道”。</p>
+<p>在拜读大佬“孤尽”的文章<a href="http://mp.weixin.qq.com/s?__biz=MzU4NzU0MDIzOQ==&mid=2247489170&idx=1&sn=e47dcf2227517172ff97105e8a0543d0&chksm=fdeb24f2ca9cade4985b11abd05d4c8e2fdf2cf9b5a73dbe27d320a036d684563679e8d5c565&token=1498852714&lang=zh_CN&scene=21#wechat_redirect">《Code Review是苦涩但有意思的修行》</a>时，感受最深的一句话就是：“优质的代码一定是少即是多的精兵原则”，这就是大佬的代码精简之“道”。</p>
+<p>工匠追求“术”到极致，其实就是在寻“道”，且离悟“道”也就不远了，亦或是已经得道，这就是“工匠精神”——一种追求“以术得道”的精神。如果一个工匠只满足于“术”，不能追求“术”到极致去悟“道”，那只是一个靠“术”养家糊口的工匠而已。作者根据多年来的实践探索，总结了大量的 Java 代码精简之“术”，试图阐述出心中的 Java 代码精简之“道”。</p>
+<h2 id="1-利用语法"><a href="#1-利用语法" class="headerlink" title="1.利用语法"></a><strong>1.利用语法</strong></h2><hr>
+<h3 id="1-1-利用三元表达式"><a href="#1-1-利用三元表达式" class="headerlink" title="1.1.利用三元表达式"></a><strong>1.1.利用三元表达式</strong></h3><p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">String title;</span><br><span class="line">if (isMember(phone)) &#123;</span><br><span class="line">    title &#x3D; &quot;会员&quot;;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    title &#x3D; &quot;游客&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">String title &#x3D; isMember(phone) ? &quot;会员&quot; : &quot;游客&quot;;</span><br></pre></td></tr></table></figure>
+
+
+<p>注意：对于包装类型的算术计算，需要注意避免拆包时的空指针问题。</p>
+<h3 id="1-2-利用-for-each-语句"><a href="#1-2-利用-for-each-语句" class="headerlink" title="1.2.利用 for-each 语句"></a><strong>1.2.利用 for-each 语句</strong></h3><p>从 Java 5 起，提供了 for-each 循环，简化了数组和集合的循环遍历。 for-each 循环允许你无需保持传统 for 循环中的索引就可以遍历数组，或在使用迭代器时无需在 while 循环中调用 hasNext 方法和 next 方法就可以遍历集合。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">double[] values &#x3D; ...;</span><br><span class="line">for(int i &#x3D; 0; i &lt; values.length; i++) &#123;</span><br><span class="line">    double value &#x3D; values[i];</span><br><span class="line">    &#x2F;&#x2F; TODO: 处理value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">List&lt;Double&gt; valueList &#x3D; ...;</span><br><span class="line">Iterator&lt;Double&gt; iterator &#x3D; valueList.iterator();</span><br><span class="line">while (iterator.hasNext()) &#123;</span><br><span class="line">    Double value &#x3D; iterator.next();</span><br><span class="line">    &#x2F;&#x2F; TODO: 处理value</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">double[] values &#x3D; ...;</span><br><span class="line">for(double value : values) &#123;</span><br><span class="line">    &#x2F;&#x2F; TODO: 处理value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">List&lt;Double&gt; valueList &#x3D; ...;</span><br><span class="line">for(Double value : valueList) &#123;</span><br><span class="line">    &#x2F;&#x2F; TODO: 处理value</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="1-3-利用-try-with-resource-语句"><a href="#1-3-利用-try-with-resource-语句" class="headerlink" title="1.3.利用 try-with-resource 语句"></a><strong>1.3.利用 try-with-resource 语句</strong></h3><p>所有实现 Closeable 接口的“资源”，均可采用 try-with-resource 进行简化。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">BufferedReader reader &#x3D; null;</span><br><span class="line">try &#123;</span><br><span class="line">    reader &#x3D; new BufferedReader(new FileReader(&quot;cities.csv&quot;));</span><br><span class="line">    String line;</span><br><span class="line">    while ((line &#x3D; reader.readLine()) !&#x3D; null) &#123;</span><br><span class="line">        &#x2F;&#x2F; TODO: 处理line</span><br><span class="line">    &#125;</span><br><span class="line">&#125; catch (IOException e) &#123;</span><br><span class="line">    log.error(&quot;读取文件异常&quot;, e);</span><br><span class="line">&#125; finally &#123;</span><br><span class="line">    if (reader !&#x3D; null) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            reader.close();</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            log.error(&quot;关闭文件异常&quot;, e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">try (BufferedReader reader &#x3D; new BufferedReader(new FileReader(&quot;test.txt&quot;))) &#123;</span><br><span class="line">    String line;</span><br><span class="line">    while ((line &#x3D; reader.readLine()) !&#x3D; null) &#123;</span><br><span class="line">        &#x2F;&#x2F; TODO: 处理line</span><br><span class="line">    &#125;</span><br><span class="line">&#125; catch (IOException e) &#123;</span><br><span class="line">    log.error(&quot;读取文件异常&quot;, e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="1-4-利用-return-关键字"><a href="#1-4-利用-return-关键字" class="headerlink" title="1.4.利用 return 关键字"></a><strong>1.4.利用 return 关键字</strong></h3><p>利用 return 关键字，可以提前函数返回，避免定义中间变量。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static boolean hasSuper(@NonNull List&lt;UserDO&gt; userList) &#123;</span><br><span class="line">    boolean hasSuper &#x3D; false;</span><br><span class="line">    for (UserDO user : userList) &#123;</span><br><span class="line">        if (Boolean.TRUE.equals(user.getIsSuper())) &#123;</span><br><span class="line">            hasSuper &#x3D; true;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return hasSuper;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static boolean hasSuper(@NonNull List&lt;UserDO&gt; userList) &#123;</span><br><span class="line">    for (UserDO user : userList) &#123;</span><br><span class="line">        if (Boolean.TRUE.equals(user.getIsSuper())) &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="1-5-利用-static-关键字"><a href="#1-5-利用-static-关键字" class="headerlink" title="1.5.利用 static 关键字"></a><strong>1.5.利用 static 关键字</strong></h3><p>利用 static 关键字，可以把字段变成静态字段，也可以把函数变为静态函数，调用时就无需初始化类对象。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public final class GisHelper &#123;</span><br><span class="line">    public double distance(double lng1, double lat1, double lng2, double lat2) &#123;</span><br><span class="line">        &#x2F;&#x2F; 方法实现代码</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">GisHelper gisHelper &#x3D; new GisHelper();</span><br><span class="line">double distance &#x3D; gisHelper.distance(116.178692D, 39.967115D, 116.410778D, 39.899721D);</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public final class GisHelper &#123;</span><br><span class="line">    public static double distance(double lng1, double lat1, double lng2, double lat2) &#123;</span><br><span class="line">        &#x2F;&#x2F; 方法实现代码</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">double distance &#x3D; GisHelper.distance(116.178692D, 39.967115D, 116.410778D, 39.899721D);</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-6-利用-lambda-表达式"><a href="#1-6-利用-lambda-表达式" class="headerlink" title="1.6.利用 lambda 表达式"></a><strong>1.6.利用 lambda 表达式</strong></h3><p>Java 8 发布以后，lambda 表达式大量替代匿名内部类的使用，在简化了代码的同时，更突出了原有匿名内部类中真正有用的那部分代码。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">new Thread(new Runnable() &#123;</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        &#x2F;&#x2F; 线程处理代码</span><br><span class="line">    &#125;</span><br><span class="line">&#125;).start();</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">new Thread(() -&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F; 线程处理代码</span><br><span class="line">&#125;).start();</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="1-7-利用方法引用"><a href="#1-7-利用方法引用" class="headerlink" title="1.7.利用方法引用"></a><strong>1.7.利用方法引用</strong></h3><p>方法引用（::），可以简化 lambda 表达式，省略变量声明和函数调用。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Arrays.sort(nameArray, (a, b) -&gt; a.compareToIgnoreCase(b));</span><br><span class="line">List&lt;Long&gt; userIdList &#x3D; userList.stream()</span><br><span class="line">    .map(user -&gt; user.getId())</span><br><span class="line">    .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Arrays.sort(nameArray, String::compareToIgnoreCase);</span><br><span class="line">List&lt;Long&gt; userIdList &#x3D; userList.stream()</span><br><span class="line">    .map(UserDO::getId)</span><br><span class="line">    .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="1-8-利用静态导入"><a href="#1-8-利用静态导入" class="headerlink" title="1.8.利用静态导入"></a><strong>1.8.利用静态导入</strong></h3><p>静态导入（import static），当程序中大量使用同一静态常量和函数时，可以简化静态常量和函数的引用。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">List&lt;Double&gt; areaList &#x3D; radiusList.stream().map(r -&gt; Math.PI * Math.pow(r, 2)).collect(Collectors.toList());</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import static java.lang.Math.PI;</span><br><span class="line">import static java.lang.Math.pow;</span><br><span class="line">import static java.util.stream.Collectors.toList;</span><br><span class="line"></span><br><span class="line">List&lt;Double&gt; areaList &#x3D; radiusList.stream().map(r -&gt; PI * pow(r, 2)).collect(toList());</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+
+<p>注意：静态引入容易造成代码阅读困难，所以在实际项目中应该警慎使用。</p>
+<h3 id="1-9-利用-unchecked-异常"><a href="#1-9-利用-unchecked-异常" class="headerlink" title="1.9.利用 unchecked 异常"></a><strong>1.9.利用 unchecked 异常</strong></h3><p>Java 的异常分为两类：Checked 异常和 Unchecked 异常。Unchecked 异常继承了RuntimeException ，特点是代码不需要处理它们也能通过编译，所以它们称作 Unchecked 异常。利用 Unchecked 异常，可以避免不必要的 try-catch 和 throws 异常处理。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Service</span><br><span class="line">public class UserService &#123;</span><br><span class="line">    public void createUser(UserCreateVO create, OpUserVO user) throws BusinessException &#123;</span><br><span class="line">        checkOperatorUser(user);</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">    private void checkOperatorUser(OpUserVO user) throws BusinessException &#123;</span><br><span class="line">        if (!hasPermission(user)) &#123;</span><br><span class="line">            throw new BusinessException(&quot;用户无操作权限&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@RestController</span><br><span class="line">@RequestMapping(&quot;&#x2F;user&quot;)</span><br><span class="line">public class UserController &#123;</span><br><span class="line">    @Autowired</span><br><span class="line">    private UserService userService;</span><br><span class="line"></span><br><span class="line">    @PostMapping(&quot;&#x2F;createUser&quot;)</span><br><span class="line">    public Result&lt;Void&gt; createUser(@RequestBody @Valid UserCreateVO create, OpUserVO user) throws BusinessException &#123;</span><br><span class="line">        userService.createUser(create, user);</span><br><span class="line">        return Result.success();</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Service</span><br><span class="line">public class UserService &#123;</span><br><span class="line">    public void createUser(UserCreateVO create, OpUserVO user) &#123;</span><br><span class="line">        checkOperatorUser(user);</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">    private void checkOperatorUser(OpUserVO user) &#123;</span><br><span class="line">        if (!hasPermission(user)) &#123;</span><br><span class="line">            throw new BusinessRuntimeException(&quot;用户无操作权限&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@RestController</span><br><span class="line">@RequestMapping(&quot;&#x2F;user&quot;)</span><br><span class="line">public class UserController &#123;</span><br><span class="line">    @Autowired</span><br><span class="line">    private UserService userService;</span><br><span class="line"></span><br><span class="line">    @PostMapping(&quot;&#x2F;createUser&quot;)</span><br><span class="line">    public Result&lt;Void&gt; createUser(@RequestBody @Valid UserCreateVO create, OpUserVO user) &#123;</span><br><span class="line">        userService.createUser(create, user);</span><br><span class="line">        return Result.success();</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="2-利用注解"><a href="#2-利用注解" class="headerlink" title="2.利用注解"></a><strong>2.利用注解</strong></h2><hr>
+<h3 id="2-1-利用-Lombok-注解"><a href="#2-1-利用-Lombok-注解" class="headerlink" title="2.1.利用 Lombok 注解"></a><strong>2.1.利用 Lombok 注解</strong></h3><p>Lombok 提供了一组有用的注解，可以用来消除Java类中的大量样板代码。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class UserVO &#123;</span><br><span class="line">    private Long id;</span><br><span class="line">    private String name;</span><br><span class="line">    public Long getId() &#123;</span><br><span class="line">        return this.id;</span><br><span class="line">    &#125;</span><br><span class="line">    public void setId(Long id) &#123;</span><br><span class="line">        this.id &#x3D; id;</span><br><span class="line">    &#125;</span><br><span class="line">    public String getName() &#123;</span><br><span class="line">        return this.name;</span><br><span class="line">    &#125;</span><br><span class="line">    public void setName(String name) &#123;</span><br><span class="line">        this.name &#x3D; name;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Getter</span><br><span class="line">@Setter</span><br><span class="line">@ToString</span><br><span class="line">public class UserVO &#123;</span><br><span class="line">    private Long id;</span><br><span class="line">    private String name;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="2-2-利用-Validation-注解"><a href="#2-2-利用-Validation-注解" class="headerlink" title="2.2.利用 Validation 注解"></a><strong>2.2.利用 Validation 注解</strong></h3><p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Getter</span><br><span class="line">@Setter</span><br><span class="line">@ToString</span><br><span class="line">public class UserCreateVO &#123;</span><br><span class="line">    @NotBlank(message &#x3D; &quot;用户名称不能为空&quot;)</span><br><span class="line">    private String name;</span><br><span class="line">    @NotNull(message &#x3D; &quot;公司标识不能为空&quot;)</span><br><span class="line">    private Long companyId;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Service</span><br><span class="line">@Validatedpublic</span><br><span class="line">class UserService &#123;</span><br><span class="line">    public Long createUser(@Valid UserCreateVO create) &#123;</span><br><span class="line">        &#x2F;&#x2F; TODO: 创建用户        </span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Getter</span><br><span class="line">@Setter</span><br><span class="line">@ToString</span><br><span class="line">public class UserCreateVO &#123;</span><br><span class="line">    @NotBlank(message &#x3D; &quot;用户名称不能为空&quot;)</span><br><span class="line">    private String name;</span><br><span class="line">    @NotNull(message &#x3D; &quot;公司标识不能为空&quot;)</span><br><span class="line">    private Long companyId;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Service</span><br><span class="line">@Validated</span><br><span class="line">public class UserService &#123;</span><br><span class="line">    public Long createUser(@Valid UserCreateVO create) &#123;</span><br><span class="line">        &#x2F;&#x2F; TODO: 创建用户</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-利用-NonNull-注解"><a href="#2-3-利用-NonNull-注解" class="headerlink" title="2.3.利用 @NonNull 注解"></a><strong>2.3.利用 @NonNull 注解</strong></h3><p>Spring 的 @NonNull 注解，用于标注参数或返回值非空，适用于项目内部团队协作。只要实现方和调用方遵循规范，可以避免不必要的空值判断，这充分体现了阿里的“新六脉神剑”提倡的“因为信任，所以简单”。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public List&lt;UserVO&gt; queryCompanyUser(Long companyId) &#123;</span><br><span class="line">    &#x2F;&#x2F; 检查公司标识</span><br><span class="line">    if (companyId &#x3D;&#x3D; null) &#123;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 查询返回用户</span><br><span class="line">    List&lt;UserDO&gt; userList &#x3D; userDAO.queryByCompanyId(companyId);</span><br><span class="line">    return userList.stream().map(this::transUser).collect(Collectors.toList());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Long companyId &#x3D; 1L;</span><br><span class="line">List&lt;UserVO&gt; userList &#x3D; queryCompanyUser(companyId);</span><br><span class="line">if (CollectionUtils.isNotEmpty(userList)) &#123;</span><br><span class="line">    for (UserVO user : userList) &#123;</span><br><span class="line">        &#x2F;&#x2F; TODO: 处理公司用户</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public @NonNull List&lt;UserVO&gt; queryCompanyUser(@NonNull Long companyId) &#123;</span><br><span class="line">    List&lt;UserDO&gt; userList &#x3D; userDAO.queryByCompanyId(companyId);</span><br><span class="line">    return userList.stream().map(this::transUser).collect(Collectors.toList());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Long companyId &#x3D; 1L;</span><br><span class="line">List&lt;UserVO&gt; userList &#x3D; queryCompanyUser(companyId);</span><br><span class="line">for (UserVO user : userList) &#123;</span><br><span class="line">    &#x2F;&#x2F; TODO: 处理公司用户</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-4-利用注解特性"><a href="#2-4-利用注解特性" class="headerlink" title="2.4.利用注解特性"></a><strong>2.4.利用注解特性</strong></h3><p>注解有以下特性可用于精简注解声明：</p>
+<p>1、当注解属性值跟默认值一致时，可以删除该属性赋值；</p>
+<p>2、当注解只有value属性时，可以去掉value进行简写；</p>
+<p>3、当注解属性组合等于另一个特定注解时，直接采用该特定注解。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Lazy(true);</span><br><span class="line">@Service(value &#x3D; &quot;userService&quot;)</span><br><span class="line">@RequestMapping(path &#x3D; &quot;&#x2F;getUser&quot;, method &#x3D; RequestMethod.GET)</span><br></pre></td></tr></table></figure>
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Lazy</span><br><span class="line">@Service(&quot;userService&quot;)</span><br><span class="line">@GetMapping(&quot;&#x2F;getUser&quot;)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-利用泛型"><a href="#3-利用泛型" class="headerlink" title="3.利用泛型"></a><strong>3.利用泛型</strong></h2><hr>
+<h3 id="3-1-泛型接口"><a href="#3-1-泛型接口" class="headerlink" title="3.1.泛型接口"></a><strong>3.1.泛型接口</strong></h3><p>在 Java 没有引入泛型前，都是采用 Object 表示通用对象，最大的问题就是类型无法强校验并且需要强制类型转换。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public interface Comparable &#123;</span><br><span class="line">    public int compareTo(Object other);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Getter</span><br><span class="line">@Setter</span><br><span class="line">@ToString</span><br><span class="line">public class UserVO implements Comparable &#123;</span><br><span class="line">    private Long id;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public int compareTo(Object other) &#123;</span><br><span class="line">        UserVO user &#x3D; (UserVO)other;</span><br><span class="line">        return Long.compare(this.id, user.id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public interface Comparable&lt;T&gt; &#123;</span><br><span class="line">    public int compareTo(T other);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Getter</span><br><span class="line">@Setter</span><br><span class="line">@ToString</span><br><span class="line">public class UserVO implements Comparable&lt;UserVO&gt; &#123;</span><br><span class="line">    private Long id;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public int compareTo(UserVO other) &#123;</span><br><span class="line">        return Long.compare(this.id, other.id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="3-2-泛型类"><a href="#3-2-泛型类" class="headerlink" title="3.2.泛型类"></a><strong>3.2.泛型类</strong></h3><p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Getter</span><br><span class="line">@Setter</span><br><span class="line">@ToString</span><br><span class="line">public class IntPoint &#123;</span><br><span class="line">    private Integer x;</span><br><span class="line">    private Integer y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Getter</span><br><span class="line">@Setter</span><br><span class="line">@ToString</span><br><span class="line">public class DoublePoint &#123;</span><br><span class="line">    private Double x;</span><br><span class="line">    private Double y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Getter</span><br><span class="line">@Setter</span><br><span class="line">@ToString</span><br><span class="line">public class Point&lt;T extends Number&gt; &#123;</span><br><span class="line">    private T x;</span><br><span class="line">    private T y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-泛型方法"><a href="#3-3-泛型方法" class="headerlink" title="3.3.泛型方法"></a><strong>3.3.泛型方法</strong></h3><p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static Map&lt;String, Integer&gt; newHashMap(String[] keys, Integer[] values) &#123;</span><br><span class="line">    &#x2F;&#x2F; 检查参数非空</span><br><span class="line">    if (ArrayUtils.isEmpty(keys) || ArrayUtils.isEmpty(values)) &#123;</span><br><span class="line">        return Collections.emptyMap();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 转化哈希映射</span><br><span class="line">    Map&lt;String, Integer&gt; map &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">    int length &#x3D; Math.min(keys.length, values.length);</span><br><span class="line">    for (int i &#x3D; 0; i &lt; length; i++) &#123;</span><br><span class="line">        map.put(keys[i], values[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    return map;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static &lt;K, V&gt; Map&lt;K, V&gt; newHashMap(K[] keys, V[] values) &#123;</span><br><span class="line">    &#x2F;&#x2F; 检查参数非空</span><br><span class="line">    if (ArrayUtils.isEmpty(keys) || ArrayUtils.isEmpty(values)) &#123;</span><br><span class="line">        return Collections.emptyMap();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 转化哈希映射</span><br><span class="line">    Map&lt;K, V&gt; map &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">    int length &#x3D; Math.min(keys.length, values.length);</span><br><span class="line">    for (int i &#x3D; 0; i &lt; length; i++) &#123;</span><br><span class="line">        map.put(keys[i], values[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    return map;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="4-利用自身方法"><a href="#4-利用自身方法" class="headerlink" title="4.利用自身方法"></a><strong>4.利用自身方法</strong></h2><hr>
+<h3 id="4-1-利用构造方法"><a href="#4-1-利用构造方法" class="headerlink" title="4.1.利用构造方法"></a><strong>4.1.利用构造方法</strong></h3><p>构造方法，可以简化对象的初始化和设置属性操作。对于属性字段较少的类，可以自定义构造方法。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Getter</span><br><span class="line">@Setter</span><br><span class="line">@ToString</span><br><span class="line">public class PageDataVO&lt;T&gt; &#123;</span><br><span class="line">    private Long totalCount;</span><br><span class="line">    private List&lt;T&gt; dataList;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">PageDataVO&lt;UserVO&gt; pageData &#x3D; new PageDataVO&lt;&gt;();</span><br><span class="line">pageData.setTotalCount(totalCount);</span><br><span class="line">pageData.setDataList(userList);</span><br><span class="line">return pageData;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Getter</span><br><span class="line">@Setter</span><br><span class="line">@ToString</span><br><span class="line">@NoArgsConstructor</span><br><span class="line">@AllArgsConstructor</span><br><span class="line">public class PageDataVO&lt;T&gt; &#123;</span><br><span class="line">    private Long totalCount;</span><br><span class="line">    private List&lt;T&gt; dataList;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">return new PageDataVO&lt;&gt;(totalCount, userList);</span><br></pre></td></tr></table></figure>
+
+
+<p>注意：如果属性字段被替换时，存在构造函数初始化赋值问题。比如把属性字段title替换为 nickname ，由于构造函数的参数个数和类型不变，原有构造函数初始化语句不会报错，导致把原title值赋值给 nickname 。如果采用 Setter 方法赋值，编译器会提示错误并要求修复。</p>
+<h3 id="4-2-利用-Set-的-add-方法"><a href="#4-2-利用-Set-的-add-方法" class="headerlink" title="4.2.利用 Set 的 add 方法"></a><strong>4.2.利用 Set 的 add 方法</strong></h3><p>利用 Set 的 add 方法的返回值，可以直接知道该值是否已经存在，可以避免调用 contains 方法判断存在。</p>
+<p><strong>普通：</strong></p>
+<p>以下案例是进行用户去重转化操作，需要先调用 contains 方法判断存在，后调用add方法进行添加。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Set&lt;Long&gt; userIdSet &#x3D; new HashSet&lt;&gt;();</span><br><span class="line">List&lt;UserVO&gt; userVOList &#x3D; new ArrayList&lt;&gt;();</span><br><span class="line">for (UserDO userDO : userDOList) &#123;</span><br><span class="line">    if (!userIdSet.contains(userDO.getId())) &#123;</span><br><span class="line">        userIdSet.add(userDO.getId());</span><br><span class="line">        userVOList.add(transUser(userDO));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SSet&lt;Long&gt; userIdSet &#x3D; new HashSet&lt;&gt;();</span><br><span class="line">List&lt;UserVO&gt; userVOList &#x3D; new ArrayList&lt;&gt;();</span><br><span class="line">for (UserDO userDO : userDOList) &#123;</span><br><span class="line">    if (userIdSet.add(userDO.getId())) &#123;</span><br><span class="line">        userVOList.add(transUser(userDO));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4-3-利用-Map-的-computeIfAbsent-方法"><a href="#4-3-利用-Map-的-computeIfAbsent-方法" class="headerlink" title="4.3.利用 Map 的 computeIfAbsent 方法"></a><strong>4.3.利用 Map 的 computeIfAbsent</strong> <strong>方法</strong></h3><p>利用 Map 的 computeIfAbsent 方法，可以保证获取到的对象非空，从而避免了不必要的空判断和重新设置值。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Map&lt;Long, List&lt;UserDO&gt;&gt; roleUserMap &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">for (UserDO userDO : userDOList) &#123;</span><br><span class="line">    Long roleId &#x3D; userDO.getRoleId();</span><br><span class="line">    List&lt;UserDO&gt; userList &#x3D; roleUserMap.get(roleId);</span><br><span class="line">    if (Objects.isNull(userList)) &#123;</span><br><span class="line">        userList &#x3D; new ArrayList&lt;&gt;();</span><br><span class="line">        roleUserMap.put(roleId, userList);</span><br><span class="line">    &#125;</span><br><span class="line">    userList.add(userDO);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Map&lt;Long, List&lt;UserDO&gt;&gt; roleUserMap &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">for (UserDO userDO : userDOList) &#123;</span><br><span class="line">    roleUserMap.computeIfAbsent(userDO.getRoleId(), key -&gt; new ArrayList&lt;&gt;())</span><br><span class="line">        .add(userDO);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="4-4-利用链式编程"><a href="#4-4-利用链式编程" class="headerlink" title="4.4.利用链式编程"></a><strong>4.4.利用链式编程</strong></h3><p>链式编程，也叫级联式编程，调用对象的函数时返回一个this对象指向对象本身，达到链式效果，可以级联调用。链式编程的优点是：编程性强、可读性强、代码简洁。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">StringBuilder builder &#x3D; new StringBuilder(96);</span><br><span class="line">builder.append(&quot;select id, name from &quot;);</span><br><span class="line">builder.append(T_USER);</span><br><span class="line">builder.append(&quot; where id &#x3D; &quot;);</span><br><span class="line">builder.append(userId);</span><br><span class="line">builder.append(&quot;;&quot;);</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">StringBuilder builder &#x3D; new StringBuilder(96);</span><br><span class="line">builder.append(&quot;select id, name from &quot;)</span><br><span class="line">    .append(T_USER)</span><br><span class="line">    .append(&quot; where id &#x3D; &quot;)</span><br><span class="line">    .append(userId)</span><br><span class="line">    .append(&quot;;&quot;);</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="5-利用工具方法"><a href="#5-利用工具方法" class="headerlink" title="5.利用工具方法"></a><strong>5.利用工具方法</strong></h2><hr>
+<h3 id="5-1-避免空值判断"><a href="#5-1-避免空值判断" class="headerlink" title="5.1.避免空值判断"></a><strong>5.1.避免空值判断</strong></h3><p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if (userList !&#x3D; null &amp;&amp; !userList.isEmpty()) &#123;</span><br><span class="line">    &#x2F;&#x2F; TODO: 处理代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if (CollectionUtils.isNotEmpty(userList)) &#123;</span><br><span class="line">    &#x2F;&#x2F; TODO: 处理代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="5-2-避免条件判断"><a href="#5-2-避免条件判断" class="headerlink" title="5.2.避免条件判断"></a><strong>5.2.避免条件判断</strong></h3><p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">double result;</span><br><span class="line">if (value &lt;&#x3D; MIN_LIMIT) &#123;</span><br><span class="line">    result &#x3D; MIN_LIMIT;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    result &#x3D; value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">double result &#x3D; Math.max(MIN_LIMIT, value);</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="5-3-简化赋值语句"><a href="#5-3-简化赋值语句" class="headerlink" title="5.3.简化赋值语句"></a><strong>5.3.简化赋值语句</strong></h3><p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; JDK流派</span><br><span class="line">public static final List&lt;String&gt; ANIMAL_LIST &#x3D; Arrays.asList(&quot;dog&quot;, &quot;cat&quot;, &quot;tiger&quot;);</span><br><span class="line">&#x2F;&#x2F; Guava流派</span><br><span class="line">public static final List&lt;String&gt; ANIMAL_LIST &#x3D; ImmutableList.of(&quot;dog&quot;, &quot;cat&quot;, &quot;tiger&quot;);</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; JDK流派public static final List&lt;String&gt; ANIMAL_LIST &#x3D; Arrays.asList(&quot;dog&quot;, &quot;cat&quot;, &quot;tiger&quot;);&#x2F;&#x2F; Guava流派public static final List&lt;String&gt; ANIMAL_LIST &#x3D; ImmutableList.of(&quot;dog&quot;, &quot;cat&quot;, &quot;tiger&quot;);</span><br></pre></td></tr></table></figure>
+
+
+<p>注意：Arrays.asList 返回的 List 并不是 ArrayList ，不支持 add 等变更操作。</p>
+<h3 id="5-4-简化数据拷贝"><a href="#5-4-简化数据拷贝" class="headerlink" title="5.4.简化数据拷贝"></a><strong>5.4.简化数据拷贝</strong></h3><p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">UserVO userVO &#x3D; new UserVO();</span><br><span class="line">userVO.setId(userDO.getId());</span><br><span class="line">userVO.setName(userDO.getName());</span><br><span class="line">...</span><br><span class="line">userVO.setDescription(userDO.getDescription());</span><br><span class="line">userVOList.add(userVO);</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">UserVO userVO &#x3D; new UserVO();BeanUtils.copyProperties(userDO, userVO);userVOList.add(userVO);</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>反例：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">List&lt;UserVO&gt; userVOList &#x3D; JSON.parseArray(JSON.toJSONString(userDOList), UserVO.class);</span><br></pre></td></tr></table></figure>
+<p>精简代码，但不能以过大的性能损失为代价。例子是浅层拷贝，用不着 JSON 这样重量级的武器。</p>
+<h3 id="5-5-简化异常断言"><a href="#5-5-简化异常断言" class="headerlink" title="5.5.简化异常断言"></a>5.5.简化异常断言</h3><p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if (Objects.isNull(userId)) &#123;</span><br><span class="line">    throw new IllegalArgumentException(&quot;用户标识不能为空&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Assert.notNull(userId, &quot;用户标识不能为空&quot;);</span><br></pre></td></tr></table></figure>
+
+
+<p>注意：可能有些插件不认同这种判断，导致使用该对象时会有空指针警告。</p>
+<h3 id="5-6-简化测试用例"><a href="#5-6-简化测试用例" class="headerlink" title="5.6.简化测试用例"></a><strong>5.6.简化测试用例</strong></h3><p>把测试用例数据以 JSON 格式存入文件中，通过 JSON 的 parseObject 和 parseArray 方法解析成对象。虽然执行效率上有所下降，但可以减少大量的赋值语句，从而精简了测试代码。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void testCreateUser() &#123;</span><br><span class="line">    UserCreateVO userCreate &#x3D; new UserCreateVO();</span><br><span class="line">    userCreate.setName(&quot;Changyi&quot;);</span><br><span class="line">    userCreate.setTitle(&quot;Developer&quot;);</span><br><span class="line">    userCreate.setCompany(&quot;AMAP&quot;);</span><br><span class="line">    ...</span><br><span class="line">    Long userId  &#x3D; userService.createUser(OPERATOR, userCreate);</span><br><span class="line">    Assert.assertNotNull(userId, &quot;创建用户失败&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void testCreateUser() &#123;</span><br><span class="line">    String jsonText &#x3D; ResourceHelper.getResourceAsString(getClass(), &quot;createUser.json&quot;);</span><br><span class="line">    UserCreateVO userCreate &#x3D; JSON.parseObject(jsonText, UserCreateVO.class);</span><br><span class="line">    Long userId  &#x3D; userService.createUser(OPERATOR, userCreate);</span><br><span class="line">    Assert.assertNotNull(userId, &quot;创建用户失败&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>建议：JSON 文件名最好以被测试的方法命名，如果有多个版本可以用数字后缀表示。</p>
+<h3 id="5-7-简化算法实现"><a href="#5-7-简化算法实现" class="headerlink" title="5.7.简化算法实现"></a><strong>5.7.简化算法实现</strong></h3><p>一些常规算法，已有现成的工具方法，我们就没有必要自己实现了。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int totalSize &#x3D; valueList.size();</span><br><span class="line">List&lt;List&lt;Integer&gt;&gt; partitionList &#x3D; new ArrayList&lt;&gt;();</span><br><span class="line">for (int i &#x3D; 0; i &lt; totalSize; i +&#x3D; PARTITION_SIZE) &#123;</span><br><span class="line">    partitionList.add(valueList.subList(i, Math.min(i + PARTITION_SIZE, totalSize)));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">List&lt;List&lt;Integer&gt;&gt; partitionList &#x3D; ListUtils.partition(valueList, PARTITION_SIZE);</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="5-8-封装工具方法"><a href="#5-8-封装工具方法" class="headerlink" title="5.8.封装工具方法"></a>5.8.封装工具方法</h3><p>一些特殊算法，没有现成的工具方法，我们就只好自己亲自实现了。</p>
+<p><strong>普通：</strong></p>
+<p>比如，SQL 设置参数值的方法就比较难用，setLong 方法不能设置参数值为 null 。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 设置参数值</span><br><span class="line">if (Objects.nonNull(user.getId())) &#123;</span><br><span class="line">  statement.setLong(1, user.getId());</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    statement.setNull(1, Types.BIGINT);</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<p>我们可以封装为一个工具类 SqlHelper ，简化设置参数值的代码。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;** SQL辅助类 *&#x2F;</span><br><span class="line">public final class SqlHelper &#123;</span><br><span class="line">    &#x2F;** 设置长整数值 *&#x2F;</span><br><span class="line">    public static void setLong(PreparedStatement statement, int index, Long value) throws SQLException &#123;</span><br><span class="line">        if (Objects.nonNull(value)) &#123;</span><br><span class="line">            statement.setLong(index, value.longValue());</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            statement.setNull(index, Types.BIGINT);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> &#x2F;&#x2F; 设置参数值</span><br><span class="line">SqlHelper.setLong(statement, 1, user.getId());</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="6-利用数据结构"><a href="#6-利用数据结构" class="headerlink" title="6.利用数据结构"></a><strong>6.利用数据结构</strong></h2><hr>
+<h3 id="6-1-利用数组简化"><a href="#6-1-利用数组简化" class="headerlink" title="6.1.利用数组简化"></a><strong>6.1.利用数组简化</strong></h3><p>对于固定上下限范围的 if-else 语句，可以用数组+循环来简化。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static int getGrade(double score) &#123;</span><br><span class="line">    if (score &gt;&#x3D; 90.0D) &#123;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;</span><br><span class="line">    if (score &gt;&#x3D; 80.0D) &#123;</span><br><span class="line">        return 2;</span><br><span class="line">    &#125;</span><br><span class="line">    if (score &gt;&#x3D; 60.0D) &#123;</span><br><span class="line">        return 3;</span><br><span class="line">    &#125;</span><br><span class="line">    if (score &gt;&#x3D; 30.0D) &#123;</span><br><span class="line">        return 4;</span><br><span class="line">    &#125;</span><br><span class="line">    return 5;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">private static final double[] SCORE_RANGES &#x3D; new double[] &#123;90.0D, 80.0D, 60.0D, 30.0D&#125;;</span><br><span class="line">public static int getGrade(double score) &#123;</span><br><span class="line">    for (int i &#x3D; 0; i &lt; SCORE_RANGES.length; i++) &#123;</span><br><span class="line">        if (score &gt;&#x3D; SCORE_RANGES[i]) &#123;</span><br><span class="line">            return i + 1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return SCORE_RANGES.length + 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>思考：上面的案例返回值是递增的，所以用数组简化是没有问题的。但是，如果返回值不是递增的，能否用数组进行简化呢？答案是可以的，请自行思考解决。</p>
+<h3 id="6-2-利用-Map-简化"><a href="#6-2-利用-Map-简化" class="headerlink" title="6.2.利用 Map 简化"></a><strong>6.2.利用 Map 简化</strong></h3><p>对于映射关系的 if-else 语句，可以用Map来简化。此外，此规则同样适用于简化映射关系的 switch 语句。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static String getBiologyClass(String name) &#123;</span><br><span class="line">    switch (name) &#123;</span><br><span class="line">        case &quot;dog&quot; :</span><br><span class="line">            return &quot;animal&quot;;</span><br><span class="line">        case &quot;cat&quot; :</span><br><span class="line">            return &quot;animal&quot;;</span><br><span class="line">        case &quot;lavender&quot; :</span><br><span class="line">            return &quot;plant&quot;;</span><br><span class="line">        ...</span><br><span class="line">        default :</span><br><span class="line">            return null;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">private static final Map&lt;String, String&gt; BIOLOGY_CLASS_MAP</span><br><span class="line">    &#x3D; ImmutableMap.&lt;String, String&gt;builder()</span><br><span class="line">        .put(&quot;dog&quot;, &quot;animal&quot;)</span><br><span class="line">        .put(&quot;cat&quot;, &quot;animal&quot;)</span><br><span class="line">        .put(&quot;lavender&quot;, &quot;plant&quot;)</span><br><span class="line">        ...</span><br><span class="line">        .build();</span><br><span class="line">public static String getBiologyClass(String name) &#123;</span><br><span class="line">    return BIOLOGY_CLASS_MAP.get(name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>已经把方法简化为一行代码，其实都没有封装方法的必要了。</p>
+<h3 id="6-3-利用容器类简化"><a href="#6-3-利用容器类简化" class="headerlink" title="6.3.利用容器类简化"></a><strong>6.3.利用容器类简化</strong></h3><p>Java 不像 Python 和 Go ，方法不支持返回多个对象。如果需要返回多个对象，就必须自定义类，或者利用容器类。常见的容器类有 Apache 的 Pair 类和 Triple 类， Pair 类支持返回 2 个对象， Triple 类支持返回 3 个对象。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Setter</span><br><span class="line">@Getter</span><br><span class="line">@ToString</span><br><span class="line">@AllArgsConstructor</span><br><span class="line">public static class PointAndDistance &#123;</span><br><span class="line">    private Point point;</span><br><span class="line">    private Double distance;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static PointAndDistance getNearest(Point point, Point[] points) &#123;</span><br><span class="line">    &#x2F;&#x2F; 计算最近点和距离</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 返回最近点和距离</span><br><span class="line">    return new PointAndDistance(nearestPoint, nearestDistance);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static Pair&lt;Point, Double&gt; getNearest(Point point, Point[] points) &#123;</span><br><span class="line">    &#x2F;&#x2F; 计算最近点和距离</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 返回最近点和距离</span><br><span class="line">    return ImmutablePair.of(nearestPoint, nearestDistance);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="6-4-利用-ThreadLocal-简化"><a href="#6-4-利用-ThreadLocal-简化" class="headerlink" title="6.4.利用 ThreadLocal 简化"></a><strong>6.4.利用 ThreadLocal 简化</strong></h3><p>ThreadLocal 提供了线程专有对象，可以在整个线程生命周期中随时取用，极大地方便了一些逻辑的实现。用 ThreadLocal 保存线程上下文对象，可以避免不必要的参数传递。</p>
+<p><strong>普通：</strong></p>
+<p>由于 DateFormat 的 format 方法线程非安全（建议使用替代方法），在线程中频繁初始化 DateFormat 性能太低，如果考虑重用只能用参数传入 DateFormat 。例子如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static String formatDate(Date date, DateFormat format) &#123;</span><br><span class="line">    return format.format(date);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static List&lt;String&gt; getDateList(Date minDate, Date maxDate, DateFormat format) &#123;</span><br><span class="line">    List&lt;String&gt; dateList &#x3D; new ArrayList&lt;&gt;();</span><br><span class="line">    Calendar calendar &#x3D; Calendar.getInstance();</span><br><span class="line">    calendar.setTime(minDate);</span><br><span class="line">    String currDate &#x3D; formatDate(calendar.getTime(), format);</span><br><span class="line">    String maxsDate &#x3D; formatDate(maxDate, format);</span><br><span class="line">    while (currDate.compareTo(maxsDate) &lt;&#x3D; 0) &#123;</span><br><span class="line">        dateList.add(currDate);</span><br><span class="line">        calendar.add(Calendar.DATE, 1);</span><br><span class="line">        currDate &#x3D; formatDate(calendar.getTime(), format);</span><br><span class="line">    &#125;</span><br><span class="line">    return dateList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<p>可能你会觉得以下的代码量反而多了，如果调用工具方法的地方比较多，就可以省下一大堆 DateFormat 初始化和传入参数的代码。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">private static final ThreadLocal&lt;DateFormat&gt; LOCAL_DATE_FORMAT &#x3D; new ThreadLocal&lt;DateFormat&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    protected DateFormat initialValue() &#123;</span><br><span class="line">        return new SimpleDateFormat(&quot;yyyyMMdd&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">public static String formatDate(Date date) &#123;</span><br><span class="line">    return LOCAL_DATE_FORMAT.get().format(date);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static List&lt;String&gt; getDateList(Date minDate, Date maxDate) &#123;</span><br><span class="line">    List&lt;String&gt; dateList &#x3D; new ArrayList&lt;&gt;();</span><br><span class="line">    Calendar calendar &#x3D; Calendar.getInstance();</span><br><span class="line">    calendar.setTime(minDate);</span><br><span class="line">    String currDate &#x3D; formatDate(calendar.getTime());</span><br><span class="line">    String maxsDate &#x3D; formatDate(maxDate);</span><br><span class="line">    while (currDate.compareTo(maxsDate) &lt;&#x3D; 0) &#123;</span><br><span class="line">        dateList.add(currDate);</span><br><span class="line">        calendar.add(Calendar.DATE, 1);</span><br><span class="line">        currDate &#x3D; formatDate(calendar.getTime());</span><br><span class="line">    &#125;</span><br><span class="line">    return dateList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意：ThreadLocal 有一定的内存泄露的风险，尽量在业务代码结束前调用 remove 方法进行数据清除。</p>
+<h2 id="7-利用-Optional"><a href="#7-利用-Optional" class="headerlink" title="7.利用 Optional"></a><strong>7.利用 Optional</strong></h2><hr>
+<p>在 Java 8 里，引入了一个 Optional 类，该类是一个可以为 null 的容器对象。</p>
+<h3 id="7-1-保证值存在"><a href="#7-1-保证值存在" class="headerlink" title="7.1.保证值存在"></a><strong>7.1.保证值存在</strong></h3><p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Integer thisValue;</span><br><span class="line">if (Objects.nonNull(value)) &#123;</span><br><span class="line">    thisValue &#x3D; value;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    thisValue &#x3D; DEFAULT_VALUE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Integer thisValue &#x3D; Optional.ofNullable(value).orElse(DEFAULT_VALUE);</span><br></pre></td></tr></table></figure>
+<h3 id="7-2-保证值合法"><a href="#7-2-保证值合法" class="headerlink" title="7.2.保证值合法"></a><strong>7.2.保证值合法</strong></h3><p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Integer thisValue;</span><br><span class="line">if (Objects.nonNull(value) &amp;&amp; value.compareTo(MAX_VALUE) &lt;&#x3D; 0) &#123;</span><br><span class="line">    thisValue &#x3D; value;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    thisValue &#x3D; MAX_VALUE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Integer thisValue &#x3D; Optional.ofNullable(value)</span><br><span class="line">    .filter(tempValue -&gt; tempValue.compareTo(MAX_VALUE) &lt;&#x3D; 0).orElse(MAX_VALUE);</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="7-3-避免空判"><a href="#7-3-避免空判" class="headerlink" title="7.3.避免空判"></a>7.3.避免空判</h3><p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">String zipcode &#x3D; null;</span><br><span class="line">if (Objects.nonNull(user)) &#123;</span><br><span class="line">    Address address &#x3D; user.getAddress();</span><br><span class="line">    if (Objects.nonNull(address)) &#123;</span><br><span class="line">        Country country &#x3D; address.getCountry();</span><br><span class="line">        if (Objects.nonNull(country)) &#123;</span><br><span class="line">            zipcode &#x3D; country.getZipcode();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tring zipcode &#x3D; Optional.ofNullable(user).map(User::getAddress)</span><br><span class="line">    .map(Address::getCountry).map(Country::getZipcode).orElse(null);</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="8-利用-Stream"><a href="#8-利用-Stream" class="headerlink" title="8.利用 Stream"></a><strong>8.利用 Stream</strong></h2><hr>
+<p>流（Stream）是Java 8的新成员，允许你以声明式处理数据集合，可以看成为一个遍历数据集的高级迭代器。流主要有三部分构成：获取一个数据源→数据转换→执行操作获取想要的结果。每次转换原有 Stream 对象不改变，返回一个新的 Stream 对象，这就允许对其操作可以像链条一样排列，形成了一个管道。流（Stream）提供的功能非常有用，主要包括匹配、过滤、汇总、转化、分组、分组汇总等功能。</p>
+<h3 id="8-1-匹配集合数据"><a href="#8-1-匹配集合数据" class="headerlink" title="8.1.匹配集合数据"></a><strong>8.1.匹配集合数据</strong></h3><p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">boolean isFound &#x3D; false;</span><br><span class="line">for (UserDO user : userList) &#123;</span><br><span class="line">    if (Objects.equals(user.getId(), userId)) &#123;</span><br><span class="line">        isFound &#x3D; true;</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">boolean isFound &#x3D; userList.stream()</span><br><span class="line">    .anyMatch(user -&gt; Objects.equals(user.getId(), userId));</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="8-2-过滤集合数据"><a href="#8-2-过滤集合数据" class="headerlink" title="8.2.过滤集合数据"></a><strong>8.2.过滤集合数据</strong></h3><p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">List&lt;UserDO&gt; resultList &#x3D; new ArrayList&lt;&gt;();</span><br><span class="line">for (UserDO user : userList) &#123;</span><br><span class="line">    if (Boolean.TRUE.equals(user.getIsSuper())) &#123;</span><br><span class="line">        resultList.add(user);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">List&lt;UserDO&gt; resultList &#x3D; userList.stream()</span><br><span class="line">    .filter(user -&gt; Boolean.TRUE.equals(user.getIsSuper()))</span><br><span class="line">    .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="8-3-汇总集合数据"><a href="#8-3-汇总集合数据" class="headerlink" title="8.3.汇总集合数据"></a><strong>8.3.汇总集合数据</strong></h3><p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">double total &#x3D; 0.0D;</span><br><span class="line">for (Account account : accountList) &#123;</span><br><span class="line">    total +&#x3D; account.getBalance();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">double total &#x3D; accountList.stream().mapToDouble(Account::getBalance).sum();</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="8-4-转化集合数据"><a href="#8-4-转化集合数据" class="headerlink" title="8.4.转化集合数据"></a>8.4.转化集合数据</h3><p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">List&lt;UserVO&gt; userVOList &#x3D; new ArrayList&lt;&gt;();</span><br><span class="line">for (UserDO userDO : userDOList) &#123;</span><br><span class="line">    userVOList.add(transUser(userDO));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">List&lt;UserVO&gt; userVOList &#x3D; userDOList.stream()</span><br><span class="line">    .map(this::transUser).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="8-5-分组集合数据"><a href="#8-5-分组集合数据" class="headerlink" title="8.5.分组集合数据"></a><strong>8.5.分组集合数据</strong></h3><p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Map&lt;Long, List&lt;UserDO&gt;&gt; roleUserMap &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">for (UserDO userDO : userDOList) &#123;</span><br><span class="line">    roleUserMap.computeIfAbsent(userDO.getRoleId(), key -&gt; new ArrayList&lt;&gt;())</span><br><span class="line">        .add(userDO);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Map&lt;Long, List&lt;UserDO&gt;&gt; roleUserMap &#x3D; userDOList.stream()</span><br><span class="line">    .collect(Collectors.groupingBy(UserDO::getRoleId));</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="8-6-分组汇总集合"><a href="#8-6-分组汇总集合" class="headerlink" title="8.6.分组汇总集合"></a><strong>8.6.分组汇总集合</strong></h3><p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Map&lt;Long, Double&gt; roleTotalMap &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">for (Account account : accountList) &#123;</span><br><span class="line">    Long roleId &#x3D; account.getRoleId();</span><br><span class="line">    Double total &#x3D; Optional.ofNullable(roleTotalMap.get(roleId)).orElse(0.0D);</span><br><span class="line">    roleTotalMap.put(roleId, total + account.getBalance());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">roleTotalMap &#x3D; accountList.stream().collect(Collectors.groupingBy(Account::getRoleId, Collectors.summingDouble(Account::getBalance)));</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="8-7-生成范围集合"><a href="#8-7-生成范围集合" class="headerlink" title="8.7.生成范围集合"></a>8.7.生成范围集合</h3><p>Python 的 range 非常方便，Stream 也提供了类似的方法。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int[] array1 &#x3D; new int[N];</span><br><span class="line">for (int i &#x3D; 0; i &lt; N; i++) &#123;</span><br><span class="line">    array1[i] &#x3D; i + 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int[] array2 &#x3D; new int[N];</span><br><span class="line">array2[0] &#x3D; 1;</span><br><span class="line">for (int i &#x3D; 1; i &lt; N; i++) &#123;</span><br><span class="line">    array2[i] &#x3D; array2[i - 1] * 2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>精简：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int[] array1 &#x3D; IntStream.rangeClosed(1, N).toArray();</span><br><span class="line">int[] array2 &#x3D; IntStream.iterate(1, n -&gt; n * 2).limit(N).toArray();</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="9-利用程序结构"><a href="#9-利用程序结构" class="headerlink" title="9.利用程序结构"></a><strong>9.利用程序结构</strong></h2><hr>
+<h3 id="9-1-返回条件表达式"><a href="#9-1-返回条件表达式" class="headerlink" title="9.1.返回条件表达式"></a><strong>9.1.返回条件表达式</strong></h3><p>条件表达式判断返回布尔值，条件表达式本身就是结果。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public boolean isSuper(Long userId)</span><br><span class="line">    UserDO user &#x3D; userDAO.get(userId);</span><br><span class="line">    if (Objects.nonNull(user) &amp;&amp; Boolean.TRUE.equals(user.getIsSuper())) &#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public boolean isSuper(Long userId)</span><br><span class="line">    UserDO user &#x3D; userDAO.get(userId);</span><br><span class="line">    return Objects.nonNull(user) &amp;&amp; Boolean.TRUE.equals(user.getIsSuper());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="9-2-最小化条件作用域"><a href="#9-2-最小化条件作用域" class="headerlink" title="9.2.最小化条件作用域"></a><strong>9.2.最小化条件作用域</strong></h3><p>最小化条件作用域，尽量提出公共处理代码。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Result result &#x3D; summaryService.reportWorkDaily(workDaily);</span><br><span class="line">if (result.isSuccess()) &#123;</span><br><span class="line">    String message &#x3D; &quot;上报工作日报成功&quot;;</span><br><span class="line">    dingtalkService.sendMessage(user.getPhone(), message);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    String message &#x3D; &quot;上报工作日报失败:&quot; + result.getMessage();</span><br><span class="line">    log.warn(message);</span><br><span class="line">    dingtalkService.sendMessage(user.getPhone(), message);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">String message;</span><br><span class="line">Result result &#x3D; summaryService.reportWorkDaily(workDaily);</span><br><span class="line">if (result.isSuccess()) &#123;</span><br><span class="line">    message &#x3D; &quot;上报工作日报成功&quot;;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    message &#x3D; &quot;上报工作日报失败:&quot; + result.getMessage();</span><br><span class="line">    log.warn(message);</span><br><span class="line">&#125;</span><br><span class="line">dingtalkService.sendMessage(user.getPhone(), message);</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="9-3-调整表达式位置"><a href="#9-3-调整表达式位置" class="headerlink" title="9.3.调整表达式位置"></a><strong>9.3.调整表达式位置</strong></h3><p>调整表达式位置，在逻辑不变的前提下，让代码变得更简洁。</p>
+<p><strong>普通1：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">String line &#x3D; readLine();</span><br><span class="line">while (Objects.nonNull(line)) &#123;</span><br><span class="line">    ... &#x2F;&#x2F; 处理逻辑代码</span><br><span class="line">    line &#x3D; readLine();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>普通2：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">for (String line &#x3D; readLine(); Objects.nonNull(line); line &#x3D; readLine()) &#123;</span><br><span class="line">    ... &#x2F;&#x2F; 处理逻辑代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">String line;</span><br><span class="line">while (Objects.nonNull(line &#x3D; readLine())) &#123;</span><br><span class="line">    ... &#x2F;&#x2F; 处理逻辑代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>注意：有些规范可能不建议这种精简写法。</p>
+<h3 id="9-4-利用非空对象"><a href="#9-4-利用非空对象" class="headerlink" title="9.4.利用非空对象"></a><strong>9.4.利用非空对象</strong></h3><p>在比较对象时，交换对象位置，利用非空对象，可以避免空指针判断。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">private static final int MAX_VALUE &#x3D; 1000;</span><br><span class="line">boolean isMax &#x3D; (value !&#x3D; null &amp;&amp; value.equals(MAX_VALUE));</span><br><span class="line">boolean isTrue &#x3D; (result !&#x3D; null &amp;&amp; result.equals(Boolean.TRUE));</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">private static final Integer MAX_VALUE &#x3D; 1000;</span><br><span class="line">boolean isMax &#x3D; MAX_VALUE.equals(value);</span><br><span class="line">boolean isTrue &#x3D; Boolean.TRUE.equals(result);</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="10-利用设计模式"><a href="#10-利用设计模式" class="headerlink" title="10.利用设计模式"></a><strong>10.利用设计模式</strong></h2><hr>
+<h3 id="10-1-模板方法模式"><a href="#10-1-模板方法模式" class="headerlink" title="10.1.模板方法模式"></a><strong>10.1.模板方法模式</strong></h3><p>模板方法模式（Template Method Pattern）定义一个固定的算法框架，而将算法的一些步骤放到子类中实现，使得子类可以在不改变算法框架的情况下重定义该算法的某些步骤。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Repository</span><br><span class="line">public class UserValue &#123;</span><br><span class="line">    &#x2F;** 值操作 *&#x2F;</span><br><span class="line">    @Resource(name &#x3D; &quot;stringRedisTemplate&quot;)</span><br><span class="line">    private ValueOperations&lt;String, String&gt; valueOperations;</span><br><span class="line">    &#x2F;** 值模式 *&#x2F;</span><br><span class="line">    private static final String KEY_FORMAT &#x3D; &quot;Value:User:%s&quot;;</span><br><span class="line"></span><br><span class="line">    &#x2F;** 设置值 *&#x2F;</span><br><span class="line">    public void set(Long id, UserDO value) &#123;</span><br><span class="line">        String key &#x3D; String.format(KEY_FORMAT, id);</span><br><span class="line">        valueOperations.set(key, JSON.toJSONString(value));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;** 获取值 *&#x2F;</span><br><span class="line">    public UserDO get(Long id) &#123;</span><br><span class="line">        String key &#x3D; String.format(KEY_FORMAT, id);</span><br><span class="line">        String value &#x3D; valueOperations.get(key);</span><br><span class="line">        return JSON.parseObject(value, UserDO.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Repository</span><br><span class="line">public class RoleValue &#123;</span><br><span class="line">    &#x2F;** 值操作 *&#x2F;</span><br><span class="line">    @Resource(name &#x3D; &quot;stringRedisTemplate&quot;)</span><br><span class="line">    private ValueOperations&lt;String, String&gt; valueOperations;</span><br><span class="line">    &#x2F;** 值模式 *&#x2F;</span><br><span class="line">    private static final String KEY_FORMAT &#x3D; &quot;Value:Role:%s&quot;;</span><br><span class="line"></span><br><span class="line">    &#x2F;** 设置值 *&#x2F;</span><br><span class="line">    public void set(Long id, RoleDO value) &#123;</span><br><span class="line">        String key &#x3D; String.format(KEY_FORMAT, id);</span><br><span class="line">        valueOperations.set(key, JSON.toJSONString(value));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;** 获取值 *&#x2F;</span><br><span class="line">    public RoleDO get(Long id) &#123;</span><br><span class="line">        String key &#x3D; String.format(KEY_FORMAT, id);</span><br><span class="line">        String value &#x3D; valueOperations.get(key);</span><br><span class="line">        return JSON.parseObject(value, RoleDO.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public abstract class AbstractDynamicValue&lt;I, V&gt; &#123;</span><br><span class="line">    &#x2F;** 值操作 *&#x2F;</span><br><span class="line">    @Resource(name &#x3D; &quot;stringRedisTemplate&quot;)</span><br><span class="line">    private ValueOperations&lt;String, String&gt; valueOperations;</span><br><span class="line"></span><br><span class="line">    &#x2F;** 设置值 *&#x2F;</span><br><span class="line">    public void set(I id, V value) &#123;</span><br><span class="line">        valueOperations.set(getKey(id), JSON.toJSONString(value));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;** 获取值 *&#x2F;</span><br><span class="line">    public V get(I id) &#123;</span><br><span class="line">        return JSON.parseObject(valueOperations.get(getKey(id)), getValueClass());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    &#x2F;** 获取主键 *&#x2F;</span><br><span class="line">    protected abstract String getKey(I id);</span><br><span class="line"></span><br><span class="line">    &#x2F;** 获取值类 *&#x2F;</span><br><span class="line">    protected abstract Class&lt;V&gt; getValueClass();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Repository</span><br><span class="line">public class UserValue extends AbstractValue&lt;Long, UserDO&gt; &#123;</span><br><span class="line">    &#x2F;** 获取主键 *&#x2F;</span><br><span class="line">    @Override</span><br><span class="line">    protected String getKey(Long id) &#123;</span><br><span class="line">        return String.format(&quot;Value:User:%s&quot;, id);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;** 获取值类 *&#x2F;</span><br><span class="line">    @Override</span><br><span class="line">    protected Class&lt;UserDO&gt; getValueClass() &#123;</span><br><span class="line">        return UserDO.class;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Repository</span><br><span class="line">public class RoleValue extends AbstractValue&lt;Long, RoleDO&gt; &#123;</span><br><span class="line">    &#x2F;** 获取主键 *&#x2F;</span><br><span class="line">    @Override</span><br><span class="line">    protected String getKey(Long id) &#123;</span><br><span class="line">        return String.format(&quot;Value:Role:%s&quot;, id);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;** 获取值类 *&#x2F;</span><br><span class="line">    @Override</span><br><span class="line">    protected Class&lt;RoleDO&gt; getValueClass() &#123;</span><br><span class="line">        return RoleDO.class;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="10-2-建造者模式"><a href="#10-2-建造者模式" class="headerlink" title="10.2.建造者模式"></a><strong>10.2.建造者模式</strong></h3><p>建造者模式（Builder Pattern）将一个复杂对象的构造与它的表示分离，使同样的构建过程可以创建不同的表示，这样的设计模式被称为建造者模式。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public interface DataHandler&lt;T&gt; &#123;</span><br><span class="line">    &#x2F;** 解析数据 *&#x2F;</span><br><span class="line">public T parseData(Record record);</span><br><span class="line"></span><br><span class="line">    &#x2F;** 存储数据 *&#x2F;</span><br><span class="line">public boolean storeData(List&lt;T&gt; dataList);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public &lt;T&gt; long executeFetch(String tableName, int batchSize, DataHandler&lt;T&gt; dataHandler) throws Exception &#123;</span><br><span class="line">    &#x2F;&#x2F; 构建下载会话</span><br><span class="line">    DownloadSession session &#x3D; buildSession(tableName);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 获取数据数量</span><br><span class="line">    long recordCount &#x3D; session.getRecordCount();</span><br><span class="line">    if (recordCount &#x3D;&#x3D; 0) &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 进行数据读取</span><br><span class="line">    long fetchCount &#x3D; 0L;</span><br><span class="line">    try (RecordReader reader &#x3D; session.openRecordReader(0L, recordCount, true)) &#123;</span><br><span class="line">        &#x2F;&#x2F; 依次读取数据</span><br><span class="line">        Record record;</span><br><span class="line">        List&lt;T&gt; dataList &#x3D; new ArrayList&lt;&gt;(batchSize);</span><br><span class="line">        while ((record &#x3D; reader.read()) !&#x3D; null) &#123;</span><br><span class="line">            &#x2F;&#x2F; 解析添加数据</span><br><span class="line">            T data &#x3D; dataHandler.parseData(record);</span><br><span class="line">            if (Objects.nonNull(data)) &#123;</span><br><span class="line">                dataList.add(data);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F; 批量存储数据</span><br><span class="line">            if (dataList.size() &#x3D;&#x3D; batchSize) &#123;</span><br><span class="line">                boolean isContinue &#x3D; dataHandler.storeData(dataList);</span><br><span class="line">                fetchCount +&#x3D; batchSize;</span><br><span class="line">                dataList.clear();</span><br><span class="line">                if (!isContinue) &#123;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 存储剩余数据</span><br><span class="line">        if (CollectionUtils.isNotEmpty(dataList)) &#123;</span><br><span class="line">            dataHandler.storeData(dataList);</span><br><span class="line">            fetchCount +&#x3D; dataList.size();</span><br><span class="line">            dataList.clear();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 返回获取数量</span><br><span class="line">    return fetchCount;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> &#x2F;&#x2F; 使用案例</span><br><span class="line">long fetchCount &#x3D; odpsService.executeFetch(&quot;user&quot;, 5000, new DataHandler() &#123;</span><br><span class="line">    &#x2F;** 解析数据 *&#x2F;</span><br><span class="line">    @Override</span><br><span class="line">public T parseData(Record record) &#123;</span><br><span class="line">        UserDO user &#x3D; new UserDO();</span><br><span class="line">        user.setId(record.getBigint(&quot;id&quot;));</span><br><span class="line">        user.setName(record.getString(&quot;name&quot;));</span><br><span class="line">        return user;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;** 存储数据 *&#x2F;</span><br><span class="line">    @Override</span><br><span class="line">public boolean storeData(List&lt;T&gt; dataList) &#123;</span><br><span class="line">        userDAO.batchInsert(dataList);</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public &lt;T&gt; long executeFetch(String tableName, int batchSize, Function&lt;Record, T&gt; dataParser, Function&lt;List&lt;T&gt;, Boolean&gt; dataStorage) throws Exception &#123;</span><br><span class="line">    &#x2F;&#x2F; 构建下载会话</span><br><span class="line">    DownloadSession session &#x3D; buildSession(tableName);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 获取数据数量</span><br><span class="line">    long recordCount &#x3D; session.getRecordCount();</span><br><span class="line">    if (recordCount &#x3D;&#x3D; 0) &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 进行数据读取</span><br><span class="line">    long fetchCount &#x3D; 0L;</span><br><span class="line">    try (RecordReader reader &#x3D; session.openRecordReader(0L, recordCount, true)) &#123;</span><br><span class="line">        &#x2F;&#x2F; 依次读取数据</span><br><span class="line">        Record record;</span><br><span class="line">        List&lt;T&gt; dataList &#x3D; new ArrayList&lt;&gt;(batchSize);</span><br><span class="line">        while ((record &#x3D; reader.read()) !&#x3D; null) &#123;</span><br><span class="line">            &#x2F;&#x2F; 解析添加数据</span><br><span class="line">            T data &#x3D; dataParser.apply(record);</span><br><span class="line">            if (Objects.nonNull(data)) &#123;</span><br><span class="line">                dataList.add(data);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F; 批量存储数据</span><br><span class="line">            if (dataList.size() &#x3D;&#x3D; batchSize) &#123;</span><br><span class="line">                Boolean isContinue &#x3D; dataStorage.apply(dataList);</span><br><span class="line">                fetchCount +&#x3D; batchSize;</span><br><span class="line">                dataList.clear();</span><br><span class="line">                if (!Boolean.TRUE.equals(isContinue)) &#123;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 存储剩余数据</span><br><span class="line">        if (CollectionUtils.isNotEmpty(dataList)) &#123;</span><br><span class="line">            dataStorage.apply(dataList);</span><br><span class="line">            fetchCount +&#x3D; dataList.size();</span><br><span class="line">            dataList.clear();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 返回获取数量</span><br><span class="line">    return fetchCount;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> &#x2F;&#x2F; 使用案例</span><br><span class="line">long fetchCount &#x3D; odpsService.executeFetch(&quot;user&quot;, 5000, record -&gt; &#123;</span><br><span class="line">        UserDO user &#x3D; new UserDO();</span><br><span class="line">        user.setId(record.getBigint(&quot;id&quot;));</span><br><span class="line">        user.setName(record.getString(&quot;name&quot;));</span><br><span class="line">        return user;</span><br><span class="line">    &#125;, dataList -&gt; &#123;</span><br><span class="line">        userDAO.batchInsert(dataList);</span><br><span class="line">        return true;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+
+
+<p>普通的建造者模式，实现时需要定义 DataHandler 接口，调用时需要实现 DataHandler 匿名内部类，代码较多较繁琐。而精简后的建造者模式，充分利用了函数式编程，实现时无需定义接口，直接使用 Function 接口；调用时无需实现匿名内部类，直接采用 lambda 表达式，代码较少较简洁。</p>
+<h3 id="10-3-代理模式"><a href="#10-3-代理模式" class="headerlink" title="10.3.代理模式"></a><strong>10.3.代理模式</strong></h3><p>Spring 中最重要的代理模式就是 AOP (Aspect-Oriented Programming，面向切面的编程)，是使用 JDK 动态代理和 CGLIB 动态代理技术来实现的。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Slf4j</span><br><span class="line">@RestController</span><br><span class="line">@RequestMapping(&quot;&#x2F;user&quot;)</span><br><span class="line">public class UserController &#123;</span><br><span class="line">    &#x2F;** 用户服务 *&#x2F;</span><br><span class="line">    @Autowired</span><br><span class="line">    private UserService userService;</span><br><span class="line"></span><br><span class="line">    &#x2F;** 查询用户 *&#x2F;</span><br><span class="line">    @PostMapping(&quot;&#x2F;queryUser&quot;)</span><br><span class="line">    public Result&lt;?&gt; queryUser(@RequestBody @Valid UserQueryVO query) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            PageDataVO&lt;UserVO&gt; pageData &#x3D; userService.queryUser(query);</span><br><span class="line">            return Result.success(pageData);</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            log.error(e.getMessage(), e);</span><br><span class="line">            return Result.failure(e.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简1：</strong></p>
+<p>基于 @ControllerAdvice 的异常处理：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@RestController</span><br><span class="line">@RequestMapping(&quot;&#x2F;user&quot;)</span><br><span class="line">public class UserController &#123;</span><br><span class="line">    &#x2F;** 用户服务 *&#x2F;</span><br><span class="line">    @Autowired</span><br><span class="line">    private UserService userService;</span><br><span class="line"></span><br><span class="line">    &#x2F;** 查询用户 *&#x2F;</span><br><span class="line">    @PostMapping(&quot;&#x2F;queryUser&quot;)</span><br><span class="line">    public Result&lt;PageDataVO&lt;UserVO&gt;&gt; queryUser(@RequestBody @Valid UserQueryVO query) &#123;</span><br><span class="line">        PageDataVO&lt;UserVO&gt; pageData &#x3D; userService.queryUser(query);</span><br><span class="line">        return Result.success(pageData);</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Slf4j</span><br><span class="line">@ControllerAdvice</span><br><span class="line">public class GlobalControllerAdvice &#123;</span><br><span class="line">    &#x2F;** 处理异常 *&#x2F;</span><br><span class="line">    @ResponseBody</span><br><span class="line">    @ExceptionHandler(Exception.class)</span><br><span class="line">    public Result&lt;Void&gt; handleException(Exception e) &#123;</span><br><span class="line">        log.error(e.getMessage(), e);</span><br><span class="line">        return Result.failure(e.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简2：</strong></p>
+<p>基于 AOP 的异常处理：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; UserController代码同&quot;精简1&quot;</span><br><span class="line"></span><br><span class="line">@Slf4j</span><br><span class="line">@Aspect</span><br><span class="line">public class WebExceptionAspect &#123;</span><br><span class="line">    &#x2F;** 点切面 *&#x2F;</span><br><span class="line">    @Pointcut(&quot;@annotation(org.springframework.web.bind.annotation.RequestMapping)&quot;)</span><br><span class="line">    private void webPointcut() &#123;&#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;** 处理异常 *&#x2F;</span><br><span class="line">    @AfterThrowing(pointcut &#x3D; &quot;webPointcut()&quot;, throwing &#x3D; &quot;e&quot;)</span><br><span class="line">    public void handleException(Exception e) &#123;</span><br><span class="line">        Result&lt;Void&gt; result &#x3D; Result.failure(e.getMessage());</span><br><span class="line">        writeContent(JSON.toJSONString(result));</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="11-利用删除代码"><a href="#11-利用删除代码" class="headerlink" title="11.利用删除代码"></a><strong>11.利用删除代码</strong></h2><hr>
+<p>“少即是多”，“少”不是空白而是精简，“多”不是拥挤而是完美。删除多余的代码，才能使代码更精简更完美。</p>
+<h3 id="11-1-删除已废弃的代码"><a href="#11-1-删除已废弃的代码" class="headerlink" title="11.1.删除已废弃的代码"></a><strong>11.1.删除已废弃的代码</strong></h3><p>删除项目中的已废弃的包、类、字段、方法、变量、常量、导入、注解、注释、已注释代码、Maven包导入、MyBatis的SQL语句、属性配置字段等，可以精简项目代码便于维护。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import lombok.extern.slf4j.Slf4j;</span><br><span class="line">@Slf4j</span><br><span class="line">@Service</span><br><span class="line">public class ProductService &#123;</span><br><span class="line">    @Value(&quot;discardRate&quot;)</span><br><span class="line">    private double discardRate;</span><br><span class="line">    ...</span><br><span class="line">    private ProductVO transProductDO(ProductDO productDO) &#123;</span><br><span class="line">        ProductVO productVO &#x3D; new ProductVO();</span><br><span class="line">        BeanUtils.copyProperties(productDO, productVO);</span><br><span class="line">        &#x2F;&#x2F; productVO.setPrice(getDiscardPrice(productDO.getPrice()));</span><br><span class="line">        return productVO;</span><br><span class="line">    &#125;</span><br><span class="line">    private BigDecimal getDiscardPrice(BigDecimal originalPrice) &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Service</span><br><span class="line">public class ProductService &#123;</span><br><span class="line">    ...</span><br><span class="line">    private ProductVO transProductDO(ProductDO productDO) &#123;</span><br><span class="line">        ProductVO productVO &#x3D; new ProductVO();</span><br><span class="line">        BeanUtils.copyProperties(productDO, productVO);</span><br><span class="line">        return productVO;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="11-2-删除接口方法的public"><a href="#11-2-删除接口方法的public" class="headerlink" title="11.2.删除接口方法的public"></a><strong>11.2.删除接口方法的public</strong></h3><p>对于接口(interface)，所有的字段和方法都是 public 的，可以不用显式声明为 public 。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public interface UserDAO &#123;</span><br><span class="line">    public Long countUser(@Param(&quot;query&quot;) UserQuery query);</span><br><span class="line">    public List&lt;UserDO&gt; queryUser(@Param(&quot;query&quot;) UserQuery query);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public interface UserDAO &#123;</span><br><span class="line">    Long countUser(@Param(&quot;query&quot;) UserQuery query);</span><br><span class="line">    List&lt;UserDO&gt; queryUser(@Param(&quot;query&quot;) UserQuery query);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="11-3-删除枚举构造方法的-private"><a href="#11-3-删除枚举构造方法的-private" class="headerlink" title="11.3.删除枚举构造方法的 private"></a><strong>11.3.删除枚举构造方法的 private</strong></h3><p>对于枚举(menu)，构造方法都是 private 的，可以不用显式声明为 private 。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public enum UserStatus &#123;</span><br><span class="line">    DISABLED(0, &quot;禁用&quot;),</span><br><span class="line">    ENABLED(1, &quot;启用&quot;);</span><br><span class="line">  private final Integer value;</span><br><span class="line">    private final String desc;</span><br><span class="line">    private UserStatus(Integer value, String desc) &#123;</span><br><span class="line">        this.value &#x3D; value;</span><br><span class="line">        this.desc &#x3D; desc;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public enum UserStatus &#123;</span><br><span class="line">    DISABLED(0, &quot;禁用&quot;),</span><br><span class="line">    ENABLED(1, &quot;启用&quot;);</span><br><span class="line">    private final Integer value;</span><br><span class="line">    private final String desc;</span><br><span class="line">    UserStatus(Integer value, String desc) &#123;</span><br><span class="line">        this.value &#x3D; value;</span><br><span class="line">        this.desc &#x3D; desc;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="11-4-删除-final-类方法的-final"><a href="#11-4-删除-final-类方法的-final" class="headerlink" title="11.4.删除 final 类方法的 final"></a><strong>11.4.删除 final 类方法的 final</strong></h3><p>对于 final 类，不能被子类继承，所以其方法不会被覆盖，没有必要添加 final 修饰。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public final Rectangle implements Shape &#123;</span><br><span class="line">    ...</span><br><span class="line">    @Override</span><br><span class="line">    public final double getArea() &#123;</span><br><span class="line">        return width * height;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public final Rectangle implements Shape &#123;</span><br><span class="line">    ...</span><br><span class="line">    @Override</span><br><span class="line">    public double getArea() &#123;</span><br><span class="line">        return width * height;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="11-5-删除基类-implements-的接口"><a href="#11-5-删除基类-implements-的接口" class="headerlink" title="11.5.删除基类 implements 的接口"></a><strong>11.5.删除基类 implements 的接口</strong></h3><p>如果基类已 implements 某接口，子类没有必要再 implements 该接口，只需要直接实现接口方法即可。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public interface Shape &#123;</span><br><span class="line">    ...</span><br><span class="line">    double getArea();</span><br><span class="line">&#125;</span><br><span class="line">public abstract AbstractShape implements Shape &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line">public final Rectangle extends AbstractShape implements Shape &#123;</span><br><span class="line">    ...</span><br><span class="line">    @Override</span><br><span class="line">    public double getArea() &#123;</span><br><span class="line">        return width * height;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">public final Rectangle extends AbstractShape &#123;</span><br><span class="line">    ...</span><br><span class="line">    @Override</span><br><span class="line">    public double getArea() &#123;</span><br><span class="line">        return width * height;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="11-6-删除不必要的变量"><a href="#11-6-删除不必要的变量" class="headerlink" title="11.6.删除不必要的变量"></a><strong>11.6.删除不必要的变量</strong></h3><p>不必要的变量，只会让代码看起来更繁琐。</p>
+<p><strong>普通：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public Boolean existsUser(Long userId) &#123;</span><br><span class="line">    Boolean exists &#x3D; userDAO.exists(userId);</span><br><span class="line">    return exists;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>精简：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public Boolean existsUser(Long userId) &#123;</span><br><span class="line">    return userDAO.exists(userId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a><strong>后记</strong></h2><hr>
+<p>古语又云：</p>
+<blockquote>
+<p>有道无术，术尚可求也；有术无道，止于术。</p>
+</blockquote>
+<p>意思是：有“道”而无“术”，“术”还可以逐渐获得；有“术”而无“道”，就可能止步于“术”了。所以，我们不要仅满足于从实践中总结“术”，因为“道”的表现形式是多变的；而应该上升到“道”的高度，因为“术”背后的道理是相通的。当遇到新的事物时，我们可以从理论中找到“道”、从实践中找出“术”，尝试着去认知新的事物。</p>
+<p><strong>本文作者：</strong></p>
+<p>陈昌毅，花名常意，地图技术专家。</p>
+<p>转自：<a href="https://mp.weixin.qq.com/s/A1Z8YZyqQsFqK1TA1dTl2Q">https://mp.weixin.qq.com/s/A1Z8YZyqQsFqK1TA1dTl2Q</a></p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
       </tags>
   </entry>
 </search>
