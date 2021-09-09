@@ -1067,11 +1067,11 @@
 
 
 <h3 id="5-3-简化赋值语句"><a href="#5-3-简化赋值语句" class="headerlink" title="5.3.简化赋值语句"></a><strong>5.3.简化赋值语句</strong></h3><p><strong>普通：</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; JDK流派</span><br><span class="line">public static final List&lt;String&gt; ANIMAL_LIST &#x3D; Arrays.asList(&quot;dog&quot;, &quot;cat&quot;, &quot;tiger&quot;);</span><br><span class="line">&#x2F;&#x2F; Guava流派</span><br><span class="line">public static final List&lt;String&gt; ANIMAL_LIST &#x3D; ImmutableList.of(&quot;dog&quot;, &quot;cat&quot;, &quot;tiger&quot;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static final List&lt;String&gt; ANIMAL_LIST;</span><br><span class="line">static &#123;</span><br><span class="line">    List&lt;String&gt; animalList &#x3D; new ArrayList&lt;&gt;();</span><br><span class="line">    animalList.add(&quot;dog&quot;);</span><br><span class="line">    animalList.add(&quot;cat&quot;);</span><br><span class="line">    animalList.add(&quot;tiger&quot;);</span><br><span class="line">    ANIMAL_LIST &#x3D; Collections.unmodifiableList(animalList);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 <p><strong>精简：</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; JDK流派public static final List&lt;String&gt; ANIMAL_LIST &#x3D; Arrays.asList(&quot;dog&quot;, &quot;cat&quot;, &quot;tiger&quot;);&#x2F;&#x2F; Guava流派public static final List&lt;String&gt; ANIMAL_LIST &#x3D; ImmutableList.of(&quot;dog&quot;, &quot;cat&quot;, &quot;tiger&quot;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; JDK流派</span><br><span class="line">public static final List&lt;String&gt; ANIMAL_LIST &#x3D; Arrays.asList(&quot;dog&quot;, &quot;cat&quot;, &quot;tiger&quot;);</span><br><span class="line">&#x2F;&#x2F; Guava流派</span><br><span class="line">public static final List&lt;String&gt; ANIMAL_LIST &#x3D; ImmutableList.of(&quot;dog&quot;, &quot;cat&quot;, &quot;tiger&quot;);</span><br></pre></td></tr></table></figure>
 
 
 <p>注意：Arrays.asList 返回的 List 并不是 ArrayList ，不支持 add 等变更操作。</p>
@@ -1080,7 +1080,7 @@
 
 
 <p><strong>精简：</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">UserVO userVO &#x3D; new UserVO();BeanUtils.copyProperties(userDO, userVO);userVOList.add(userVO);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">UserVO userVO &#x3D; new UserVO();</span><br><span class="line">BeanUtils.copyProperties(userDO, userVO);</span><br><span class="line">userVOList.add(userVO);</span><br></pre></td></tr></table></figure>
 
 
 <p><strong>反例：</strong></p>
@@ -1356,7 +1356,7 @@
 
 <h3 id="11-3-删除枚举构造方法的-private"><a href="#11-3-删除枚举构造方法的-private" class="headerlink" title="11.3.删除枚举构造方法的 private"></a><strong>11.3.删除枚举构造方法的 private</strong></h3><p>对于枚举(menu)，构造方法都是 private 的，可以不用显式声明为 private 。</p>
 <p><strong>普通：</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public enum UserStatus &#123;</span><br><span class="line">    DISABLED(0, &quot;禁用&quot;),</span><br><span class="line">    ENABLED(1, &quot;启用&quot;);</span><br><span class="line">  private final Integer value;</span><br><span class="line">    private final String desc;</span><br><span class="line">    private UserStatus(Integer value, String desc) &#123;</span><br><span class="line">        this.value &#x3D; value;</span><br><span class="line">        this.desc &#x3D; desc;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public enum UserStatus &#123;</span><br><span class="line">    DISABLED(0, &quot;禁用&quot;),</span><br><span class="line">    ENABLED(1, &quot;启用&quot;);</span><br><span class="line">	private final Integer value;</span><br><span class="line">    private final String desc;</span><br><span class="line">    private UserStatus(Integer value, String desc) &#123;</span><br><span class="line">        this.value &#x3D; value;</span><br><span class="line">        this.desc &#x3D; desc;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 <p><strong>精简：</strong></p>
